@@ -4,8 +4,9 @@
              xmlns:local="clr-namespace:DuAnHoangGia"
              x:Class="DuAnHoangGia.MainPage">
 
-	<Label Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <AbsoluteLayout>
+        <Image Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional"/>
+        <Image Source="logo.png" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.5,0.5,0.8,0.8" AbsoluteLayout.LayoutFlags="All"/>
+    </AbsoluteLayout>
 
 </ContentPage>
