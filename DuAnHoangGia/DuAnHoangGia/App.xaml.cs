@@ -13,7 +13,7 @@ namespace DuAnHoangGia
 		{
 			InitializeComponent();
 
-			MainPage = new DuAnHoangGia.Views.LoginPage();
+			MainPage = new DuAnHoangGia.Views.Home.HomePage();
 		}
 
 		protected override void OnStart ()

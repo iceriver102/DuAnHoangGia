@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin;
 
 namespace DuAnHoangGia.Droid
 {
@@ -21,6 +22,7 @@ namespace DuAnHoangGia.Droid
             this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            FormsMaps.Init(this, bundle);
             LoadApplication(new App());
         }
     }

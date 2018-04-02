@@ -7,6 +7,8 @@
             <Color x:Key="Border">#1dbcf4</Color>
             <Color x:Key="Gray">#d2d2d2</Color>
             <Color x:Key="Text">#7d7d77</Color>
+            <Color x:Key="TextMenu">#1dbcf4</Color>
+           
             <OnPlatform x:TypeArguments="x:String" x:Key="Regular">
                 <On Platform="Android" Value="Fonts/MYRIADPRO-REGULAR.OTF#MYRIADPRO REGULAR" />
                 <On Platform="iOS" Value="Fonts/MYRIADPRO REGULAR" />
