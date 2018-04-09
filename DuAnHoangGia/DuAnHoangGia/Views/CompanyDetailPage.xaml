@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DuAnHoangGia.Views.CompanyDetailPage">
+    <StackLayout BackgroundColor="#7a3eb7">
+        <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+            <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateBack}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label VerticalTextAlignment="Center" Text="DANH SÁCH CÔNG TY" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}"/>
+        </StackLayout>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Margin="15,10" >
+                <Image Source="w2.jpg" Aspect="AspectFit" HeightRequest="200" Margin="0,0,0,10">
+                </Image>
+                <Label Text="CÔNG TY CỔ PHẦN THẾ GIỚI DI ĐỘNG" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Start" HorizontalTextAlignment="Center" FontFamily="{StaticResource Regular}"/>
+                <Label FontFamily="{StaticResource Regular}" FontSize="Small" HorizontalTextAlignment="Start">                    <Label.Text>                        Công ty Cổ phần đầu tư Thế Giới Di Động vận hành hai chuỗi bán lẻ là thegioididong.com và dienmay.com, trong những năm qua, công ty đã liên tục phát triển nhanh và ổn định bất chấp tình hình kinh tế thuận lợi hay khó khăn.Chuỗi Thegioididong.com được thành lập từ 2004 chuyên bán lẻ các sản phẩm kỹ thuật số di động bao gồm điện thoại di động, máy tính bảng, laptop và phụ kiện với hơn 1100 siêu thị tại 63 tỉnh thành trên khắp Việt Nam. Chuỗi Dienmay.com được ra đời từ cuối 2010 chuyên bán lẻ các sản phẩm điện tử tiêu dùng như ti vi, dàn karaoke, tủ lạnh, máy giặt, nồi cơm điện, sinh tố, bàn ủi, bếp điện từ, lò vi sóng, máy hút bụi… và các sản phẩm kỹ thuật số như điện thoại di động, máy tính bảng, laptop và phụ kiện. Ngày 04/5/2015, dienmay.com chính thức được đổi tên thành ĐIỆN MÁY XANH, với hơn 600 siêu thị hiện diện tại khắp 63 tỉnh thành.Bách Hóa XANH – chuỗi siêu thị mini chuyên bán thực phẩm tươi sống và nhu yếu phẩm của công ty Cổ Phần Đầu Tư Thế Giới Di Động.Kinh doanh các mặt hàng: Thịt, cá, gia cầm, hải sản tươi sống chất lượng cao, rau củ an toàn, thực phẩm cho mẹ và bé, hoá mỹ phẩm…Bách Hóa Xanh mang đến cho người tiêu dùng: sự lựa chọn đa dạng về hàng hoá và dịch vụ, tính tiện ích, đáp ứng nhu cầu mua sắm hàng ngày của mọi gia đình với chất lượng tốt nhất và giá cả cạnh tranh nhất.                    </Label.Text>                </Label>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

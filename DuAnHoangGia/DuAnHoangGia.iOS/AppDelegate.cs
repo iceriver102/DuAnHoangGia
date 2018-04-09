@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Prism;
+using Prism.Ioc;
 using UIKit;
+using Unity;
 
 namespace DuAnHoangGia.iOS
 {
@@ -23,9 +26,21 @@ namespace DuAnHoangGia.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(new IOSPlatformInitializer()));
 
             return base.FinishedLaunching(app, options);
+        }
+    }
+    public class IOSPlatformInitializer : IPlatformInitializer
+    {
+        public void RegisterTypes(IUnityContainer container)
+        {
+
+        }
+
+        void IPlatformInitializer.RegisterTypes(IContainerRegistry containerRegistry)
+        {
+
         }
     }
 }

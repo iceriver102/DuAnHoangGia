@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ui="clr-namespace:DuAnHoangGia.Views.Customs"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="DuAnHoangGia.Views.FeedBackPage">
+    <AbsoluteLayout BackgroundColor="#7a3eb7">
+        <StackLayout  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0,1,0.98" BackgroundColor="Transparent" >
+            <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+                <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="Home"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label VerticalTextAlignment="Center" Text="TRỢ GIÚP" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
+            </StackLayout>
+            <StackLayout Spacing="12" Margin="15,0" BackgroundColor="#7a3eb7">
+                <AbsoluteLayout HeightRequest="55" Margin="0,10,0,5">
+                    <Button Text="GỬI TRỢ GIÚP" BackgroundColor="#43c5f4" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,0.51,1"/>
+                    <Button Text="LỊCH SỬ" BackgroundColor="#a4e3fa" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0,0.51,1" Command="{Binding NavigateCommand}" CommandParameter="History"/>
+                </AbsoluteLayout>
+                <Label VerticalTextAlignment="Center" Text="Bạn đang gặp khó khán và cần sự giúp đỡ! Hãy gửi cho chúng tôi những thắc mắc của bạn. Chúng tôi sẽ giải đáp những câu hỏi đó nhanh nhất!" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0" FontAttributes="Bold"  FontSize="Medium" FontFamily="{StaticResource Regular}"/>
+                <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" Margin="0,5,0,0" VerticalOptions="FillAndExpand" >
+                    <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent" Padding="0" VerticalOptions="FillAndExpand">
+                      
+                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource Gray}"/>
+                        <ui:NoneEntry  Placeholder="TIÊU ĐỀ" Grid.Column="0" TextColor="Black" PlaceholderColor="{StaticResource Text}" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand"  BackgroundColor="Transparent"  FontSize="Medium" />
+                    </ui:RoundedCornerView>
+                </Frame>
+                <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
+                    <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
+                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource Gray}"/>
+                        <Editor  Margin="0,5,0,5" Grid.Column="0" TextColor="Black"  BackgroundColor="Transparent"  FontSize="Default" HeightRequest="230"  VerticalOptions="FillAndExpand" />
+                    </ui:RoundedCornerView>
+                </Frame>
+                <Button Text="GỬI" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="50" WidthRequest="350"/>
+
+            </StackLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

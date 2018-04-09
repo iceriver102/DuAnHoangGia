@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             x:Class="DuAnHoangGia.Views.CompanysPage">
+    <ContentPage.Content>
+        
+        <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True"
+			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
+ FlowColumnCount="2" FlowItemsSource="{Binding Models}" BackgroundColor="#7a3eb7" FlowColumnMinWidth="120" >
+            <flv:FlowListView.Header>
+                <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+                    <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateBack}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label VerticalTextAlignment="Center" Text="DANH SACH CÔNG TY" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}"/>
+                </StackLayout>
+            </flv:FlowListView.Header>
+            <flv:FlowListView.FlowColumnTemplate>
+                <DataTemplate>
+                    <Grid Padding="3" HeightRequest="200">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="{Binding Url}" HorizontalOptions="CenterAndExpand"  Aspect="AspectFit" Grid.Row="0" Grid.RowSpan="2"/>
+                        <BoxView BackgroundColor="Black" Grid.Row="1" Opacity="0.5"/>
+                        <Label Grid.Row="1" Margin="5,0"  HorizontalOptions="Fill" HorizontalTextAlignment="Start" VerticalOptions="Center"
+							BackgroundColor="Transparent" Text="{Binding Title}" FontFamily="{StaticResource Regular}" FontSize="Medium" />
+                    </Grid>
+                </DataTemplate>
+            </flv:FlowListView.FlowColumnTemplate>
+        </flv:FlowListView>
+    </ContentPage.Content>
+</ContentPage>

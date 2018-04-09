@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
              x:Class="DuAnHoangGia.Views.LoaddingPage">
    
     <ContentPage.Content>
         <AbsoluteLayout>
             <Image Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional"/>
             <Image Source="logo.png" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.5,0.2,1,0.5" AbsoluteLayout.LayoutFlags="All"/>
-            <StackLayout AbsoluteLayout.LayoutBounds="0.5,1,0.85,0.4" AbsoluteLayout.LayoutFlags="All" Spacing="10">
-                <Button Text="ĐĂNG NHẬP" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="65"/>
-                <Button Text="ĐĂNG KÝ" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="65"/>
+            <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.8" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="8">
+                <Button Text="ĐĂNG NHẬP" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="58" MinimumWidthRequest="200" WidthRequest="300" Command="{Binding NavigateCommand}" CommandParameter="Login"/>
+                <Button Text="ĐĂNG KÝ" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="58" Command="{Binding NavigateCommand}" CommandParameter="Register"/>
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>

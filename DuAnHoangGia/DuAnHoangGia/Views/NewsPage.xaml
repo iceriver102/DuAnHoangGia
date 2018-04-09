@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+              xmlns:local="clr-namespace:DuAnHoangGia.Views"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             x:Class="DuAnHoangGia.Views.NewsPage">
+    <StackLayout   BackgroundColor="#7a3eb7" >
+        <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+            <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateBack}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label VerticalTextAlignment="Center" Text="TIN TỨC" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
+        </StackLayout>
+        <StackLayout Spacing="12" Margin="15,0" BackgroundColor="#7a3eb7">
+
+            <ListView x:Name="uiList" ItemsSource="{Binding Models}" VerticalOptions="FillAndExpand"   SeparatorVisibility="None"
+              HasUnevenRows="true" BackgroundColor="Transparent" HeightRequest="700" Margin="0,10">
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTapped}" EventArgsParameterPath="Item"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell >
+                            <StackLayout BackgroundColor="White" Orientation="Horizontal" Padding="0,10"  Margin="0,5,0,0">
+                                <Image Source="{Binding Thumbnail}" WidthRequest="85" Aspect="AspectFit" Margin="10,0" />
+                                <StackLayout Orientation="Vertical" MinimumWidthRequest="100">
+                                    <Label Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" FontSize="Default"/>
+                                    <Label HeightRequest="70" Text="{Binding Mota}" TextColor="Black" FontSize="Micro" Margin="3,0"/>
+                                    <Label Text="Xem thêm >>" BackgroundColor="Transparent" TextColor="#43c5f4" FontSize="Default">   
+                                    </Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

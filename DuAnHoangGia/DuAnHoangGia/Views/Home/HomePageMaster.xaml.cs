@@ -15,14 +15,14 @@ namespace DuAnHoangGia.Views.Home
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePageMaster : ContentPage
     {
-        public ListView ListView;
+        //public ListView ListView;
 
         public HomePageMaster()
         {
             InitializeComponent();
 
-            BindingContext = new HomePageMasterViewModel();
-            ListView = MenuItemsListView;
+            //BindingContext = new HomePageMasterViewModel();
+            //ListView = MenuItemsListView;
         }
 
         class HomePageMasterViewModel : INotifyPropertyChanged
@@ -33,10 +33,10 @@ namespace DuAnHoangGia.Views.Home
             {
                 MenuItems = new ObservableCollection<HomePageMenuItem>(new[]
                 {
-                    new HomePageMenuItem (0){ Title = "Thông tin cá nhân",Icon="user_icon.png" },
-                    new HomePageMenuItem (1){ Title = "Danh sách công ty",Icon="danhsach_icon.png" },
-                    new HomePageMenuItem (2){  Title = "Tin tức",Icon="news_icon.png" },
-                    new HomePageMenuItem (3){  Title = "Thông báo",Icon="help_icon.png" },
+                    new HomePageMenuItem (0){ Title = "Thông tin cá nhân",Icon="user_icon.png", Navs="Profile" },
+                    new HomePageMenuItem (1){ Title = "Danh sách công ty",Icon="danhsach_icon.png", Navs="Companys" },
+                    new HomePageMenuItem (2){  Title = "Tin tức",Icon="news_icon.png", Navs="News" },
+                    new HomePageMenuItem (3){  Title = "Thông báo",Icon="help_icon.png", Navs="Noti" },
                 });
             }
             

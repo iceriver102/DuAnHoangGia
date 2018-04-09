@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Xamarin;
+using FFImageLoading.Forms.Droid;
 
 namespace DuAnHoangGia.Droid
 {
@@ -21,9 +22,12 @@ namespace DuAnHoangGia.Droid
             base.OnCreate(bundle);
             this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+
+            Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
+            CachedImageRenderer.Init(true);
             global::Xamarin.Forms.Forms.Init(this, bundle);
             FormsMaps.Init(this, bundle);
-            LoadApplication(new App());
+            LoadApplication(new App(new AndroidInitializer()));
         }
     }
 }

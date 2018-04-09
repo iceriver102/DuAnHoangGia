@@ -63,8 +63,10 @@ namespace DuAnHoangGia.Droid.Renderers
                 line.Remove();
             }
             var polylineOptions = new PolylineOptions();
-            polylineOptions.InvokeColor(0x66FF0000);
-            
+            polylineOptions.InvokeColor(0x6670d3f6);
+            polylineOptions.InvokeWidth(polylineOptions.Width + 4);
+
+
             foreach (var position in e)
             {
                 polylineOptions.Add(new LatLng(position.Latitude, position.Longitude));

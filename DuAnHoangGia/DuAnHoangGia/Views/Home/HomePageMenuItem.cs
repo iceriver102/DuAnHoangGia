@@ -12,7 +12,6 @@ namespace DuAnHoangGia.Views.Home
     {
         public HomePageMenuItem(int id)
         {
-            TargetType = typeof(HomePageDetail);
             this.Id = id;
             if (this.Id % 2 == 0)
             {
@@ -27,7 +26,6 @@ namespace DuAnHoangGia.Views.Home
         public string Title { get; set; }
         public Color BackgroundColor { get; private set; }
         public string Icon { get; set; }
-
-        public Type TargetType { get; set; }
+        public string Navs { get; set; }
     }
 }

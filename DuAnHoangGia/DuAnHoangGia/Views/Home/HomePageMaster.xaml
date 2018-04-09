@@ -2,14 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DuAnHoangGia.Views.Home.HomePageMaster"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              Title="Master">
     <StackLayout>
         <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}" BackgroundColor="White">
+            <ListView.Behaviors>
+                <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTapped}" EventArgsParameterPath="Item"/>
+            </ListView.Behaviors>
             <ListView.Header>
-                <Grid BackgroundColor="#03A9F4">
+                <Grid BackgroundColor="#621e92">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="*"/>
@@ -27,11 +33,11 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Padding="15,25" HorizontalOptions="FillAndExpand" Orientation="Horizontal" BackgroundColor="{Binding BackgroundColor}">
-                            <Image Source="{Binding Icon}" WidthRequest="35" VerticalOptions="Center" HorizontalOptions="Start" Aspect="AspectFit" Margin="10,0"/>
+                            <Image Source="{Binding Icon}" WidthRequest="30" VerticalOptions="Center" HorizontalOptions="Start" Aspect="AspectFit" Margin="6,0"/>
                             <Label Margin="10,0" VerticalOptions="FillAndExpand" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
-                    FontSize="26" FontFamily="{StaticResource Regular}" TextColor="{StaticResource TextMenu}" HeightRequest="45"/>
+                    FontSize="Large" FontFamily="{StaticResource Regular}" TextColor="{StaticResource TextMenu}"/>
                             
                         </StackLayout>
                     </ViewCell>

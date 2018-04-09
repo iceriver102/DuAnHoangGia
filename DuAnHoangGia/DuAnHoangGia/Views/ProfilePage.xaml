@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ui="clr-namespace:DuAnHoangGia.Views.Customs"
+              xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+             x:Class="DuAnHoangGia.Views.ProfilePage">
+
+    <AbsoluteLayout BackgroundColor="#7a3eb7">
+        <StackLayout  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0,1,0.98" BackgroundColor="Transparent" >
+            <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+                <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateBack}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label VerticalTextAlignment="Center" Text="THÔNG TIN CÁ NHÂN" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
+
+            </StackLayout>
+            <RelativeLayout HeightRequest="130" BackgroundColor="#7a3eb7" Padding="0" HorizontalOptions="CenterAndExpand" Margin="0,0,0,5">
+                <Image x:Name="uiAvatar"  Source="a1.png" Aspect="AspectFit"  Margin="0" VerticalOptions="FillAndExpand" />
+                <Image Source="camera.png" Aspect="AspectFit"  HeightRequest="50" Margin="90,90,0,0" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding ImageLoadCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </RelativeLayout>
+            <StackLayout Spacing="12" Margin="15,0" BackgroundColor="#7a3eb7">
+                <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0"  >
+                    <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Aspect="AspectFit" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Source="user.png" Grid.Column="0"  HeightRequest="40" Margin="0,10"/>
+
+                        <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Họ và tên" Grid.Column="1"  BackgroundColor="Transparent" PlaceholderColor="{StaticResource Text}" TextColor="Black"  FontSize="Default" VerticalOptions="FillAndExpand"  />
+                    </ui:RoundedCornerView>
+                </Frame>
+
+                <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0">
+                    <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="email.png" Grid.Column="0"  HeightRequest="30" Margin="0,12"/>
+                        <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Email" Grid.Column="1"  BackgroundColor="Transparent" PlaceholderColor="{StaticResource Text}" TextColor="Black"  FontSize="Default" />
+                    </ui:RoundedCornerView>
+                </Frame>
+                <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
+                    <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="phone.png" Grid.Column="0"  HeightRequest="40"  Margin="0,10"/>
+                        <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Số điện thoại" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent" FontSize="Default" />
+                    </ui:RoundedCornerView>
+                </Frame>
+                <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
+                    <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="lock.png" Grid.Column="0"  HeightRequest="40"  Margin="0,10"/>
+                        <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Mật khẩu" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default" IsPassword="True" />
+                    </ui:RoundedCornerView>
+                </Frame>
+
+                <!--<Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
+                        <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="65"/>
+                                <ColumnDefinition Width="60*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="lock.png" Grid.Column="0"  HeightRequest="34"/>
+                            <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
+                            <ui:NoneEntry Margin="5,0,0,0" Placeholder="Xác nhận mật khẩu" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default" IsPassword="True" />
+                        </ui:RoundedCornerView>
+                    </Frame>-->
+                <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
+                    <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="location.png" Grid.Column="0"  HeightRequest="40"  Margin="0,12"/>
+                        <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Địa chỉ" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default" />
+                    </ui:RoundedCornerView>
+                </Frame>
+                <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
+                    <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent" VerticalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="cmnnd.png" Grid.Column="0" HeightRequest="30"  Margin="0,10"/>
+                        <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="CMND" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default"  />
+                    </ui:RoundedCornerView>
+                </Frame>
+
+
+
+                <Button Text="CẬP NHẬT" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="45" WidthRequest="350"/>
+
+            </StackLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>
