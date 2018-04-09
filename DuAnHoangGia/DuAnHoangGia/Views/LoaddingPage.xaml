@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
@@ -8,8 +9,8 @@
    
     <ContentPage.Content>
         <AbsoluteLayout>
-            <Image Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional"/>
-            <Image Source="logo.png" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.5,0.2,1,0.5" AbsoluteLayout.LayoutFlags="All"/>
+            <ff:CachedImage Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" CacheType="All" DownsampleUseDipUnits="True"/>
+            <ff:CachedImage Source="logo.png" Aspect="AspectFit" CacheType="All" AbsoluteLayout.LayoutBounds="0.5,0.2,1,0.5" AbsoluteLayout.LayoutFlags="All"  DownsampleUseDipUnits="True"/>
             <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.8" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="8">
                 <Button Text="ĐĂNG NHẬP" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="58" MinimumWidthRequest="200" WidthRequest="300" Command="{Binding NavigateCommand}" CommandParameter="Login"/>
                 <Button Text="ĐĂNG KÝ" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="58" Command="{Binding NavigateCommand}" CommandParameter="Register"/>

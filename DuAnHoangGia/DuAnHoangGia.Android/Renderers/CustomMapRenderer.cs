@@ -50,7 +50,7 @@ namespace DuAnHoangGia.Droid.Renderers
             if (e.NewElement != null)
             {
                 var formsMap = (CustomMap)e.NewElement;
-
+               
                 Control.GetMapAsync(this);
                 formsMap.RenderEvent += FormsMap_RenderEvent;
             }
@@ -74,13 +74,10 @@ namespace DuAnHoangGia.Droid.Renderers
             line = NativeMap.AddPolyline(polylineOptions);
         }
 
-       
-        
-
         protected override void OnMapReady(Android.Gms.Maps.GoogleMap map)
         {
             base.OnMapReady(map);
-
+            
           
         }
 

@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              xmlns:ui="clr-namespace:DuAnHoangGia.Views.Customs"
              x:Class="DuAnHoangGia.Views.LoginPage">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <Image Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional"/>
+            <ff:CachedImage Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" CacheType="All"  DownsampleUseDipUnits="True"/>
             <AbsoluteLayout  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,0.85,1" >
                 <StackLayout  AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5" Spacing="10">
-                    <Image Source="login.png" Aspect="AspectFit" Margin="0,5,0,10"/>
+                    <ff:CachedImage Source="login.png" Aspect="AspectFit" Margin="0,5,0,10" CacheType="All"  DownsampleUseDipUnits="True"/>
                     <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
-                        <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
+                        <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="65"/>
                                 <ColumnDefinition Width="60*"/>
@@ -24,7 +25,7 @@
                         </ui:RoundedCornerView>
                     </Frame>
                     <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0">
-                        <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="7" BackgroundColor="Transparent">
+                        <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="7" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="65"/>
                                 <ColumnDefinition Width="60*"/>

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DuAnHoangGia.Views.Home.HomePageMaster"
+              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
@@ -26,14 +27,14 @@
                         <RowDefinition Height="80*"/>
                         <RowDefinition Height="5"/>
                     </Grid.RowDefinitions>
-                    <Image Source="a1.png" Aspect="AspectFit" Grid.Column="1" Grid.Row="1" HeightRequest="140" />
+                    <ff:CachedImage Source="a1.png" Aspect="AspectFit" Grid.Column="1" Grid.Row="1" HeightRequest="140" CacheType="All" />
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Padding="15,25" HorizontalOptions="FillAndExpand" Orientation="Horizontal" BackgroundColor="{Binding BackgroundColor}">
-                            <Image Source="{Binding Icon}" WidthRequest="30" VerticalOptions="Center" HorizontalOptions="Start" Aspect="AspectFit" Margin="6,0"/>
+                            <ff:CachedImage Source="{Binding Icon}" WidthRequest="30" VerticalOptions="Center" HorizontalOptions="Start" Aspect="AspectFit" Margin="6,0" CacheType="All"/>
                             <Label Margin="10,0" VerticalOptions="FillAndExpand" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 

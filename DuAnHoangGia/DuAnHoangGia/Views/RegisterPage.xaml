@@ -2,16 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ui="clr-namespace:DuAnHoangGia.Views.Customs"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
               xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="DuAnHoangGia.Views.RegisterPage">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <Image Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional"/>
+            <ff:CachedImage Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" CacheType="All"  DownsampleUseDipUnits="True"/>
             <AbsoluteLayout  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,0.85,1">
                 <StackLayout  AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5" Spacing="8">
-                    <Image Source="login.png" Aspect="AspectFit" Margin="0,5,0,8"/>
+                    <ff:CachedImage Source="login.png" Aspect="AspectFit" Margin="0,5,0,8" CacheType="All"  DownsampleUseDipUnits="True"/>
                     <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0"  >
                         <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
                             <Grid.ColumnDefinitions>
