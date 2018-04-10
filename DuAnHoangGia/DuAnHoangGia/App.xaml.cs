@@ -23,7 +23,7 @@ namespace DuAnHoangGia
             InitializeComponent();
             CachedImage.FixedOnMeasureBehavior = true;
             CachedImage.FixedAndroidMotionEventHandler = true;
-            await NavigationService.NavigateAsync("Loadding");
+            await NavigationService.NavigateAsync("News");
 
         }
 
@@ -38,7 +38,6 @@ namespace DuAnHoangGia
             containerRegistry.RegisterForNavigation<CompanysPage, CompanysViewModel>("Companys");
             containerRegistry.RegisterForNavigation<ProfilePage, ProfileViewModel>("Profile");
             containerRegistry.RegisterForNavigation<FeedBackPage, FeedBackViewmodel>("Help");
-            containerRegistry.RegisterForNavigation<HistoryPage, HistoryViewmodel>("History");
             containerRegistry.RegisterForNavigation<NotificationPage, NotificationViewmodel>("Noti");
             containerRegistry.RegisterForNavigation<NewsPage, NewsViewmodel>("News");
             containerRegistry.RegisterForNavigation<NewDetailsPage, NewDetailsViewmodel>("Detail");

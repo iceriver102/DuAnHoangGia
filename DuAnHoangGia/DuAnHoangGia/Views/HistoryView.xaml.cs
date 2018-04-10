@@ -1,7 +1,5 @@
-﻿using DuAnHoangGia.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,17 +10,12 @@ using Xamarin.Forms.Xaml;
 namespace DuAnHoangGia.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class HistoryPage : ContentPage
+	public partial class HistoryView : ContentView
 	{
-      
-
-        public HistoryPage ()
+		public HistoryView ()
 		{
-           
-
-            InitializeComponent ();
-            
-
-        }
+			InitializeComponent ();
+            this.BindingContext = new ViewModels.HistoryViewmodel();
+		}
 	}
 }
