@@ -4,6 +4,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="DuAnHoangGia.Views.NotificationPage">
     <StackLayout   BackgroundColor="#7a3eb7" >
         <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
@@ -22,13 +23,13 @@
                     <DataTemplate>
                         <ViewCell >
                             <StackLayout BackgroundColor="White" Orientation="Horizontal" Padding="0,10"  Margin="0,5,0,0">
-                                <Image Source="{Binding Thumbnail}" WidthRequest="100" Aspect="AspectFit" Margin="10,0" />
+                                <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Thumbnail}" WidthRequest="100" Aspect="AspectFit" Margin="10,0" />
                                 <StackLayout Orientation="Vertical" MinimumWidthRequest="120">
                                     <Label Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" FontSize="Default"/>
                                     <Label HeightRequest="80" Text="{Binding Mota}" TextColor="Black" FontSize="Small"/>
                                     <StackLayout Orientation="Horizontal">
                                         <Label  Text="{Binding Date}" FontSize="Default" TextColor="#43c5f4" WidthRequest="120"/>
-                                        <Image Source="map.png" HorizontalOptions="End" WidthRequest="30"/>
+                                        <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True"  Source="map.png" HorizontalOptions="End" WidthRequest="30"/>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>

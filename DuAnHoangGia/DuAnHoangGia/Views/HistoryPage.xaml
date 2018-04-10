@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="DuAnHoangGia.Views.HistoryPage">
@@ -25,13 +26,13 @@
                     <DataTemplate>
                         <ViewCell >
                             <StackLayout BackgroundColor="White" Orientation="Horizontal" Padding="0,10"  Margin="0,5,0,0">
-                                <Image Source="{Binding Thumbnail}" WidthRequest="85" Aspect="AspectFit" Margin="10,0" />
+                                <ff:CachedImage CacheType="All" Source="{Binding Thumbnail}" WidthRequest="85" Aspect="AspectFit" Margin="10,0" DownsampleUseDipUnits="True" />
                                 <StackLayout Orientation="Vertical" MinimumWidthRequest="120">
                                     <Label Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" FontSize="Default"/>
                                     <Label HeightRequest="60" Text="{Binding Mota}" TextColor="Black" FontSize="Small"/>
                                     <StackLayout Orientation="Horizontal">
                                         <Label  Text="{Binding Date}" FontSize="Default" TextColor="#43c5f4" WidthRequest="150"/>
-                                        <Image Source="map.png" HorizontalOptions="End" WidthRequest="30"/>
+                                        <ff:CachedImage CacheType="All" Source="map.png" HorizontalOptions="End" WidthRequest="30" DownsampleUseDipUnits="True"/>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>

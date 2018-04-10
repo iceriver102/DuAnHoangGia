@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="DuAnHoangGia.Views.NewDetailsPage">
     <StackLayout   BackgroundColor="#7a3eb7" >
         <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
@@ -12,7 +13,7 @@
             <Label VerticalTextAlignment="Center" Text="TIN TỨC" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
         </StackLayout>
         <StackLayout Spacing="12" Margin="0,0" BackgroundColor="#7a3eb7">
-            <Image Source="w1.jpg" Aspect="AspectFit"/>            
+            <ff:CachedImage CacheType="{x:Null}" Source="w1.jpg" Aspect="AspectFit"/>            
 
         </StackLayout>
     </StackLayout>
