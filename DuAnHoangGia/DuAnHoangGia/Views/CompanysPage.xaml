@@ -3,35 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              x:Class="DuAnHoangGia.Views.CompanysPage">
-    <ContentPage.Content>        
+    <StackLayout Orientation="Vertical" BackgroundColor="#7a3eb7">
+        <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+            <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateBack}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label VerticalTextAlignment="Center" Text="DANH SÁCH CÔNG TY" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}"/>
+        </StackLayout>
         <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True"
 			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
- FlowColumnCount="2" FlowItemsSource="{Binding Models}" BackgroundColor="#7a3eb7" FlowColumnMinWidth="120" >
-            <flv:FlowListView.Header>
-                <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
-                    <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NavigateBack}"/>
-                        </Image.GestureRecognizers>
-                    </Image>
-                    <Label VerticalTextAlignment="Center" Text="DANH SÁCH CÔNG TY" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}"/>
-                </StackLayout>
-            </flv:FlowListView.Header>
+ FlowColumnCount="2" FlowItemsSource="{Binding Models}"  BackgroundColor="#7a3eb7" FlowUseAbsoluteLayoutInternally="True"  >
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
-                    <Grid Padding="3" HeightRequest="200">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100*"/>
-                            <RowDefinition Height="50"/>
-                        </Grid.RowDefinitions>
-                        <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Url}" HorizontalOptions="CenterAndExpand"  Aspect="AspectFit" Grid.Row="0" Grid.RowSpan="2"/>
-                        <BoxView BackgroundColor="Black" Grid.Row="1" Opacity="0.5"/>
-                        <Label Grid.Row="1" Margin="5,0"  HorizontalOptions="Fill" HorizontalTextAlignment="Start" VerticalOptions="Center"
-							BackgroundColor="Transparent" Text="{Binding Title}" FontFamily="{StaticResource Regular}" FontSize="Medium" />
-                    </Grid>
+                    <flv:FlowGridCell>
+                        <flv:FlowGridCell.RowDefinitions>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="5"/>
+                        </flv:FlowGridCell.RowDefinitions>
+                        <flv:FlowGridCell.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="5"/>
+                        </flv:FlowGridCell.ColumnDefinitions>
+                        <AbsoluteLayout Grid.Column="1" Grid.Row="1" HeightRequest="200" WidthRequest="200">
+                            <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Url}" HorizontalOptions="CenterAndExpand"  Aspect="AspectFill" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" Margin="5">
+                                <ff:CachedImage.Transformations>
+                                    <trans:RoundedTransformation CropHeightRatio="0.8" CropWidthRatio="0.8" Radius="8" BorderSize="5" BorderHexColor="#ffffff"/>
+                                </ff:CachedImage.Transformations>
+                            </ff:CachedImage>
+                            <StackLayout  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,1,1,0.25"  BackgroundColor="#80000000" HorizontalOptions="FillAndExpand" Margin="0,5">
+                            <Label HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Text="{Binding Title}" FontFamily="{StaticResource Regular}" FontSize="Medium" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="5,0" />
+                            </StackLayout>
+                        </AbsoluteLayout>
+                    </flv:FlowGridCell>
+                    
                 </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>
         </flv:FlowListView>
-    </ContentPage.Content>
+    </StackLayout>
+    
 </ContentPage>

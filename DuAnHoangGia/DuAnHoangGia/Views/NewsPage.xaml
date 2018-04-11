@@ -20,7 +20,6 @@
         <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True"
 			FlowItemTappedCommand="{Binding ItemTapped}" FlowLastTappedItem="{Binding LastTappedItem}"
  FlowColumnCount="1" FlowItemsSource="{Binding Models}" BackgroundColor="#7a3eb7" FlowColumnExpand="Proportional" >
-
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <AbsoluteLayout BackgroundColor="White" Padding="0,5"  Margin="10,5">

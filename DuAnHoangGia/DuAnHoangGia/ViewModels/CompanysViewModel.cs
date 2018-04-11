@@ -24,7 +24,7 @@ namespace DuAnHoangGia.ViewModels
             Models = new ObservableCollection<CompanyModel>();
             for (int i = 0; i <= 10; i++)
             {
-                Models.Add(new CompanyModel() { Title = $"Công ty {i + 1}",  Url = "c1.jpg" });
+                Models.Add(new CompanyModel() { Title = $"Công ty {i + 1}",  Url = "w2.jpg" });
             }
             ItemTappedCommand = new DelegateCommand(ItemTappedCommandExcute);
         }

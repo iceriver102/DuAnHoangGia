@@ -8,6 +8,8 @@ using Android.Widget;
 using Android.OS;
 using Xamarin;
 using FFImageLoading.Forms.Droid;
+using Android.Content;
+using FFImageLoading;
 
 namespace DuAnHoangGia.Droid
 {
@@ -29,6 +31,20 @@ namespace DuAnHoangGia.Droid
             FormsMaps.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }
+        public override void OnTrimMemory([GeneratedEnum] TrimMemory level)
+        {
+            ImageService.Instance.InvalidateMemoryCache();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            base.OnTrimMemory(level);
+        }
+
+        //protected override void JavaFinalize()
+        //{
+        //    SetImageDrawable(null);
+        //    SetImageBitmap(null);
+        //    ImageService.Instance.InvalidateCacheEntryAsync(this.DataLocationUri, FFImageLoading.Cache.CacheType.Memory);
+        //    base.JavaFinalize();
+        //}
     }
 }
 
