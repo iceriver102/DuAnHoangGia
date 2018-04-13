@@ -5,19 +5,18 @@
              x:Class="DuAnHoangGia.Views.FeedbackView">
     <ContentView.Content>
         <StackLayout>
-            <Label VerticalTextAlignment="Center" Text="Bạn đang gặp khó khán và cần sự giúp đỡ! Hãy gửi cho chúng tôi những thắc mắc của bạn. Chúng tôi sẽ giải đáp những câu hỏi đó nhanh nhất!" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0" FontAttributes="Bold"  FontSize="Medium" FontFamily="{StaticResource Regular}"/>
+            <Label VerticalTextAlignment="Center" Text="Bạn đang gặp khó khăn và cần sự giúp đỡ! Hãy gửi cho chúng tôi những thắc mắc của bạn. Chúng tôi sẽ giải đáp những câu hỏi đó nhanh nhất!" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0" FontAttributes="Bold"  FontSize="Medium" FontFamily="{StaticResource Regular}"/>
             <Frame  BackgroundColor="{StaticResource Gray}" CornerRadius="6" IsClippedToBounds="True" Padding="0" Margin="0,5,0,0"  HeightRequest="60" >
                 <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent" Padding="0">
-                    <ui:NoneEntry  Placeholder="TIÊU ĐỀ" Grid.Column="0" TextColor="Black" PlaceholderColor="{StaticResource Text}" HorizontalTextAlignment="Center" VerticalOptions="Center"  BackgroundColor="Transparent"  FontSize="Medium"  />
+                    <ui:NoneEntry  Placeholder="TIÊU ĐỀ" Grid.Column="0" TextColor="Black" PlaceholderColor="{StaticResource Text}" HorizontalTextAlignment="Center" VerticalOptions="Center"  BackgroundColor="Transparent"  FontSize="Medium" Text="{Binding Title}"  />
                 </ui:RoundedCornerView>
             </Frame>
             <Frame BackgroundColor="{StaticResource Gray}" CornerRadius="6" IsClippedToBounds="True" Padding="0"  VerticalOptions="FillAndExpand">
                 <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
-
-                    <ui:NoneEditor Hint="Nội dung" HintColor="{StaticResource Text}"   Margin="5" Grid.Column="0" TextColor="Black"  BackgroundColor="Transparent"  FontSize="Default" HeightRequest="230"  VerticalOptions="FillAndExpand" />
+                    <ui:NoneEditor Hint="Nội dung" HintColor="{StaticResource Text}"   Margin="5" Grid.Column="0" TextColor="Black"  BackgroundColor="Transparent"  FontSize="Default" HeightRequest="230"  VerticalOptions="FillAndExpand" Text="{Binding Content}" />
                 </ui:RoundedCornerView>
             </Frame>
-            <Button Text="GỬI" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="50" WidthRequest="350"/>
+            <Button Text="GỬI" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="50" WidthRequest="350" Command="{Binding SubmitCommand}"/>
         </StackLayout>
     </ContentView.Content>
 </ContentView>

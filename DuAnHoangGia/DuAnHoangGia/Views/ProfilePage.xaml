@@ -3,8 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ui="clr-namespace:DuAnHoangGia.Views.Customs"
               xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+             xmlns:c="clr-namespace:DuAnHoangGia.Converters"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              x:Class="DuAnHoangGia.Views.ProfilePage">
-
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:UrlImageConverter x:Key="ImageURL" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <AbsoluteLayout BackgroundColor="#7a3eb7">
         <StackLayout  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0,1,0.98" BackgroundColor="Transparent" >
             <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
@@ -17,7 +24,11 @@
 
             </StackLayout>
             <RelativeLayout HeightRequest="130" BackgroundColor="#7a3eb7" Padding="0" HorizontalOptions="CenterAndExpand" Margin="0,0,0,5">
-                <Image x:Name="uiAvatar"  Source="a1.png" Aspect="AspectFit"  Margin="0" VerticalOptions="FillAndExpand" />
+                <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True"   Source="{Binding PathAvatar,Converter={StaticResource ImageURL}}" Aspect="AspectFit"  Margin="0" VerticalOptions="FillAndExpand" HeightRequest="130" WidthRequest="130" >
+                    <ff:CachedImage.Transformations>
+                        <trans:CircleTransformation BorderHexColor="#ffffff" BorderSize="6"/>
+                    </ff:CachedImage.Transformations>
+                </ff:CachedImage>
                 <Image Source="camera.png" Aspect="AspectFit"  HeightRequest="50" Margin="90,90,0,0" >
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer  Command="{Binding ImageLoadCommand}"/>
@@ -31,10 +42,10 @@
                             <ColumnDefinition Width="65"/>
                             <ColumnDefinition Width="60*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Aspect="AspectFit" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Source="user.png" Grid.Column="0"  HeightRequest="40" Margin="0,10"/>
+                        <Image Aspect="AspectFit" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Source="user.png" Grid.Column="0"  HeightRequest="35" Margin="0,10"/>
 
                         <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
-                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Họ và tên" Grid.Column="1"  BackgroundColor="Transparent" PlaceholderColor="{StaticResource Text}" TextColor="Black"  FontSize="Default" VerticalOptions="FillAndExpand"  />
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Họ và tên" Grid.Column="1"  BackgroundColor="Transparent" PlaceholderColor="{StaticResource Text}" TextColor="Black"  FontSize="Default" VerticalOptions="FillAndExpand" Text="{Binding Name}" />
                     </ui:RoundedCornerView>
                 </Frame>
 
@@ -44,9 +55,9 @@
                             <ColumnDefinition Width="65"/>
                             <ColumnDefinition Width="60*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="email.png" Grid.Column="0"  HeightRequest="30" Margin="0,12"/>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="email.png" Grid.Column="0"  HeightRequest="29" Margin="0,13"/>
                         <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
-                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Email" Grid.Column="1"  BackgroundColor="Transparent" PlaceholderColor="{StaticResource Text}" TextColor="Black"  FontSize="Default" />
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Email" Grid.Column="1"  BackgroundColor="Transparent" PlaceholderColor="{StaticResource Text}" TextColor="Black"  FontSize="Default" Text="{Binding Email}"/>
                     </ui:RoundedCornerView>
                 </Frame>
                 <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
@@ -55,9 +66,9 @@
                             <ColumnDefinition Width="65"/>
                             <ColumnDefinition Width="60*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="phone.png" Grid.Column="0"  HeightRequest="40"  Margin="0,10"/>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="phone.png" Grid.Column="0"  HeightRequest="35"  Margin="0,10"/>
                         <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
-                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Số điện thoại" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent" FontSize="Default" />
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Số điện thoại" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent" FontSize="Default" Text="{Binding Phone}" />
                     </ui:RoundedCornerView>
                 </Frame>
                 <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
@@ -66,32 +77,20 @@
                             <ColumnDefinition Width="65"/>
                             <ColumnDefinition Width="60*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="lock.png" Grid.Column="0"  HeightRequest="40"  Margin="0,10"/>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="lock.png" Grid.Column="0"  HeightRequest="35"  Margin="0,10"/>
                         <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
-                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Mật khẩu" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default" IsPassword="True" />
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Mật khẩu" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default" IsPassword="True" Text="{Binding Pass}"/>
                     </ui:RoundedCornerView>
                 </Frame>
-
-                <!--<Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
-                        <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="65"/>
-                                <ColumnDefinition Width="60*"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="lock.png" Grid.Column="0"  HeightRequest="34"/>
-                            <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
-                            <ui:NoneEntry Margin="5,0,0,0" Placeholder="Xác nhận mật khẩu" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default" IsPassword="True" />
-                        </ui:RoundedCornerView>
-                    </Frame>-->
                 <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
                     <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="65"/>
                             <ColumnDefinition Width="60*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="location.png" Grid.Column="0"  HeightRequest="40"  Margin="0,12"/>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="location.png" Grid.Column="0"  HeightRequest="35"  Margin="0,10"/>
                         <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
-                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Địa chỉ" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default" />
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Địa chỉ" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent" Text="{Binding Addr}"  FontSize="Default" />
                     </ui:RoundedCornerView>
                 </Frame>
                 <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0" >
@@ -100,9 +99,9 @@
                             <ColumnDefinition Width="65"/>
                             <ColumnDefinition Width="60*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="cmnnd.png" Grid.Column="0" HeightRequest="30"  Margin="0,10"/>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="cmnnd.png" Grid.Column="0" HeightRequest="35"  Margin="0,10"/>
                         <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
-                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="CMND" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default"  />
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="CMND" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default" Text="{Binding IDCARD}" />
                     </ui:RoundedCornerView>
                 </Frame>
 

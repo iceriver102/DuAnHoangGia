@@ -9,7 +9,7 @@
              NavigationPage.HasNavigationBar="False"
              Title="Detail">
     <AbsoluteLayout>
-        <ui:CustomMap x:Name="uiMap" MapType="Street" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" IsShowingUser="False" />
+        <ui:CustomMap x:Name="uiMap" MapType="Street" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" IsShowingUser="True" FollowPostion="{Binding FollowPostion}" Radius="{Binding Radius}"  />
         <AbsoluteLayout AbsoluteLayout.LayoutFlags="WidthProportional" AbsoluteLayout.LayoutBounds="0,0,1,55"  BackgroundColor="#8f621e92" >
             <Image Source="menu.png" WidthRequest="30" Margin="10,0" Aspect="AspectFit" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0,0.5">
                 <Image.GestureRecognizers>
@@ -24,7 +24,7 @@
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                 </ff:CachedImage.GestureRecognizers>
             </ff:CachedImage>
-            <ui:NoneEntry x:Name="uiFrom" Placeholder="Vị trí hiện tại" AbsoluteLayout.LayoutBounds="1,0,0.9,0.5" AbsoluteLayout.LayoutFlags="All" TextColor="{StaticResource Border}" PlaceholderColor="#ff7f8f95" FontFamily="{StaticResource Regular}" FontSize="Medium"/>
+            <ui:NoneEntry x:Name="uiFrom" Placeholder="Vị trí hiện tại" AbsoluteLayout.LayoutBounds="1,0,0.9,0.5" AbsoluteLayout.LayoutFlags="All" TextColor="{StaticResource Border}" PlaceholderColor="#ff7f8f95" FontFamily="{StaticResource Regular}" FontSize="Medium" Text="{Binding FromLabel}"/>
             <ui:NoneEntry x:Name="uiTo" Placeholder="Bạn muốn đi đâu" AbsoluteLayout.LayoutBounds="1,1,0.9,0.5" AbsoluteLayout.LayoutFlags="All" TextColor="{StaticResource Border}" PlaceholderColor="#ff7f8f95" FontFamily="{StaticResource Regular}" FontSize="Medium" />
         </AbsoluteLayout>
     </AbsoluteLayout>

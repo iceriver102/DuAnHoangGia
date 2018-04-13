@@ -5,9 +5,16 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:local="clr-namespace:DuAnHoangGia.Views"
              NavigationPage.HasNavigationBar="False"
+             xmlns:c="clr-namespace:DuAnHoangGia.Converters"
              x:Class="DuAnHoangGia.Views.NewsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:UrlImageConverter x:Key="ImageURL" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout Orientation="Vertical" BackgroundColor="#7a3eb7">
         <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
             <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
@@ -17,19 +24,20 @@
             </Image>
             <Label VerticalTextAlignment="Center" Text="TIN TỨC" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}"/>
         </StackLayout>
-        <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True"
-			FlowItemTappedCommand="{Binding ItemTapped}" FlowLastTappedItem="{Binding LastTappedItem}"
- FlowColumnCount="1" FlowItemsSource="{Binding Models}" BackgroundColor="#7a3eb7" FlowColumnExpand="Proportional" >
+        <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="500" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}"  FlowLastTappedItem="{Binding LastTappedItem}" FlowItemTappedCommand="{Binding ItemTappedCommand}">
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <AbsoluteLayout BackgroundColor="White" Padding="0,5"  Margin="10,5">
-                        <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Thumbnail}" AbsoluteLayout.LayoutFlags="SizeProportional" AbsoluteLayout.LayoutBounds="0,0,0.33,1" Aspect="AspectFit" Margin="10,0" />
-                        <StackLayout Orientation="Vertical" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0,0.65,1">
+                        <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Image,Converter={StaticResource ImageURL}}" AbsoluteLayout.LayoutFlags="SizeProportional" AbsoluteLayout.LayoutBounds="0,0,0.3,1" Aspect="AspectFit" Margin="10,0" >
+                            <ff:CachedImage.Transformations>
+                                <trans:RoundedTransformation BorderHexColor="#ffffff" BorderSize="5" Radius="5"/>
+                            </ff:CachedImage.Transformations>
+                        </ff:CachedImage>
+                        <StackLayout Orientation="Vertical" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0,0.68,0.7">
                             <Label Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" FontSize="Default"/>
-                            <Label HeightRequest="70" Text="{Binding Mota}" TextColor="Black" FontSize="Micro" Margin="3,0"/>
-                            <Label Text="Xem thêm >>" BackgroundColor="Transparent" TextColor="#43c5f4" FontSize="Default">
-                            </Label>
+                            <Label HeightRequest="70" Text="{Binding Description_short}" TextColor="Black" FontSize="Small" Margin="3,0"/>
                         </StackLayout>
+                        <Label Text="Xem thêm >>" TextColor="#43c5f4" FontSize="Default" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0.95,0.68,0.28"/>
                     </AbsoluteLayout>
                 </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>

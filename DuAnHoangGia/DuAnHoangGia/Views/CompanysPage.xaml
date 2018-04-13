@@ -4,7 +4,13 @@
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:c="clr-namespace:DuAnHoangGia.Converters"
              x:Class="DuAnHoangGia.Views.CompanysPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:UrlImageConverter x:Key="ImageURL" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout Orientation="Vertical" BackgroundColor="#7a3eb7">
         <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
             <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
@@ -16,32 +22,19 @@
         </StackLayout>
         <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True"
 			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
- FlowColumnCount="2" FlowItemsSource="{Binding Models}"  BackgroundColor="#7a3eb7" FlowUseAbsoluteLayoutInternally="True"  >
+ FlowColumnCount="2" FlowItemsSource="{Binding Models}" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}" BackgroundColor="#7a3eb7"   >
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
-                    <flv:FlowGridCell>
-                        <flv:FlowGridCell.RowDefinitions>
-                            <RowDefinition Height="5"/>
-                            <RowDefinition Height="5*"/>
-                            <RowDefinition Height="5"/>
-                        </flv:FlowGridCell.RowDefinitions>
-                        <flv:FlowGridCell.ColumnDefinitions>
-                            <ColumnDefinition Width="5"/>
-                            <ColumnDefinition Width="5*"/>
-                            <ColumnDefinition Width="5"/>
-                        </flv:FlowGridCell.ColumnDefinitions>
-                        <AbsoluteLayout Grid.Column="1" Grid.Row="1" HeightRequest="200" WidthRequest="200">
-                            <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Url}" HorizontalOptions="CenterAndExpand"  Aspect="AspectFill" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" Margin="5">
-                                <ff:CachedImage.Transformations>
-                                    <trans:RoundedTransformation CropHeightRatio="0.8" CropWidthRatio="0.8" Radius="8" BorderSize="5" BorderHexColor="#ffffff"/>
-                                </ff:CachedImage.Transformations>
-                            </ff:CachedImage>
-                            <StackLayout  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,1,1,0.25"  BackgroundColor="#80000000" HorizontalOptions="FillAndExpand" Margin="0,5">
+                    <Grid Padding="5">                       
+                        <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Url}" HorizontalOptions="Center"  Aspect="AspectFit" HeightRequest="200">
+                            <ff:CachedImage.Transformations>
+                                <trans:RoundedTransformation  Radius="0" BorderSize="5" BorderHexColor="#ffffff"/>
+                            </ff:CachedImage.Transformations>
+                        </ff:CachedImage>
+                        <StackLayout  HeightRequest="50" BackgroundColor="#80000000" HorizontalOptions="FillAndExpand" VerticalOptions="End"  >
                             <Label HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Text="{Binding Title}" FontFamily="{StaticResource Regular}" FontSize="Medium" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="5,0" />
-                            </StackLayout>
-                        </AbsoluteLayout>
-                    </flv:FlowGridCell>
-                    
+                        </StackLayout>
+                    </Grid>                    
                 </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>
         </flv:FlowListView>

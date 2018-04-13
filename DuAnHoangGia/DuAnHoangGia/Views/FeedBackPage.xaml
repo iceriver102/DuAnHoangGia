@@ -5,7 +5,14 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
+             xmlns:local="clr-namespace:DuAnHoangGia.Views"
+             xmlns:c="clr-namespace:DuAnHoangGia.Converters"
              x:Class="DuAnHoangGia.Views.FeedBackPage">
+    <ContentPage.Resources>
+        <ResourceDictionary >
+            <c:NotBoolConverter  x:Key="NOT" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout BackgroundColor="#7a3eb7" >
         <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
             <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
@@ -20,13 +27,16 @@
                 <Button Text="GỬI TRỢ GIÚP" BackgroundColor="{Binding FirstTabColor}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,0.51,1" Command="{Binding ChangeTabIndex}" CommandParameter="0"/>
                 <Button Text="LỊCH SỬ" BackgroundColor="{Binding SecondTabColor}"   AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0,0.51,1" Command="{Binding ChangeTabIndex}" CommandParameter="1"/>
             </AbsoluteLayout>
-            <ui:CarouselLayout ItemsSource="{Binding Models}" SelectedIndex="{Binding SelectedIndex}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+            <local:FeedbackView BindingContext="{Binding FeedbackForm}" IsVisible="{Binding isView}"  IsEnabled="{Binding isView}"/>
+            <local:HistoryView BindingContext="{Binding HistoryForm}"  IsVisible="{Binding isView}" IsEnabled="{Binding isView}"/>
+            <!--<ui:CarouselLayout ItemsSource="{Binding Models}" SelectedIndex="{Binding SelectedIndex}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
                 <ui:CarouselLayout.ItemTemplate>
                     <DataTemplate>
                         <ContentView Content="{Binding View}"/>
                     </DataTemplate>
                 </ui:CarouselLayout.ItemTemplate>
-            </ui:CarouselLayout>
+            </ui:CarouselLayout>-->
+            
         </StackLayout>
     </StackLayout>
 </ContentPage>

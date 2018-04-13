@@ -21,7 +21,7 @@
                             </Grid.ColumnDefinitions>
                             <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="user.png" Grid.Column="0" Margin="0,10"  HeightRequest="30"/>
                             <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
-                            <ui:NoneEntry Margin="5,0,0,0" Placeholder="Tên đăng nhập" Grid.Column="1"  BackgroundColor="Transparent" PlaceholderColor="{StaticResource Text}" TextColor="Black" VerticalOptions="Center" FontSize="Default" />
+                            <ui:NoneEntry Margin="5,0,0,0" Placeholder="Tên đăng nhập" Grid.Column="1"  BackgroundColor="Transparent" PlaceholderColor="{StaticResource Text}" TextColor="Black" VerticalOptions="Center" FontSize="Default" Text="{Binding UserName}"/>
                         </ui:RoundedCornerView>
                     </Frame>
                     <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0">
@@ -32,7 +32,7 @@
                             </Grid.ColumnDefinitions>
                             <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="lock.png" Grid.Column="0" Margin="0,10"  HeightRequest="30"/>
                             <BoxView Grid.Column="1" BackgroundColor="{StaticResource Gray}"/>
-                            <ui:NoneEntry Margin="5,0,0,0" Placeholder="Mật khẩu" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent" VerticalOptions="FillAndExpand"  FontSize="Default" IsPassword="True" />
+                            <ui:NoneEntry Margin="5,0,0,0" Placeholder="Mật khẩu" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent" VerticalOptions="FillAndExpand"  FontSize="Default" IsPassword="True" Text="{Binding Password}" />
                         </ui:RoundedCornerView>
                     </Frame>
                     <Button Text="ĐĂNG NHẬP" FontSize="Medium" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="50" Margin="0,5" Command="{Binding LoginCommand}"/>

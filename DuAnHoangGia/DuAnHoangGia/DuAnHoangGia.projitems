@@ -16,6 +16,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NotBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\UrlImageConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\MenuEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helppers\BindablePropertyEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
@@ -23,13 +25,21 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\CompanyModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HelpModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\NewsModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\NotificationModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sevices\HttpSevices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sevices\IHttpSevices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sevices\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanyDetailViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanysViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedBackForm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedBackViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HistoryViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoaddingViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MapViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewDetailsViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewsViewmodel.cs" />

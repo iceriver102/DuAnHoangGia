@@ -15,7 +15,7 @@ namespace DuAnHoangGia.Views
 		public HistoryView ()
 		{
 			InitializeComponent ();
-            this.BindingContext = new ViewModels.HistoryViewmodel();
+            //this.BindingContext = new ViewModels.HistoryViewmodel(_http);
 		}
 	}
 }

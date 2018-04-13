@@ -56,7 +56,7 @@ namespace DuAnHoangGia.Droid.Renderers
             }
         }
 
-        private void FormsMap_RenderEvent(object sender, List<Position> e)
+        private void FormsMap_RenderEvent(object sender, ICollection<Position> e)
         {
             if (line != null)
             {

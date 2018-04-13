@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using DLToolkit.Forms.Controls;
 using DuAnHoangGia.Models;
+using DuAnHoangGia.Sevices;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -10,27 +14,66 @@ namespace DuAnHoangGia.ViewModels
 {
     public class NewsViewmodel : ViewModelBase
     {
+        private bool _isLoadInfinite, _isview;
+        public bool IsLoadInfinite { get => this._isLoadInfinite; set => this.SetProperty(ref this._isLoadInfinite, value); }
+        public readonly IHttpSevices HTTP;
+        public int page = 0;
+
         private HelpModel _LastTappedItem;
         public HelpModel LastTappedItem
         {
             get => _LastTappedItem;
             set => this.SetProperty(ref _LastTappedItem, value);
         }
-        public DelegateCommand ItemTapped { get; set; }
-        public ObservableCollection<HelpModel> Models { get; set; }
-        public NewsViewmodel(INavigationService navigationService) : base(navigationService)
+        public DelegateCommand ItemTappedCommand { get; set; }
+        public FlowObservableCollection<NewsModel> Models { get; set; }
+        public DelegateCommand LoaddingCommand { get; set; }
+        public NewsViewmodel(INavigationService navigationService, IHttpSevices _http) : base(navigationService)
         {
-            Models = new ObservableCollection<HelpModel>();
-            for (int i = 0; i <= 10; i++)
-            {
-                Models.Add(new HelpModel() { Title = "CÔNG TY CỔ PHẦN SX TM XNK VIỄN THÔNG A", Mota = "Được thành lập vào tháng 11 năm 1997, công ty Viễn Thông A đã khẳng định được thương hiệu của mình, và trở thành \"Sự lựa chọn tốt nhất của bạn\", với 100 trung tâm bảo hành, gần 200 cửa hàng tại hệ thống siêu thị BigC, CoopMart và Trung Tâm Smartphone – Tablet – Laptop trên toàn quốc. Đến với Viễn Thông A, khách hàng sẽ có những trải nghiệm tuyệt vời bởi những cam kết của Viễn Thông A đối với khách hàng:", Thumbnail = "a1.png" });
-            }
-            ItemTapped = new DelegateCommand(ItemTappedExcute);
+            HTTP = _http;
+            Models = new FlowObservableCollection<NewsModel>();
+            this.IsLoadInfinite = true;
+            ItemTappedCommand = new DelegateCommand(ItemTappedExcute);
+            this.LoaddingCommand = new DelegateCommand(LoaddingCommandExcute);
+        }
+
+        private void LoaddingCommandExcute()
+        {
+            this.LoadPage(page + 1);
         }
 
         private void ItemTappedExcute()
         {
             this.Navigate("Detail");
+        }
+
+        public async void LoadPage(int p = 1)
+        {
+            JObject oResult = await HTTP.GetNewsAsync(p);
+            if (oResult == null) return;
+            if (oResult["data"].HasValues && oResult["data"] is JArray datas)
+            {
+                List<NewsModel> helps = JsonConvert.DeserializeObject<List<NewsModel>>(datas.ToString());
+                if (helps != null)
+                    this.Models.AddRange(helps);
+                page = oResult["current_page"].Value<int>();
+                if (oResult["last_page"].Value<int>() <= page)
+                {
+                    this.IsLoadInfinite = false;
+                }
+                else
+                {
+                    this.IsLoadInfinite = true;
+                }
+            }
+
+        }
+
+
+        public override void OnNavigatedTo(NavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            this.LoadPage();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DuAnHoangGia.Events;
+using DuAnHoangGia.Sevices;
 using DuAnHoangGia.Views.Home;
 using Prism.Commands;
 using Prism.Events;
@@ -15,7 +16,7 @@ namespace DuAnHoangGia.ViewModels
         private readonly IEventAggregator _ea;
         public DelegateCommand<HomePageMenuItem> ItemTapped { get; set; }
         public ObservableCollection<HomePageMenuItem> MenuItems { get; set; }
-        public MenuViewModel(INavigationService navigationService, IEventAggregator eventAggregator) : base(navigationService)
+        public MenuViewModel(INavigationService navigationService, IHttpSevices _http, IEventAggregator eventAggregator) : base(navigationService)
         {
 
             this._ea = eventAggregator;

@@ -11,6 +11,7 @@ using Xamarin.Forms;
 using DuAnHoangGia.Views;
 using DuAnHoangGia.ViewModels;
 using DuAnHoangGia.Views.Home;
+using DuAnHoangGia.Sevices;
 
 namespace DuAnHoangGia
 {
@@ -23,12 +24,13 @@ namespace DuAnHoangGia
             InitializeComponent();
             CachedImage.FixedOnMeasureBehavior = true;
             CachedImage.FixedAndroidMotionEventHandler = true;
-            await NavigationService.NavigateAsync("Companys");
+            await NavigationService.NavigateAsync("Loadding");
 
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<IHttpSevices, HttpSevices>();
             containerRegistry.RegisterForNavigation<NavigationPage>("Navigation");
             containerRegistry.RegisterForNavigation<LoaddingPage, LoaddingViewModel>("Loadding");
             containerRegistry.RegisterForNavigation<LoginPage, LoginViewModel>("Login");
@@ -42,6 +44,7 @@ namespace DuAnHoangGia
             containerRegistry.RegisterForNavigation<NewsPage, NewsViewmodel>("News");
             containerRegistry.RegisterForNavigation<NewDetailsPage, NewDetailsViewmodel>("Detail");
             containerRegistry.RegisterForNavigation<CompanyDetailPage, CompanyDetailViewmodel>("ComDetail");
+            containerRegistry.RegisterForNavigation<HomePageDetail, MapViewModel>();
         }
 
 
