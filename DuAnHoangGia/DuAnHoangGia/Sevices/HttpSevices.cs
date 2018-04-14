@@ -132,5 +132,68 @@ namespace DuAnHoangGia.Sevices
         {
             throw new NotImplementedException();
         }
+
+        public async Task<(JObject data, bool result)> RegisterAsync(User u)
+        {
+            using (HttpClient oHttpClient = new HttpClient())
+            {
+                var content = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("name", u.Name),
+                    new KeyValuePair<string, string>("email", u.Email),
+                    new KeyValuePair<string, string>("phone", u.Phone),
+                    new KeyValuePair<string, string>("password", u.Pasword),
+                });
+                var oHttpResponseMessage = await oHttpClient.PostAsync($"{url}/user/signup", content);
+                string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
+                JObject result = JObject.Parse(Content);
+                if (result["data"].HasValues)
+                    return (result["data"] as JObject, oHttpResponseMessage.IsSuccessStatusCode);
+                return (null, oHttpResponseMessage.IsSuccessStatusCode);
+            }
+        }
+
+        public async Task<(JObject data, bool result)> UpdateAsync(User u)
+        {
+            using (HttpClient oHttpClient = new HttpClient())
+            {
+                oHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Current.Token);
+                List<KeyValuePair<string, string>> forms = new List<KeyValuePair<string, string>>(new[]
+                {
+                    new KeyValuePair<string, string>("name", u.Name),
+                    new KeyValuePair<string, string>("email", u.Email),
+                    new KeyValuePair<string, string>("phone", u.Phone),
+                    new KeyValuePair<string, string>("address", u.Address),
+                    new KeyValuePair<string, string>("cmnd", u.Cmnd),
+                });
+
+                if (!string.IsNullOrEmpty(u.Pasword))
+                {
+                    forms.Add(new KeyValuePair<string, string>("password", u.Pasword));
+                }
+                var oHttpResponseMessage = await oHttpClient.PutAsync($"{url}/customer/update/", new FormUrlEncodedContent(forms));
+                string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
+                JObject result = JObject.Parse(Content);
+                if (result["data"].HasValues)
+                    return (result["data"] as JObject,oHttpResponseMessage.IsSuccessStatusCode);
+                return (null,oHttpResponseMessage.IsSuccessStatusCode);
+            }
+        }
+
+        public async Task<JObject> GetUser()
+        {
+            //api/user
+            using (HttpClient oHttpClient = new HttpClient())
+            {
+                oHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Current.Token);
+                //http://project1.caikho.com/api/user
+                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/user");
+                string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
+                JObject result = JObject.Parse(Content);
+                if (result["data"].HasValues)
+                    return result["data"] as JObject;
+                return null;
+            }
+        }
     }
 }

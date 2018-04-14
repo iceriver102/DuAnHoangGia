@@ -104,12 +104,18 @@
                         <ui:NoneEntry Margin="5,0,0,0" Placeholder="CMND" Grid.Column="1" TextColor="Black" PlaceholderColor="{StaticResource Text}"  BackgroundColor="Transparent"  FontSize="Default" Text="{Binding IDCARD}" />
                     </ui:RoundedCornerView>
                 </Frame>
-
-
-
-                <Button Text="CẬP NHẬT" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="45" WidthRequest="350"/>
+                <Button Text="CẬP NHẬT" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="45" WidthRequest="350" Command="{Binding UpdateCommand}"/>
 
             </StackLayout>
         </StackLayout>
+        <ContentView AbsoluteLayout.LayoutFlags="All"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                x:Name="actIndicatorContainer"
+                IsVisible="{Binding IsLoading}" BackgroundColor="#80000000">
+        </ContentView>
+        <ActivityIndicator x:Name="actIndicator2"
+                               AbsoluteLayout.LayoutFlags="PositionProportional"
+                               AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                               IsRunning="{Binding IsLoading}"/>
     </AbsoluteLayout>
 </ContentPage>

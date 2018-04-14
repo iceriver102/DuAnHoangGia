@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DuAnHoangGia.ViewModels
 {
@@ -19,8 +20,7 @@ namespace DuAnHoangGia.ViewModels
         public bool IsLoadInfinite { get => this._isLoadInfinite; set => this.SetProperty(ref this._isLoadInfinite, value); }
         public readonly IHttpSevices HTTP;
         public int page = 0;
-
-        public bool isView { get => this._isview; set => this.SetProperty(ref this._isview, value); }
+        public bool isView { get => this._isview; set => this.SetProperty(ref this._isview,value); }
 
         public FlowObservableCollection<T> Models { get; set; }
         public DelegateCommand LoaddingCommand { get; set; }

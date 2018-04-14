@@ -14,7 +14,7 @@ namespace DuAnHoangGia.ViewModels
 {
     public class NewsViewmodel : ViewModelBase
     {
-        private bool _isLoadInfinite, _isview;
+        private bool _isLoadInfinite;
         public bool IsLoadInfinite { get => this._isLoadInfinite; set => this.SetProperty(ref this._isLoadInfinite, value); }
         public readonly IHttpSevices HTTP;
         public int page = 0;

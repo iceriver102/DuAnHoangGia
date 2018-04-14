@@ -23,7 +23,7 @@ namespace DuAnHoangGia.Models
              }
              */
     /// </summary>
-    public class User
+    public class User:ICloneable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -33,5 +33,11 @@ namespace DuAnHoangGia.Models
         public string Birthday { get; set; }
         public string Cmnd { get; set; }
         public string Phone { get; set; }
+        public string Pasword { get;  set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

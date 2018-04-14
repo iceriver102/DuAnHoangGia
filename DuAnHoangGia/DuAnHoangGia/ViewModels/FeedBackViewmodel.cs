@@ -2,6 +2,7 @@
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace DuAnHoangGia.ViewModels
@@ -45,15 +46,17 @@ namespace DuAnHoangGia.ViewModels
             this.SelectedIndex = true;
             ChangeTabIndex = new DelegateCommand<string>(ChangeTabIndexExcute);
         }
-        private void ChangeTabIndexExcute(string index)
+        private async void ChangeTabIndexExcute(string index)
         {
             int i = Convert.ToInt32(index);
             this.SelectedIndex = i == 0;
+           
         }
-        public override void OnNavigatedTo(NavigationParameters parameters)
+        public  override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
             this.HistoryForm.LoadPage();
+           
 
         }
     }

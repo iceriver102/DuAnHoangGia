@@ -16,6 +16,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\BehaviorBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\FadeEffectBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\IEffectBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\ScaleEffectBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\TransalteEffectBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\ForcusBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NotBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UrlImageConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\MenuEvent.cs" />
@@ -33,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanyDetailViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanysViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedBackForm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedBackViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HistoryViewmodel.cs" />

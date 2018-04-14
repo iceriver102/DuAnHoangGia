@@ -5,13 +5,22 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
+             xmlns:localB="clr-namespace:DuAnHoangGia.Behaviors"
              x:Class="DuAnHoangGia.Views.LoaddingPage">
-   
+
     <ContentPage.Content>
         <AbsoluteLayout>
             <ff:CachedImage Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" CacheType="All" DownsampleUseDipUnits="True"/>
-            <ff:CachedImage Source="logo.png" Aspect="AspectFit" CacheType="All" AbsoluteLayout.LayoutBounds="0.5,0.2,1,0.5" AbsoluteLayout.LayoutFlags="All"  DownsampleUseDipUnits="True"/>
-            <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.8" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="8">
+            <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="logo.png" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.5,0.5,0.9,0.55" AbsoluteLayout.LayoutFlags="All" >
+                <ff:CachedImage.Behaviors>
+                    <localB:ScaleEffectBehavior From="1" To="0.9" Time="2000" Trigger="{Binding RunAnim}" Loop="True"/>
+                    <localB:TransalteEffectBehavior FromY="0" ToY="-100" Time="2000" Trigger="{Binding Ishow}" />
+                </ff:CachedImage.Behaviors>
+            </ff:CachedImage>
+            <StackLayout AbsoluteLayout.LayoutBounds="0.5,1,-1,-1" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="8" IsVisible="{Binding Ishow}" >
+                <StackLayout.Behaviors>
+                    <localB:TransalteEffectBehavior  FromY="0" ToY="-100" Time="2000" Trigger="{Binding Ishow}"/>
+                </StackLayout.Behaviors>
                 <Button Text="ĐĂNG NHẬP" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="58" MinimumWidthRequest="200" WidthRequest="300" Command="{Binding NavigateCommand}" CommandParameter="Login"/>
                 <Button Text="ĐĂNG KÝ" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="58" Command="{Binding NavigateCommand}" CommandParameter="Register"/>
             </StackLayout>

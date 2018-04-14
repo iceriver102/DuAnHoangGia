@@ -4,6 +4,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DuAnHoangGia.ViewModels
 {
@@ -13,8 +14,11 @@ namespace DuAnHoangGia.ViewModels
         private string _title, _content;
         public string Title { get => this._title; set => this.SetProperty(ref this._title, value); }
 
-        private bool _isView;
-        public bool isView { get => this._isView; set => this.SetProperty(ref this._isView, value); }
+        private bool _isView, _focus = true;
+
+        
+        public bool isView { get => this._isView; set { this.Forcus = value; this.SetProperty(ref this._isView, value); } }
+        public bool Forcus { get => this._focus; set => this.SetProperty(ref this._focus, value); }
 
         public string Content { get => this._content; set => this.SetProperty(ref this._content, value); }
         public DelegateCommand SubmitCommand { get; private set; }

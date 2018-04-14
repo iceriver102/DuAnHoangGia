@@ -10,7 +10,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>DuAnHoangGia.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>HoàngGiaMap</AssemblyName>
+    <AssemblyName>Hoàng Gia Map</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>

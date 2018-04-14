@@ -12,6 +12,8 @@ namespace DuAnHoangGia.ViewModels
         protected INavigationService NavigationService { get; }
         public DelegateCommand<string> NavigateCommand { get; set; }
         public DelegateCommand NavigateBack { get; set; }
+        private bool _IsLoading = false;
+        public bool IsLoading { get => this._IsLoading; set => this.SetProperty(ref this._IsLoading, value); }
         public ViewModelBase(INavigationService navigationService)
         {
             NavigationService = navigationService;
@@ -48,7 +50,5 @@ namespace DuAnHoangGia.ViewModels
         {
 
         }
-
-        
     }
 }

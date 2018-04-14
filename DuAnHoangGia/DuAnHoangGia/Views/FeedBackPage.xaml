@@ -6,7 +6,8 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              xmlns:local="clr-namespace:DuAnHoangGia.Views"
-             xmlns:c="clr-namespace:DuAnHoangGia.Converters"
+             xmlns:c="clr-namespace:DuAnHoangGia.Converters" 
+             xmlns:b="clr-namespace:DuAnHoangGia.Behaviors"
              x:Class="DuAnHoangGia.Views.FeedBackPage">
     <ContentPage.Resources>
         <ResourceDictionary >
@@ -27,8 +28,17 @@
                 <Button Text="GỬI TRỢ GIÚP" BackgroundColor="{Binding FirstTabColor}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,0.51,1" Command="{Binding ChangeTabIndex}" CommandParameter="0"/>
                 <Button Text="LỊCH SỬ" BackgroundColor="{Binding SecondTabColor}"   AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0,0.51,1" Command="{Binding ChangeTabIndex}" CommandParameter="1"/>
             </AbsoluteLayout>
-            <local:FeedbackView BindingContext="{Binding FeedbackForm}" IsVisible="{Binding isView}"  IsEnabled="{Binding isView}"/>
-            <local:HistoryView BindingContext="{Binding HistoryForm}"  IsVisible="{Binding isView}" IsEnabled="{Binding isView}"/>
+            <local:FeedbackView BindingContext="{Binding FeedbackForm}" IsVisible="{Binding isView}"  IsEnabled="{Binding isView}">
+                <local:FeedbackView.Behaviors>
+                    <b:FadeEffectBehavior From="0" To="1" Trigger="{Binding isView}" Time="500"/>
+                   
+                </local:FeedbackView.Behaviors>
+            </local:FeedbackView>
+            <local:HistoryView BindingContext="{Binding HistoryForm}"  IsVisible="{Binding isView}" IsEnabled="{Binding isView}">
+                <local:HistoryView.Behaviors>
+                    <b:FadeEffectBehavior From="0" To="1" Trigger="{Binding isView}" Time="500"/>
+                </local:HistoryView.Behaviors>
+            </local:HistoryView>
             <!--<ui:CarouselLayout ItemsSource="{Binding Models}" SelectedIndex="{Binding SelectedIndex}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
                 <ui:CarouselLayout.ItemTemplate>
                     <DataTemplate>

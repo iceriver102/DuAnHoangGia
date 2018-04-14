@@ -7,6 +7,7 @@ using DuAnHoangGia.Views.Home;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
+using Prism.Services;
 
 namespace DuAnHoangGia.ViewModels
 {
@@ -19,7 +20,7 @@ namespace DuAnHoangGia.ViewModels
 
         public DelegateCommand ShowMenuCommand { get; set; }
 
-        public HomeViewModel(INavigationService navigationService, IHttpSevices _http, IEventAggregator eventAggregator) : base(navigationService)
+        public HomeViewModel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService,IEventAggregator eventAggregator) : base(navigationService)
         {
             this.HTTP = _http;
             this.eventAggregator = eventAggregator;

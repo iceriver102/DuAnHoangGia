@@ -122,5 +122,10 @@ namespace DuAnHoangGia.Sevices
             set { SetProperty(value); }
         }
         public (double lat, double log) Position { get => this.GetProperty<(double lat, double log)>((lat: -1, log: -1)); set => SetProperty(value); }
+        public bool Auto
+        {
+            get { return GetProperty<bool>(false); }
+            set { SetProperty(value); }
+        }
     }
 }
