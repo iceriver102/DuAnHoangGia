@@ -22,8 +22,6 @@ namespace DuAnHoangGia.ViewModels
         public override void OnNavigatingTo(NavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
-           
-
         }
 
         public async override void OnNavigatedTo(NavigationParameters parameters)
@@ -31,16 +29,13 @@ namespace DuAnHoangGia.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters.ContainsKey("comp"))
             {
-                int comp = Convert.ToInt32(parameters["comp"]);
-                JObject oResult=  await  this.HTTP.GetCompanyAsync(comp);
+                int comp = parameters.GetValue<int>("comp");
+                JObject oResult=  await this.HTTP.GetCompanyAsync(comp);
                 if (oResult != null)
                 {
                     this.Title = oResult["name"].Value<string>();
                     this.Content = oResult["description"].Value<string>();
-                    string _tmp = oResult["avatar"].Value<string>();
-                    if (_tmp.StartsWith("http://"))
-                        this.UrlImage = _tmp;
-                    this.UrlImage = $"http://{_tmp}";
+                    this.UrlImage = oResult["avatar"].Value<string>();
                 }
             }
         }

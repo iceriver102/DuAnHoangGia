@@ -24,6 +24,7 @@ namespace DuAnHoangGia
             InitializeComponent();
             CachedImage.FixedOnMeasureBehavior = true;
             CachedImage.FixedAndroidMotionEventHandler = true;
+            //await NavigationService.NavigateAsync("Detail?news=16");
             await NavigationService.NavigateAsync("Loadding");
 
         }

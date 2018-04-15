@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ui="clr-namespace:DuAnHoangGia.Views.Customs"
              x:Class="DuAnHoangGia.Views.NewDetailsPage">
     <StackLayout   BackgroundColor="#7a3eb7" >
         <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
@@ -12,9 +13,13 @@
             </Image>
             <Label VerticalTextAlignment="Center" Text="TIN TỨC" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
         </StackLayout>
-        <StackLayout Spacing="12" Margin="0,0" BackgroundColor="#7a3eb7">
-            <ff:CachedImage CacheType="{x:Null}" Source="w1.jpg" Aspect="AspectFit"/>            
-
+        <StackLayout Spacing="0" Margin="0,0" BackgroundColor="#7a3eb7">
+            <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Image}" Aspect="AspectFit" HeightRequest="200"/>
+            <ui:NoneWebView VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="Transparent">
+                <ui:NoneWebView.Source>
+                    <HtmlWebViewSource Html="{Binding HTML}" />
+                </ui:NoneWebView.Source>
+            </ui:NoneWebView>
         </StackLayout>
     </StackLayout>
 </ContentPage>

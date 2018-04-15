@@ -15,7 +15,6 @@ namespace DuAnHoangGia.ViewModels
         public string Title { get => this._title; set => this.SetProperty(ref this._title, value); }
 
         private bool _isView, _focus = true;
-
         
         public bool isView { get => this._isView; set { this.Forcus = value; this.SetProperty(ref this._isView, value); } }
         public bool Forcus { get => this._focus; set => this.SetProperty(ref this._focus, value); }

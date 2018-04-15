@@ -18,6 +18,7 @@ namespace DuAnHoangGia.Sevices
 
         public string url_login { get => $"{url}/user/login"; }
         public User User { get; set; }
+        public NewsModel News { get; set; }
 
         public async Task<JObject> GetCompanysAsync(int page = 1)
         {
@@ -128,9 +129,19 @@ namespace DuAnHoangGia.Sevices
             }
         }
 
-        public Task<JObject> GetNewAsync(int id)
+        public async Task<JObject> GetNewAsync(int id)
         {
-            throw new NotImplementedException();
+            using (HttpClient oHttpClient = new HttpClient())
+            {
+                oHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Current.Token);
+                //http://project1.caikho.com/api/news/16
+                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/news/{id}");
+                string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
+                JObject result = JObject.Parse(Content);
+                if (result["data"].HasValues)
+                    return result["data"] as JObject;
+                return null;
+            }
         }
 
         public async Task<(JObject data, bool result)> RegisterAsync(User u)

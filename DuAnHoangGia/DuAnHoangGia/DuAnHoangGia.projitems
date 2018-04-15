@@ -66,6 +66,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Customs\CustomMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Customs\NoneEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Customs\NoneEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Customs\NoneWebView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Customs\RoundedCornerView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\FeedBackPage.xaml.cs">
       <DependentUpon>FeedBackPage.xaml</DependentUpon>

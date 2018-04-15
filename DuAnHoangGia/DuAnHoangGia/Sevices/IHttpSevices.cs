@@ -11,6 +11,7 @@ namespace DuAnHoangGia.Sevices
 {
     public interface IHttpSevices
     {
+         NewsModel News { get; set; }
         User User { get; set; }
         Task<(HttpStatusCode status, string msg, JObject data)> LoginAsync(string username, string password, string sContentType = "application/json");
     

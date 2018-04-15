@@ -28,7 +28,7 @@
                     <Grid Padding="5">                       
                         <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Url}" HorizontalOptions="Center"  Aspect="AspectFit" HeightRequest="200">
                             <ff:CachedImage.Transformations>
-                                <trans:RoundedTransformation  Radius="0" BorderSize="5" BorderHexColor="#ffffff"/>
+                                <trans:RoundedTransformation  Radius="1" BorderSize="5" BorderHexColor="#ffffff"/>
                             </ff:CachedImage.Transformations>
                         </ff:CachedImage>
                         <StackLayout  HeightRequest="50" BackgroundColor="#80000000" HorizontalOptions="FillAndExpand" VerticalOptions="End"  >

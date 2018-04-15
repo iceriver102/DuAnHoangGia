@@ -19,8 +19,8 @@ namespace DuAnHoangGia.ViewModels
         public readonly IHttpSevices HTTP;
         public int page = 0;
 
-        private HelpModel _LastTappedItem;
-        public HelpModel LastTappedItem
+        private NewsModel _LastTappedItem;
+        public NewsModel LastTappedItem
         {
             get => _LastTappedItem;
             set => this.SetProperty(ref _LastTappedItem, value);
@@ -44,7 +44,8 @@ namespace DuAnHoangGia.ViewModels
 
         private void ItemTappedExcute()
         {
-            this.Navigate("Detail");
+            HTTP.News = this.LastTappedItem;
+            this.Navigate($"Detail?news={HTTP.News.Id}");
         }
 
         public async void LoadPage(int p = 1)

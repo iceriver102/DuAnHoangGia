@@ -123,6 +123,7 @@
     <Compile Include="Renderers\CustomMapRenderer.cs" />
     <Compile Include="Renderers\NoneEditorRenderer.cs" />
     <Compile Include="Renderers\NoneEntryRenderrer.cs" />
+    <Compile Include="Renderers\NoneWebViewRenderrer.cs" />
     <Compile Include="Renderers\RoundedCornerViewRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

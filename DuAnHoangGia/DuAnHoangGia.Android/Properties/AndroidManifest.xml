@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="vn.com.DuAnHoangGia" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="21" />
+	<uses-sdk android:minSdkVersion="20" />
 	<uses-feature android:glEsVersion="0x00020000" android:required="true" />
 	<uses-library android:name="com.google.android.maps" />
 	<!-- Allow the application to access Google web-based services. -->
