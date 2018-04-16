@@ -13,7 +13,8 @@ namespace DuAnHoangGia.ViewModels
     public class CompanysViewModel : ViewModelBase
     {
         private readonly IHttpSevices HTTP;
-        private int page = 0;
+        private int page = 0,cur=-1,total=0;
+        public int Total{ get => this.total; set => this.SetProperty(ref this.total, value); }
         private CompanyModel _LastTappedItem;
         public CompanyModel LastTappedItem
         {
@@ -40,16 +41,26 @@ namespace DuAnHoangGia.ViewModels
         {
             JObject oResult = await HTTP.GetCompanysAsync(p);
             if (oResult == null) return;
+            this.Total = oResult["total"].Value<int>();
+            page = oResult["current_page"].Value<int>();
             if (oResult["data"].HasValues && oResult["data"] is JArray datas)
             {
+                this.cur = oResult["to"].Value<int>();
                 List<CompanyModel> comps = JsonConvert.DeserializeObject<List<CompanyModel>>(datas.ToString());
                 if (comps != null)
                     this.Models.AddRange(comps);
-                page = oResult["current_page"].Value<int>();
-                if (oResult["last_page"].Value<int>() <= page)
-                {
-                    this.IsLoadInfinite = false;
-                }
+            }
+            else
+            {
+                this.cur = this.total;
+            }
+            if (this.cur == this.total)
+            {
+                this.IsLoadInfinite = true;
+            }
+            else
+            {
+                this.IsLoadInfinite = false;
             }
         }
 

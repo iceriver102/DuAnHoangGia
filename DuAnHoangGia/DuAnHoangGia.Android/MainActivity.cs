@@ -25,7 +25,7 @@ namespace DuAnHoangGia.Droid
             this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
 
-            Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
+           // Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
             CachedImageRenderer.Init(true);
             global::Xamarin.Forms.Forms.Init(this, bundle);
             FormsMaps.Init(this, bundle);

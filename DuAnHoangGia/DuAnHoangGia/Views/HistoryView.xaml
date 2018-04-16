@@ -2,7 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:c="clr-namespace:DuAnHoangGia.Converters"
@@ -13,7 +13,19 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="500" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}">
+        <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="500" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}" FlowTotalRecords="{Binding Total}">
+            <flv:FlowListView.FlowLoadingTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            TextColor="Blue"
+                            Text="..."
+                        ></Label>
+                    </ViewCell>
+                </DataTemplate>
+            </flv:FlowListView.FlowLoadingTemplate>
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <AbsoluteLayout BackgroundColor="White" Padding="0,5" Margin="0,5,0,0">

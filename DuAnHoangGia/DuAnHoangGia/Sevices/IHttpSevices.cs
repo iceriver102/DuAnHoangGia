@@ -15,11 +15,12 @@ namespace DuAnHoangGia.Sevices
         User User { get; set; }
         Task<(HttpStatusCode status, string msg, JObject data)> LoginAsync(string username, string password, string sContentType = "application/json");
     
-        Task<JObject> GetCompanysAsync(int page=1);
+        Task<JObject> GetCompanysAsync(int page=1, int nums=10);
+        Task<JObject> GetCompanysOnMapAsync(double lat, double log);
         Task<JObject> GetCompanyAsync(int com);
-        Task<JObject> GetHelpsAsync(int page=1);
-        Task<JObject> GetNotifisAsync(int page=1);
-        Task<JObject> GetNewsAsync(int page=1);
+        Task<JObject> GetHelpsAsync(int page=1,int nums=10);
+        Task<JObject> GetNotifisAsync(int page=1,int nums=10);
+        Task<JObject> GetNewsAsync(int page=1,int nums=10);
         Task<JObject> GetNewAsync(int id);
         Task<JObject> GetUser();
         Task<JObject> PostHelpAsync(string title, string command);

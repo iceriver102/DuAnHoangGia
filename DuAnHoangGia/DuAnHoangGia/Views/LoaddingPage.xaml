@@ -13,7 +13,7 @@
             <ff:CachedImage Source="main_background.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" CacheType="All" DownsampleUseDipUnits="True"/>
             <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="logo.png" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.5,0.5,0.9,0.55" AbsoluteLayout.LayoutFlags="All" >
                 <ff:CachedImage.Behaviors>
-                    <localB:ScaleEffectBehavior From="1" To="0.9" Time="2000" Trigger="{Binding RunAnim}" Loop="True"/>
+                    <localB:ScaleEffectBehavior From="1" To="0.9" Time="2000" Trigger="{Binding RunAnim}" Loop="True" Reverse="True"/>
                     <localB:TransalteEffectBehavior FromY="0" ToY="-100" Time="2000" Trigger="{Binding Ishow}" />
                 </ff:CachedImage.Behaviors>
             </ff:CachedImage>

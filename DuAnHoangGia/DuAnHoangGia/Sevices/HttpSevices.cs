@@ -20,11 +20,11 @@ namespace DuAnHoangGia.Sevices
         public User User { get; set; }
         public NewsModel News { get; set; }
 
-        public async Task<JObject> GetCompanysAsync(int page = 1)
+        public async Task<JObject> GetCompanysAsync(int page = 1, int nums = 10)
         {
             using (HttpClient oHttpClient = new HttpClient())
             {
-                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/company/all?page={page}");
+                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/company/all?page={page}&offset={nums}");
                 string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
                 JObject result = JObject.Parse(Content);
                 if (result["data"].HasValues)
@@ -84,13 +84,12 @@ namespace DuAnHoangGia.Sevices
             }
         }
 
-        public async Task<JObject> GetHelpsAsync(int page = 1)
+        public async Task<JObject> GetHelpsAsync(int page = 1,int nums=10)
         {
             using (HttpClient oHttpClient = new HttpClient())
             {
                 oHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Current.Token);
-                //http://project1.caikho.com/api/help/all?page=1
-                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/help/all?page={page}");
+                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/help/all?page={page}&offset={nums}");
                 string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
                 JObject result = JObject.Parse(Content);
                 if (result["data"].HasValues)
@@ -99,13 +98,12 @@ namespace DuAnHoangGia.Sevices
             }
         }
 
-        public async Task<JObject> GetNotifisAsync(int page = 1)
+        public async Task<JObject> GetNotifisAsync(int page = 1,int nums=10)
         {
             using (HttpClient oHttpClient = new HttpClient())
             {
                 oHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Current.Token);
-                //http://project1.caikho.com/api/help/all?page=1
-                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/notification/?page={page}");
+                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/notification/?page={page}&offset={nums}");
                 string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
                 JObject result = JObject.Parse(Content);
                 if (result["data"].HasValues)
@@ -114,13 +112,13 @@ namespace DuAnHoangGia.Sevices
             }
         }
 
-        public async Task<JObject> GetNewsAsync(int page = 1)
+        public async Task<JObject> GetNewsAsync(int page = 1,int nums=10)
         {
             using (HttpClient oHttpClient = new HttpClient())
             {
                 oHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Current.Token);
                 //http://project1.caikho.com/api/news/all?page=1
-                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/news/all/?page={page}");
+                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/news/all/?page={page}&offset={nums}");
                 string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
                 JObject result = JObject.Parse(Content);
                 if (result["data"].HasValues)
@@ -204,6 +202,20 @@ namespace DuAnHoangGia.Sevices
                 if (result["data"].HasValues)
                     return result["data"] as JObject;
                 return null;
+            }
+        }
+
+        public async Task<JObject> GetCompanysOnMapAsync(double lat, double log)
+        {
+            using (HttpClient oHttpClient = new HttpClient())
+            {
+                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/company/all?page=1&lat={lat}&long={log}");
+                string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
+                JObject result = JObject.Parse(Content);
+                if (result["data"].HasValues)
+                    return result["data"] as JObject;
+                return null;
+
             }
         }
     }

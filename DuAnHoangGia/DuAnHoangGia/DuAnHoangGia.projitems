@@ -26,6 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UrlImageConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\MenuEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helppers\BindablePropertyEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helppers\MapHelpper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -95,6 +96,23 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Home\HomePageMenuItem.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\Epsilon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowCells\FlowGridCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowCells\FlowScrollCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowCells\FlowStackCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowCells\FlowViewCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowCells\IFlowViewCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowColumnExpand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowDataTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowEmptyModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowGroupColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowListViewInternalCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowLoadingModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowObservableCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\FlowSelectors\FlowTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Libs\FlowListView\Helpers\PreserveAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoaddingPage.xaml.cs">
       <DependentUpon>LoaddingPage.xaml</DependentUpon>
       <SubType>Code</SubType>

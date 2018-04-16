@@ -30,7 +30,6 @@ namespace DuAnHoangGia.Views.Home
         public HomePageDetail()
         {
             InitializeComponent();
-          
             //this.map.MoveToRegion(new MapSpan());
 
         }

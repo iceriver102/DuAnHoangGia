@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:local="clr-namespace:DuAnHoangGia.Views"
@@ -24,7 +24,7 @@
             </Image>
             <Label VerticalTextAlignment="Center" Text="TIN TỨC" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}"/>
         </StackLayout>
-        <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="500" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}"  FlowLastTappedItem="{Binding LastTappedItem}" FlowItemTappedCommand="{Binding ItemTappedCommand}">
+        <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="500" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}"  FlowLastTappedItem="{Binding LastTappedItem}" FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowTotalRecords="{Binding Total}">
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <AbsoluteLayout BackgroundColor="White" Padding="0,5"  Margin="10,5">
@@ -41,6 +41,18 @@
                     </AbsoluteLayout>
                 </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>
+            <flv:FlowListView.FlowLoadingTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            TextColor="Blue"
+                            Text="..."
+                        ></Label>
+                    </ViewCell>
+                </DataTemplate>
+            </flv:FlowListView.FlowLoadingTemplate>
         </flv:FlowListView>
     </StackLayout>
 </ContentPage>

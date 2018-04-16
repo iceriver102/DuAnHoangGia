@@ -1,6 +1,7 @@
 ﻿using DuAnHoangGia.Sevices;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -38,15 +39,15 @@ namespace DuAnHoangGia.ViewModels
         public Color FirstTabColor { get => (SelectedIndex) ? ActiveColor : NotActiveColor; }
         public Color SecondTabColor { get => (!SelectedIndex) ? ActiveColor : NotActiveColor; }
         private readonly IHttpSevices HTTP;
-        public FeedBackViewmodel(INavigationService navigationService, IHttpSevices _http) : base(navigationService)
+        public FeedBackViewmodel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService) : base(navigationService)
         {
             HTTP = _http;
-            this.FeedbackForm = new FeedBackForm(_http);
+            this.FeedbackForm = new FeedBackForm(_http, _pageDialogService);
             this.HistoryForm = new HistoryViewmodel<Models.HelpModel>(_http);
             this.SelectedIndex = true;
             ChangeTabIndex = new DelegateCommand<string>(ChangeTabIndexExcute);
         }
-        private async void ChangeTabIndexExcute(string index)
+        private void ChangeTabIndexExcute(string index)
         {
             int i = Convert.ToInt32(index);
             this.SelectedIndex = i == 0;

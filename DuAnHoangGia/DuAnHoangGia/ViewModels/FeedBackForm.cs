@@ -1,6 +1,7 @@
 ﻿using DuAnHoangGia.Sevices;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,8 +22,10 @@ namespace DuAnHoangGia.ViewModels
 
         public string Content { get => this._content; set => this.SetProperty(ref this._content, value); }
         public DelegateCommand SubmitCommand { get; private set; }
-        public FeedBackForm(IHttpSevices _http)
+        private readonly IPageDialogService pageDialogService;
+        public FeedBackForm(IHttpSevices _http, IPageDialogService _pageDialogService)
         {
+            pageDialogService = _pageDialogService;
             this.HTTP = _http;
             SubmitCommand = new DelegateCommand(SubmitExcute);
         }
@@ -33,6 +36,11 @@ namespace DuAnHoangGia.ViewModels
             {
                 this.Title = "";
                 this.Content = "";
+                await pageDialogService.DisplayAlertAsync("Thông báo", "Gửi trợ giúp thành công, Chúng tôi sẽ liên hệ sau.", "OK");
+            }
+            else
+            {
+                await pageDialogService.DisplayAlertAsync("Thông báo", "Gửi trợ giúp không thành công, Hãy thử lại sau.", "OK");
             }
         }
     }

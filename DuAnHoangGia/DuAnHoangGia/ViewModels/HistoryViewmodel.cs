@@ -20,7 +20,26 @@ namespace DuAnHoangGia.ViewModels
         public bool IsLoadInfinite { get => this._isLoadInfinite; set => this.SetProperty(ref this._isLoadInfinite, value); }
         public readonly IHttpSevices HTTP;
         public int page = 0;
-        public bool isView { get => this._isview; set => this.SetProperty(ref this._isview,value); }
+        private int nums = 10;
+        private int total = 1;
+        public int Total { get => this.total; set => this.SetProperty(ref this.total, value); }
+        private int cur = -1;
+        public bool isView
+        {
+            get => this._isview; set
+            {
+                this.SetProperty(ref this._isview, value);
+                if (value)
+                {
+                    if (this.IsLoadInfinite)
+                    {
+                        this.IsLoadInfinite = false;
+                        this.Total = this.nums + 1;
+                        page = 1;
+                    }
+                }
+            }
+        }
 
         public FlowObservableCollection<T> Models { get; set; }
         public DelegateCommand LoaddingCommand { get; set; }
@@ -34,22 +53,35 @@ namespace DuAnHoangGia.ViewModels
 
         public virtual async void LoadPage(int p = 1)
         {
-            JObject oResult = await HTTP.GetHelpsAsync(p);
-            if (oResult == null) return;
-            if (oResult["data"].HasValues && oResult["data"] is JArray datas)
+            JObject oResult = await HTTP.GetHelpsAsync(p, this.nums);
+
+            if (oResult != null)
             {
-                List<T> helps = JsonConvert.DeserializeObject<List<T>>(datas.ToString());
-                if (helps != null)
-                    this.Models.AddRange(helps);
-                page = oResult["current_page"].Value<int>();
-                if (oResult["last_page"].Value<int>() <= page)
+                this.Total = oResult["total"].Value<int>();
+                if (oResult["data"].HasValues && oResult["data"] is JArray datas)
                 {
-                    this.IsLoadInfinite = false;
+                    this.cur = oResult["to"].Value<int>();
+                    List<T> helps = JsonConvert.DeserializeObject<List<T>>(datas.ToString());
+                    if (helps != null)
+                        this.Models.AddRange(helps);
                 }
                 else
                 {
+                    this.cur = this.total;
+                }
+
+                page = oResult["current_page"].Value<int>();
+
+                if (this.cur == this.total)
+                {
+                    this.nums = this.total;
                     this.IsLoadInfinite = true;
                 }
+                else
+                {
+                    this.IsLoadInfinite = false;
+                }
+
             }
 
         }

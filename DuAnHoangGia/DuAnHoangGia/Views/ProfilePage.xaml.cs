@@ -18,9 +18,6 @@ namespace DuAnHoangGia.Views
 			InitializeComponent ();
 		}
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            Debug.WriteLine("tap");
-        }
+     
     }
 }

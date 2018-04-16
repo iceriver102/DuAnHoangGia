@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:c="clr-namespace:DuAnHoangGia.Converters"
@@ -22,7 +22,7 @@
         </StackLayout>
         <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True"
 			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
- FlowColumnCount="2" FlowItemsSource="{Binding Models}" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}" BackgroundColor="#7a3eb7"   >
+ FlowColumnCount="2" FlowItemsSource="{Binding Models}" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}" BackgroundColor="#7a3eb7" FlowTotalRecords="{Binding Total}"   >
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <Grid Padding="5">                       
@@ -37,6 +37,18 @@
                     </Grid>                    
                 </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>
+            <flv:FlowListView.FlowLoadingTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            TextColor="Blue"
+                            Text="..."
+                        ></Label>
+                    </ViewCell>
+                </DataTemplate>
+            </flv:FlowListView.FlowLoadingTemplate>
         </flv:FlowListView>
     </StackLayout>
     

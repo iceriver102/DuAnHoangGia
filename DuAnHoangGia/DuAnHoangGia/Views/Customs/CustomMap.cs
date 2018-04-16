@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
@@ -35,10 +37,19 @@ namespace DuAnHoangGia.Views.Customs
               {
                   if (newValue is Position p && oldValue != newValue)
                   {
+                     
                       CustomMap map = ((CustomMap)bindable);
                       map.MoveToRegion(MapSpan.FromCenterAndRadius(p, Distance.FromKilometers(map.Radius)));
                   }
               }
+           );
+        public static readonly BindableProperty CenterPostionProperty =
+           BindableProperty.Create(
+               nameof(FollowPostion),
+               typeof(Position),
+               typeof(CustomMap),
+               new Position(0, 0),
+               BindingMode.TwoWay
            );
 
 
@@ -53,11 +64,61 @@ namespace DuAnHoangGia.Views.Customs
                 SetValue(FollowPostionProperty, value);
             }
         }
+
+        public Position CenterPostion
+        {
+            get
+            {
+                return (Position)GetValue(CenterPostionProperty);
+            }
+            set
+            {
+                SetValue(CenterPostionProperty, value);
+            }
+        }
+        public Position APostion;
+
+        public void MoveTo(Position to)
+        {
+            double d= APostion.Haversine(to);
+            if (d > 0.5)
+            {
+                APostion = to;
+                if (this.MapLoadingCommand != null)
+                {
+                    this.MapLoadingCommand.Execute(null);
+                }
+            }
+        }
+
+        public static BindableProperty MapLoadingCommandProperty = BindableProperty.Create(nameof(MapLoadingCommand), typeof(ICommand), typeof(CustomMap), null);
+
+        /// <summary>
+        /// Gets or sets FlowLoadingCommand loading execute command.
+        /// </summary>
+        /// <value>FlowLoadingCommand loading execute command.</value>
+        public ICommand MapLoadingCommand
+        {
+            get { return (ICommand)GetValue(MapLoadingCommandProperty); }
+            set { SetValue(MapLoadingCommandProperty, value); }
+        }
+
         //public static readonly BindableProperty RouteCoordinatesProperty =
         //  BindablePropertyEx.Create<CustomMap, IEnumerable<Position>>(w => w.RouteCoordinates, null);
 
 
-        public static BindableProperty FlowItemsSourceProperty = BindableProperty.Create(nameof(RouteCoordinates), typeof(ICollection), typeof(CustomMap), default(ICollection<Position>));
+        public readonly static BindableProperty CPinsProperty = BindableProperty.Create(nameof(CPins), typeof(ObservableCollection<Pin>), typeof(CustomMap), default(ObservableCollection<Pin>));
+
+        public ObservableCollection<Pin> CPins
+        {
+            get { return (ObservableCollection<Pin>)GetValue(CPinsProperty); }
+            set { SetValue(CPinsProperty, value); }
+        }
+
+        public readonly static BindableProperty FlowItemsSourceProperty = BindableProperty.Create(nameof(RouteCoordinates), typeof(ICollection), typeof(CustomMap), default(ICollection<Position>),propertyChanged:async (b,o,n)=> {
+
+            Debug.WriteLine("Change");
+        });
 
         /// <summary>
         /// Gets FlowListView items source.
@@ -68,6 +129,8 @@ namespace DuAnHoangGia.Views.Customs
             get { return (IList<Position>)GetValue(FlowItemsSourceProperty); }
             set { SetValue(FlowItemsSourceProperty, value); }
         }
+        public Func<Position> GetMapCenterLocation { get; set; }
+
         public event EventHandler<ICollection<Position>> RenderEvent;
 
         //public void AddRoute(Position p)

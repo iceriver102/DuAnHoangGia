@@ -15,8 +15,8 @@ namespace DuAnHoangGia.Behaviors
                 this.anim = new Animation();
                 if (this.Reverse)
                 {
-                    this.anim.Add(0, 0.5, new Animation(v => this.AssociatedObject.Scale = v, this.From, this.To, Easing.Linear));
-                    this.anim.Add(0.5, 1, new Animation(v => this.AssociatedObject.Scale = v, this.To, this.From,Easing.BounceOut));
+                    this.anim.Add(0, 0.5, new Animation(v => this.AssociatedObject.Scale = v, this.From, this.To, Easing.BounceOut));
+                    this.anim.Add(0.5, 1, new Animation(v => this.AssociatedObject.Scale = v, this.To, this.From,Easing.Linear));
                 }
                 else
                 {

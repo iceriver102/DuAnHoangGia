@@ -44,7 +44,6 @@ namespace DuAnHoangGia.ViewModels
             ImageLoadCommand = new DelegateCommand(ImageLoadCommandExcute);
             UpdateCommand = new DelegateCommand(SubmitDataExcute);
         }
-
         private async void SubmitDataExcute()
         {
             if (string.IsNullOrEmpty(this.Name))
@@ -93,8 +92,12 @@ namespace DuAnHoangGia.ViewModels
             IsLoading = false;
             if (oResult.result)
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Cập nhật thông tin thành ", "OK");
+                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Cập nhật thông tin thành công ", "OK");
                 HTTP.User = u;
+            }
+            else
+            {
+                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Cập nhật thông tin không thành công ", "OK");
             }
         }
 

@@ -47,8 +47,7 @@ namespace DuAnHoangGia.ViewModels
 
                 }
                 else
-                {
-                   
+                {                   
                     this.Ishow = true;
                     Settings.Current.Auto = false;
                     Settings.Current.Token = string.Empty;

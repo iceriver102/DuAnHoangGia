@@ -14,8 +14,8 @@
             <Label VerticalTextAlignment="Center" Text="TIN TỨC" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
         </StackLayout>
         <StackLayout Spacing="0" Margin="0,0" BackgroundColor="#7a3eb7">
-            <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Image}" Aspect="AspectFit" HeightRequest="200"/>
-            <ui:NoneWebView VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="Transparent">
+            <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Image}" Aspect="AspectFill" HeightRequest="200"/>
+            <ui:NoneWebView VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="Transparent" HeightRequest="500">
                 <ui:NoneWebView.Source>
                     <HtmlWebViewSource Html="{Binding HTML}" />
                 </ui:NoneWebView.Source>

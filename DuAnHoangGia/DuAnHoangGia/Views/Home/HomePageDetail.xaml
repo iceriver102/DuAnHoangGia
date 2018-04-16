@@ -9,20 +9,19 @@
              NavigationPage.HasNavigationBar="False"
              Title="Detail">
     <AbsoluteLayout>
-        <ui:CustomMap x:Name="uiMap" MapType="Street" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" IsShowingUser="True" FollowPostion="{Binding FollowPostion}" Radius="{Binding Radius}"  />
+        <ui:CustomMap x:Name="uiMap" MapType="Street" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" IsShowingUser="True" FollowPostion="{Binding FollowPostion}" Radius="{Binding Radius}" CPins="{Binding PINS}" MapLoadingCommand="{Binding LoadMoreCommand}" CenterPostion="{Binding CenterPostion}" />
         <AbsoluteLayout AbsoluteLayout.LayoutFlags="WidthProportional" AbsoluteLayout.LayoutBounds="0,0,1,55"  BackgroundColor="#8f621e92" >
-            <Image Source="menu.png" WidthRequest="30" Margin="10,0" Aspect="AspectFit" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0,0.5">
-                <Image.GestureRecognizers>
+            <StackLayout AbsoluteLayout.LayoutFlags="HeightProportional" AbsoluteLayout.LayoutBounds="0,0,50,1" BackgroundColor="Transparent">
+                <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowMenuCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
+                </StackLayout.GestureRecognizers>
+                <Image Source="menu.png" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit" HeightRequest="55"/>
+            </StackLayout>
             <ff:CachedImage Source="small_logo.png" HorizontalOptions="Center" HeightRequest="55" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0" CacheType="All" ></ff:CachedImage>
         </AbsoluteLayout>
         <AbsoluteLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.9,300,100">
             <ff:CachedImage Source="panel_timkiem.png" Aspect="AspectFit" CacheType="All">
-                <ff:CachedImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                </ff:CachedImage.GestureRecognizers>
+
             </ff:CachedImage>
             <ui:NoneEntry x:Name="uiFrom" Placeholder="Vị trí hiện tại" AbsoluteLayout.LayoutBounds="1,0,0.9,0.5" AbsoluteLayout.LayoutFlags="All" TextColor="{StaticResource Border}" PlaceholderColor="#ff7f8f95" FontFamily="{StaticResource Regular}" FontSize="Medium" Text="{Binding FromLabel}"/>
             <ui:NoneEntry x:Name="uiTo" Placeholder="Bạn muốn đi đâu" AbsoluteLayout.LayoutBounds="1,1,0.9,0.5" AbsoluteLayout.LayoutFlags="All" TextColor="{StaticResource Border}" PlaceholderColor="#ff7f8f95" FontFamily="{StaticResource Regular}" FontSize="Medium" />
