@@ -1,9 +1,12 @@
 ﻿using DuAnHoangGia.Helppers;
+using GoogleApi.Entities.Common;
+using GoogleApi.Entities.Maps.Directions.Request;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -15,8 +18,34 @@ namespace DuAnHoangGia.Views.Customs
     {
         public CustomMap()
         {
-
+           // this.RouteCoordinates.CollectionChanged += RouteCoordinates_CollectionChanged;
         }
+
+        public void RouteCoordinates_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (this.MapRouteRender != null)
+            {
+                this.MapRouteRender(Color.FromRgba(112,211,246,100));
+            }
+        }
+
+        public static readonly BindableProperty RenderRouteTrigerProperty =
+         BindablePropertyEx.Create<CustomMap, bool>(w => w.RenderRouteTriger, false,BindingMode.TwoWay,propertyChanged:(b,o,n)=> {
+             if(b is CustomMap m && m.MapRouteRender!=null)
+             {
+                 if(n is bool f && f)
+                 {
+                    m.RenderRouteTriger=!m.MapRouteRender(Color.FromRgba(112, 211, 246, 100));
+                 }
+             }
+         });
+
+        public bool RenderRouteTriger
+        {
+            get { return (bool)GetValue(RenderRouteTrigerProperty); }
+            set { SetValue(RenderRouteTrigerProperty, value); }
+        }
+
         public static readonly BindableProperty RadiusProperty =
           BindablePropertyEx.Create<CustomMap, float>(w => w.Radius, 5);
 
@@ -36,16 +65,25 @@ namespace DuAnHoangGia.Views.Customs
               propertyChanged: (bindable, oldValue, newValue) =>
               {
                   if (newValue is Position p && oldValue != newValue)
-                  {
-                     
+                  {                     
                       CustomMap map = ((CustomMap)bindable);
                       map.MoveToRegion(MapSpan.FromCenterAndRadius(p, Distance.FromKilometers(map.Radius)));
                   }
               }
            );
+
+
         public static readonly BindableProperty CenterPostionProperty =
            BindableProperty.Create(
-               nameof(FollowPostion),
+               nameof(CenterPostion),
+               typeof(Position),
+               typeof(CustomMap),
+               new Position(0, 0),
+               BindingMode.TwoWay
+           );
+        public static readonly BindableProperty UserPostionProperty =
+           BindableProperty.Create(
+               nameof(UserPostion),
                typeof(Position),
                typeof(CustomMap),
                new Position(0, 0),
@@ -63,6 +101,16 @@ namespace DuAnHoangGia.Views.Customs
             {
                 SetValue(FollowPostionProperty, value);
             }
+        } public Position UserPostion
+        {
+            get
+            {
+                return (Position)GetValue(UserPostionProperty);
+            }
+            set
+            {
+                SetValue(UserPostionProperty, value);
+            }
         }
 
         public Position CenterPostion
@@ -77,15 +125,27 @@ namespace DuAnHoangGia.Views.Customs
             }
         }
         public Position APostion;
-
+        public static readonly BindableProperty isLoaddingProperty =
+         BindablePropertyEx.Create<CustomMap, bool>(w => w.isLoadding,false, BindingMode.TwoWay);
+        public bool isLoadding {
+            get
+            {
+                return (bool)GetValue(isLoaddingProperty);
+            }
+            set
+            {
+                SetValue(isLoaddingProperty, value);
+            }
+        }
         public void MoveTo(Position to)
         {
             double d= APostion.Haversine(to);
-            if (d > 0.5)
+            if (d > 1 && !isLoadding)
             {
                 APostion = to;
                 if (this.MapLoadingCommand != null)
                 {
+                    isLoadding = true;
                     this.MapLoadingCommand.Execute(null);
                 }
             }
@@ -103,11 +163,68 @@ namespace DuAnHoangGia.Views.Customs
             set { SetValue(MapLoadingCommandProperty, value); }
         }
 
-        //public static readonly BindableProperty RouteCoordinatesProperty =
-        //  BindablePropertyEx.Create<CustomMap, IEnumerable<Position>>(w => w.RouteCoordinates, null);
+        public static readonly BindableProperty RenderPinTrigerProperty =
+       BindablePropertyEx.Create<CustomMap, bool>(w => w.RenderPinTriger, false, BindingMode.TwoWay, propertyChanged: (b, o, n) => {
+           if (b is CustomMap m && m.MapRouteRender != null)
+           {
+               m.Pins.Clear();
+               if (n is bool f && f)
+               {                   
+                   foreach(var p in m.CPins)
+                   {
+                       m.Pins.Add(p);
+                   }
+               }
+           }
+       });
+
+        public async void RouteTo(Pin from, Pin to)
+        {
+            Position a = UserPostion;
+            if (from != null)
+            {
+                a = from.Position;
+            }
+            var request = new DirectionsRequest
+            {
+                Origin = new Location(a.Latitude,a.Longitude),
+                Destination = new Location(to.Position.Latitude, to.Position.Longitude)
+
+            };
+            var respone = await GoogleApi.GoogleMaps.Directions.QueryAsync(request);
+            var Route = respone.Routes.FirstOrDefault();
+            if (Route != null)
+            {
+                if (RouteCoordinates == null)
+                {
+                    RouteCoordinates = new ObservableCollection<Position>();
+                }
+                else
+                {
+                    RouteCoordinates.Clear();
+                }
+                Location m = Route.OverviewPath.Points.LastOrDefault();
+                Position center = new Position((m.Latitude + a.Latitude) / 2, (m.Longitude + a.Longitude) / 2);
+                foreach (Location l in Route.OverviewPath.Points)
+                {
+                    RouteCoordinates.Add(new Position(l.Latitude, l.Longitude));
+                }
+                this.MoveToRegion(MapSpan.FromCenterAndRadius(center, Distance.FromMeters(Route.Legs.FirstOrDefault().Distance.Value / 2)));
+                MapRouteRender(Color.FromRgba(112, 211, 246, 100));
+
+            }
+        }
 
 
-        public readonly static BindableProperty CPinsProperty = BindableProperty.Create(nameof(CPins), typeof(ObservableCollection<Pin>), typeof(CustomMap), default(ObservableCollection<Pin>));
+
+
+        public bool RenderPinTriger
+        {
+            get { return (bool)GetValue(RenderPinTrigerProperty); }
+            set { SetValue(RenderPinTrigerProperty, value); }
+        }
+
+        public readonly static BindableProperty CPinsProperty = BindableProperty.Create(nameof(CPins), typeof(ObservableCollection<Pin>), typeof(CustomMap), default(ObservableCollection<Pin>), BindingMode.OneWay);
 
         public ObservableCollection<Pin> CPins
         {
@@ -115,34 +232,18 @@ namespace DuAnHoangGia.Views.Customs
             set { SetValue(CPinsProperty, value); }
         }
 
-        public readonly static BindableProperty FlowItemsSourceProperty = BindableProperty.Create(nameof(RouteCoordinates), typeof(ICollection), typeof(CustomMap), default(ICollection<Position>),propertyChanged:async (b,o,n)=> {
-
-            Debug.WriteLine("Change");
-        });
+        public readonly static BindableProperty RouteCoordinatesProperty = BindableProperty.Create(nameof(RouteCoordinates), typeof(ObservableCollection<Position>), typeof(CustomMap), default(ObservableCollection<Position>), BindingMode.TwoWay);
 
         /// <summary>
         /// Gets FlowListView items source.
         /// </summary>
         /// <value>FlowListView items source.</value>
-        public ICollection<Position> RouteCoordinates
+        public ObservableCollection<Position> RouteCoordinates
         {
-            get { return (IList<Position>)GetValue(FlowItemsSourceProperty); }
-            set { SetValue(FlowItemsSourceProperty, value); }
+            get { return (ObservableCollection<Position>)GetValue(RouteCoordinatesProperty); }
+            set { SetValue(RouteCoordinatesProperty, value); }
         }
-        public Func<Position> GetMapCenterLocation { get; set; }
-
-        public event EventHandler<ICollection<Position>> RenderEvent;
-
-        //public void AddRoute(Position p)
-        //{
-        //    this.RouteCoordinates.Add(p);
-
-        //}
-        internal void Render()
-        {
-            if (RenderEvent != null)
-                RenderEvent(this, this.RouteCoordinates);
-        }
+        public Func<Color, bool> MapRouteRender { get; set; }
     }
 }
 

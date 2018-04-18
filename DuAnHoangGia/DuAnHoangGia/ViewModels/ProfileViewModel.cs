@@ -31,6 +31,8 @@ namespace DuAnHoangGia.ViewModels
         private readonly IPageDialogService pageDialogService;
         public readonly IHttpSevices HTTP;
 
+        
+
         public ProfileViewModel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService) : base(navigationService)
         {
             HTTP = _http;

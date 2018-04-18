@@ -35,7 +35,7 @@ namespace DuAnHoangGia.ViewModels
             await Task.WhenAll(task, Task.Delay(500));
             var p = task.Result;
             Settings.Current.Position = (lat: p.Latitude, log: p.Longitude);
-            if (Settings.Current.Auto)
+            if (Settings.Current.Auto )
             {
                 var TaskoResult = this.HTTP.GetUser();
                 await Task.WhenAll(TaskoResult, Task.Delay(800));

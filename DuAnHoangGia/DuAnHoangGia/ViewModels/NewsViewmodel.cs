@@ -51,6 +51,7 @@ namespace DuAnHoangGia.ViewModels
 
         public async void LoadPage(int p = 1)
         {
+            this.IsLoadInfinite = true;
             JObject oResult = await HTTP.GetNewsAsync(p,10);
             if (oResult == null) return;
             this.Total = oResult["total"].Value<int>();

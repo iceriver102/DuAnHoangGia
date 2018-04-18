@@ -84,7 +84,7 @@ namespace DuAnHoangGia.Sevices
             }
         }
 
-        public async Task<JObject> GetHelpsAsync(int page = 1,int nums=10)
+        public async Task<JObject> GetHelpsAsync(int page = 1, int nums = 10)
         {
             using (HttpClient oHttpClient = new HttpClient())
             {
@@ -98,7 +98,7 @@ namespace DuAnHoangGia.Sevices
             }
         }
 
-        public async Task<JObject> GetNotifisAsync(int page = 1,int nums=10)
+        public async Task<JObject> GetNotifisAsync(int page = 1, int nums = 10)
         {
             using (HttpClient oHttpClient = new HttpClient())
             {
@@ -112,7 +112,7 @@ namespace DuAnHoangGia.Sevices
             }
         }
 
-        public async Task<JObject> GetNewsAsync(int page = 1,int nums=10)
+        public async Task<JObject> GetNewsAsync(int page = 1, int nums = 10)
         {
             using (HttpClient oHttpClient = new HttpClient())
             {
@@ -184,8 +184,8 @@ namespace DuAnHoangGia.Sevices
                 string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
                 JObject result = JObject.Parse(Content);
                 if (result["data"].HasValues)
-                    return (result["data"] as JObject,oHttpResponseMessage.IsSuccessStatusCode);
-                return (null,oHttpResponseMessage.IsSuccessStatusCode);
+                    return (result["data"] as JObject, oHttpResponseMessage.IsSuccessStatusCode);
+                return (null, oHttpResponseMessage.IsSuccessStatusCode);
             }
         }
 
@@ -205,18 +205,54 @@ namespace DuAnHoangGia.Sevices
             }
         }
 
-        public async Task<JObject> GetCompanysOnMapAsync(double lat, double log)
+        public async Task<(JArray data, bool result)> GetCompanysOnMapAsync(double lat, double log)
         {
             using (HttpClient oHttpClient = new HttpClient())
             {
-                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/company/all?page=1&lat={lat}&long={log}");
+                oHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Current.Token);
+                List<KeyValuePair<string, string>> forms = new List<KeyValuePair<string, string>>(new[]
+                {
+                    new KeyValuePair<string, string>("latitude",lat.ToString()),
+                    new KeyValuePair<string, string>("longitude",log.ToString())
+                });
+                //http://project1.caikho.com/api/company/toado
+                var oHttpResponseMessage = await oHttpClient.PostAsync($"{url}/company/toado", new FormUrlEncodedContent(forms));// &lat={lat}&long={log}");
                 string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
                 JObject result = JObject.Parse(Content);
-                if (result["data"].HasValues)
-                    return result["data"] as JObject;
-                return null;
+                if (result["data"] is JArray j)
+                    return (j, oHttpResponseMessage.IsSuccessStatusCode);
+                return (null, oHttpResponseMessage.IsSuccessStatusCode);
 
             }
         }
+        public async Task<(JObject data, bool result)> GetCompanysByNameAsync(string key)
+        {
+            //return Task.FromResult<(JObject data,bool result)>((JObject.Parse("{'id': 18, 'name': 'Chi Nhánh Công Ty Tnhh Dv Bảo Vệ Thái Long',            'address': '54 Đường 218 Cao Lỗ Phường 4 Quận 8, Hồ Chí Minh, Việt Nam',            'avatar': 'http://project1.caikho.com/storage/app/public/860_1523628674_22554926_129460434477352_8464463052739651062_n.jpg',            'master': 'Nguyễn Quang Thịnh',            'description': 'Hiện nay, Vietlott chỉ ủy quyền cung cấp dịch vụ thông báo kết quả QSMT qua kênh SMS bằng các đầu số: 9141, 9939, 9911, 8179, 8130, 997, 8193. Vietlott không chịu trách nhiệm về tính chính xác đối với kết quả QSMT do các đầu số ngoài danh sách trên cung cấp.\r\n\r\nThời hạn lĩnh thưởng của vé trúng thưởng: là 60 (sáu mươi) ngày, kể từ ngày xác định kết quả trúng thưởng. Quá thời hạn trên, các vé trúng thưởng không còn giá trị lĩnh thưởng.',            'customer_id': 1,            'latitude': '10.736600',            'longitude': '106.679480',            'created_at': '2018-04-04 22:01:13',            'updated_at': '2018-04-06 21:17:29','distance': 4.6104122271616577 }"), true));
+            using (HttpClient oHttpClient = new HttpClient())
+            {
+                oHttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.Current.Token);
+                List<KeyValuePair<string, string>> forms = new List<KeyValuePair<string, string>>(new[]
+                {
+                    new KeyValuePair<string, string>("search",key),
+                });
+                //http://project1.caikho.com/api/company/toado
+                var oHttpResponseMessage = await oHttpClient.PostAsync($"{url}/company/search", new FormUrlEncodedContent(forms));// &lat={lat}&long={log}");
+                string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
+                try
+                {
+                    JArray result = JArray.Parse(Content);
+                    if (result is JArray j && j.Count > 0)
+                        return (j[0] as JObject, oHttpResponseMessage.IsSuccessStatusCode);
+                }
+                catch
+                {
+
+                }
+                return (null, oHttpResponseMessage.IsSuccessStatusCode);
+
+            }
+        }
+
+        //http://project1.caikho.com/api/company/search
     }
 }

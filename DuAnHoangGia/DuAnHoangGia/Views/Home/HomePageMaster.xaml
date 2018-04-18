@@ -33,7 +33,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="15,25" HorizontalOptions="FillAndExpand" Orientation="Horizontal" BackgroundColor="{Binding BackgroundColor}">
+                        <StackLayout Padding="15,20" HorizontalOptions="FillAndExpand" Orientation="Horizontal" BackgroundColor="{Binding BackgroundColor}">
                             <ff:CachedImage Source="{Binding Icon}" WidthRequest="30" VerticalOptions="Center" HorizontalOptions="Start" Aspect="AspectFit" Margin="6,0" CacheType="All"/>
                             <Label Margin="10,0" VerticalOptions="FillAndExpand" 
                     VerticalTextAlignment="Center" 

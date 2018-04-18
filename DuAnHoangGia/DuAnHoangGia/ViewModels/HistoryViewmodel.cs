@@ -53,6 +53,7 @@ namespace DuAnHoangGia.ViewModels
 
         public virtual async void LoadPage(int p = 1)
         {
+            this.IsLoadInfinite = true;
             JObject oResult = await HTTP.GetHelpsAsync(p, this.nums);
 
             if (oResult != null)

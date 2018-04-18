@@ -39,6 +39,7 @@ namespace DuAnHoangGia.ViewModels
 
         public async void LoadPage(int p=1)
         {
+            this.IsLoadInfinite = true;
             JObject oResult = await HTTP.GetCompanysAsync(p);
             if (oResult == null) return;
             this.Total = oResult["total"].Value<int>();

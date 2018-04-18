@@ -16,6 +16,8 @@ using DuAnHoangGia.Views.Customs;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
+using Xamarin.Forms.Platform.Android;
+
 [assembly: ExportRenderer(typeof(CustomMap), typeof(CustomMapRenderer))]
 namespace DuAnHoangGia.Droid.Renderers
 {
@@ -31,11 +33,12 @@ namespace DuAnHoangGia.Droid.Renderers
         protected override MarkerOptions CreateMarker(Pin pin)
         {
             var marker = new MarkerOptions();
+            if (pin.BindingContext is Models.CompanyModel com)
+                marker.InvokeZIndex(com.id);
             marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
             marker.SetTitle(pin.Label);
             marker.SetSnippet(pin.Address);
             marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.marker));
-
             return marker;
         }
 
@@ -46,32 +49,46 @@ namespace DuAnHoangGia.Droid.Renderers
 
             if (e.OldElement != null)
             {
-                // Unsubscribe
+                if (e.OldElement != null)
+                {
+                    nativeMap.MarkerClick -= NativeMap_MarkerClick;
+                    MAP.PropertyChanged -= FormsMap_PropertyChanged;
+                }
             }
 
             if (e.NewElement != null)
             {
-                MAP = (CustomMap)e.NewElement;
-                MAP.PropertyChanged -= FormsMap_PropertyChanged;
+                MAP = (CustomMap)e.NewElement;               
                 MAP.PropertyChanged += FormsMap_PropertyChanged;
-                MAP.CPins.CollectionChanged -= CPins_CollectionChanged;
-                MAP.CPins.CollectionChanged += CPins_CollectionChanged;
                 Control.GetMapAsync(this);
-                MAP.GetMapCenterLocation = null;
-                MAP.GetMapCenterLocation = new Func<Position>(GetCenterMap);
-                MAP.RenderEvent += FormsMap_RenderEvent;
+                MAP.MapRouteRender = null;
+                MAP.MapRouteRender = new Func<Color,bool>(MapRouteRender);
             }
         }
 
-        private void CPins_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+       
+
+        private bool MapRouteRender(Color colorPath)
         {
-            this.Map.Pins.Clear();
-            if (MAP.CPins != null)
-                foreach (Pin p in MAP.CPins)
-                {
-                    this.Map.Pins.Add(p);
-                }
+            if (line != null)
+            {
+                line.Remove();
+            }
+            if (MAP.RouteCoordinates == null && MAP.RouteCoordinates.Count==0)
+                return true;
+            var polylineOptions = new PolylineOptions();
+            polylineOptions.InvokeColor(colorPath.ToAndroid());
+            //polylineOptions.InvokeColor(0x6670d3f6);
+            polylineOptions.InvokeWidth(polylineOptions.Width + 4);
+
+            foreach (var position in MAP.RouteCoordinates)
+            {
+                polylineOptions.Add(new LatLng(position.Latitude, position.Longitude));
+            }
+            line = NativeMap.AddPolyline(polylineOptions);
+            return true;
         }
+        
 
         private void FormsMap_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -79,12 +96,12 @@ namespace DuAnHoangGia.Droid.Renderers
             switch (e.PropertyName)
             {
                 case "Renderer":
-                    this.Map.Pins.Clear();
-                    if (MAP.CPins != null)
-                        foreach (Pin p in MAP.CPins)
-                        {
-                            this.Map.Pins.Add(p);
-                        }
+                    //this.Map.Pins.Clear();
+                    //if (MAP.CPins != null)
+                    //    foreach (Pin p in MAP.CPins)
+                    //    {
+                    //        this.Map.Pins.Add(p);
+                    //    }
                     break;
                 case "VisibleRegion":
                     MAP.CenterPostion = this.GetCenterMap();
@@ -126,9 +143,32 @@ namespace DuAnHoangGia.Droid.Renderers
         protected override void OnMapReady(Android.Gms.Maps.GoogleMap map)
         {
             base.OnMapReady(map);
+           
             nativeMap = map;
+            nativeMap.MarkerClick += NativeMap_MarkerClick;
 
         }
 
+        private void NativeMap_MarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
+        {
+            e.Handled = false;
+            Pin p = GetCustomPin(e.Marker);
+            if (p!=null)
+            {
+                MAP.RouteTo(null,p);
+            }
+        }
+        Pin GetCustomPin(Marker annotation)
+        {
+            var position = new Position(annotation.Position.Latitude, annotation.Position.Longitude);
+            foreach (var pin in MAP.CPins)
+            {
+                if (pin.Position == position)
+                {
+                    return pin;
+                }
+            }
+            return null;
+        }
     }
 }

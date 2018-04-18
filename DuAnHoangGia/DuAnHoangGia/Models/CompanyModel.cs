@@ -33,7 +33,7 @@ namespace DuAnHoangGia.Models
         }
         public string Title { get => this.name; set { this.name = value; } }
         public double Latitude { get; set; }
-
+        public string Address { get; set; }
         public double Longitude { get; set; }
 
         public int id;
