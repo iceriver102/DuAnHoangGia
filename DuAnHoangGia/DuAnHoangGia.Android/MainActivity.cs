@@ -16,6 +16,7 @@ namespace DuAnHoangGia.Droid
     [Activity(Label = "Hoàng Gia Map", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        public static MainActivity Instance { get; private set; }
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -30,6 +31,7 @@ namespace DuAnHoangGia.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             FormsMaps.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
+            Instance = this;
         }
         public override void OnTrimMemory([GeneratedEnum] TrimMemory level)
         {

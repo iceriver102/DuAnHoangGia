@@ -18,14 +18,15 @@ using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Forms.Maps;
 using Position = Xamarin.Forms.Maps.Position;
+using GoogleApi.Entities.Maps.Directions.Response;
+
 namespace DuAnHoangGia.ViewModels
 {
     public class MapViewModel : ViewModelBase
     {
         public ObservableCollection<Pin> PINS { get; set; }
         public ObservableCollection<Position> RouteCoordinates { get; set; }
-        private bool _isLoadding;
-        private bool _rPin = false;
+        private bool _rPin = false, _isLoadding;
         public bool RenderPINTriger { get => _rPin; set => SetProperty(ref _rPin, value); }
         public bool isLoadding { get => this._isLoadding; set => this.SetProperty(ref this._isLoadding, value); }
 
@@ -45,11 +46,14 @@ namespace DuAnHoangGia.ViewModels
         private List<int> caches;
         public DelegateCommand LoadMoreCommand { get; set; }
         public DelegateCommand SearchCommand { get; set; }
-
+        private PlaceViewModel _place;
+        public PlaceViewModel Place { get; set; }
         public MapViewModel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService, IEventAggregator eventAggregator) : base(navigationService)
         {
             this.IPageDialogService = _pageDialogService;
-            RouteCoordinates = new ObservableCollection<Position>();
+            this.Place = new PlaceViewModel();
+            this.Place.Goto = new DelegateCommand<CompanyModel>(GotoExcute)
+;            RouteCoordinates = new ObservableCollection<Position>();
             caches = new List<int>();
             HTTP = _http;
             this.eventAggregator = eventAggregator;
@@ -68,12 +72,57 @@ namespace DuAnHoangGia.ViewModels
             this.LoadData(this.FollowPostion);
         }
 
+        private void GotoExcute(CompanyModel obj)
+        {
+            if (obj == null)
+            {
+                this.Popup.Show("Lỗi", "Không tìm thấy thông tin công ty", Xamarin.Forms.Color.Red);
+                return;
+            }
+            this.Route(obj);
+        }
+
+        public async void Route(Models.CompanyModel comp)
+        {
+            this.ToLabel = comp.Address;
+            var request = new DirectionsRequest
+            {
+                Origin = new Location(this.aPosition.Latitude, this.aPosition.Longitude),
+                Destination = new Location(comp.Latitude, comp.Longitude)
+
+            };
+            Route route = null;
+            try
+            {
+                var respone = await GoogleApi.GoogleMaps.Directions.QueryAsync(request);
+                route = respone.Routes.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            if (route != null)
+            {
+                Location m = route.OverviewPath.Points.LastOrDefault();
+                Position center = new Position((m.Latitude + aPosition.Latitude) / 2, (m.Longitude + aPosition.Longitude) / 2);
+                foreach (Location l in route.OverviewPath.Points)
+                {
+                    RouteCoordinates.Add(new Position(l.Latitude, l.Longitude));
+                }
+                this.Radius = route.Legs.FirstOrDefault().Distance.Value / 2000f;
+                this.FollowPostion = center;
+            }
+            this.RenderTriger = true;
+            RaisePropertyChanged("RenderTriger");
+          
+        }
+
         private async void GotoCommandExcute()
         {
             RouteCoordinates.Clear();
             if (string.IsNullOrEmpty(this.ToLabel))
             {
-                await this.IPageDialogService.DisplayAlertAsync("Thông báo", "Xin hãy nhập địa chỉ công ty cần tới", "OK");
+                this.Popup.Show("Lỗi", "Hãy nhập thông tin tìm kiếm", Xamarin.Forms.Color.Red);
                 this.RenderTriger = true;
                 RaisePropertyChanged("RenderTriger");
                 return;
@@ -81,36 +130,14 @@ namespace DuAnHoangGia.ViewModels
             var oResult = await HTTP.GetCompanysByNameAsync(this.ToLabel);
             if (oResult.result && oResult.data != null)
             {
-                this.ToLabel = oResult.data["address"].Value<string>();
-                var request = new DirectionsRequest
-                {
-                    Origin = new Location(this.aPosition.Latitude, this.aPosition.Longitude),
-                    Destination = new Location(oResult.data["latitude"].Value<double>(), oResult.data["longitude"].Value<double>())
-
-                };
-                var respone = await GoogleApi.GoogleMaps.Directions.QueryAsync(request);
-                var Route = respone.Routes.FirstOrDefault();
-                if (Route != null)
-                {
-
-                    Location m = Route.OverviewPath.Points.LastOrDefault();
-                    Position center = new Position((m.Latitude + aPosition.Latitude) / 2, (m.Longitude + aPosition.Longitude) / 2);
-                    foreach (Location l in Route.OverviewPath.Points)
-                    {
-                        RouteCoordinates.Add(new Position(l.Latitude, l.Longitude));
-                        //this.uiMap.AddRoute(new Position(l.Latitude, l.Longitude));
-                    }
-                    this.Radius = Route.Legs.FirstOrDefault().Distance.Value / 2000f;
-                    this.FollowPostion = center;
-                    //this.RenderPINTriger = false;
-                    //RaisePropertyChanged("RenderPINTriger");
-                }
-                this.RenderTriger = true;
-                RaisePropertyChanged("RenderTriger");
+                List<CompanyModel> comps = JsonConvert.DeserializeObject<List<CompanyModel>>(oResult.data.ToString());
+                this.Place.Models.AddRange(comps);
+                this.Place.IsVisible = true;
             }
             else
             {
-                await this.IPageDialogService.DisplayAlertAsync("Thông báo", "Không tìm thấy công ty", "OK");
+                this.Popup.Show("Lỗi", "Không tìm thấy công ty", Xamarin.Forms.Color.Red);
+               
             }
 
         }

@@ -37,12 +37,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\HttpSevices.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\IHttpSevices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sevices\INetwork.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanyDetailViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanysViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedBackForm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedBackViewmodel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GuestViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HistoryViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoaddingViewModel.cs" />
@@ -51,7 +53,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewDetailsViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewsViewmodel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NotiDetail.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NotificationViewmodel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlaceViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PopupViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfileViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
@@ -75,6 +80,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\FeedbackView.xaml.cs">
       <DependentUpon>FeedbackView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\GuestPage.xaml.cs">
+      <DependentUpon>GuestPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\HistoryView.xaml.cs">
@@ -131,6 +140,18 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\NotificationPage.xaml.cs">
       <DependentUpon>NotificationPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\NotiPage.xaml.cs">
+      <DependentUpon>NotiPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PlacesView.xaml.cs">
+      <DependentUpon>PlacesView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PopupView.xaml.cs">
+      <DependentUpon>PopupView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ProfilePage.xaml.cs">
@@ -228,6 +249,30 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HistoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\GuestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PopupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PlacesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NotiPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

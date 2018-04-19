@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls"
+             x:Class="DuAnHoangGia.Views.PlacesView">
+    <StackLayout BackgroundColor="#7a3eb7">
+        <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+            <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DismissCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label VerticalTextAlignment="Center" Text="DANH SÁCH CÔNG TY" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}" />
+        </StackLayout>
+        <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True"
+			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
+ FlowColumnCount="1" FlowItemsSource="{Binding Models}" BackgroundColor="#7a3eb7">
+            <flv:FlowListView.FlowColumnTemplate>
+                <DataTemplate>
+                    <Grid Padding="5">                        
+                        <StackLayout  HeightRequest="50" BackgroundColor="#efefef" HorizontalOptions="FillAndExpand" VerticalOptions="End"  >
+                            <Label HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Text="{Binding Title}" FontFamily="{StaticResource Regular}" FontSize="Medium" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="5,0" TextColor="Black" />
+                        </StackLayout>
+                    </Grid>
+                </DataTemplate>
+            </flv:FlowListView.FlowColumnTemplate>
+        </flv:FlowListView>
+    </StackLayout>
+</ContentView>

@@ -1,6 +1,7 @@
 ﻿using DuAnHoangGia.Helppers;
 using GoogleApi.Entities.Common;
 using GoogleApi.Entities.Maps.Directions.Request;
+using GoogleApi.Entities.Maps.Directions.Response;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -191,8 +192,15 @@ namespace DuAnHoangGia.Views.Customs
                 Destination = new Location(to.Position.Latitude, to.Position.Longitude)
 
             };
-            var respone = await GoogleApi.GoogleMaps.Directions.QueryAsync(request);
-            var Route = respone.Routes.FirstOrDefault();
+            Route Route = null;
+            try
+            {
+                var respone = await GoogleApi.GoogleMaps.Directions.QueryAsync(request);
+                Route = respone.Routes.FirstOrDefault();
+            }catch(Exception ex)
+            {
+
+            }
             if (Route != null)
             {
                 if (RouteCoordinates == null)
@@ -214,9 +222,6 @@ namespace DuAnHoangGia.Views.Customs
 
             }
         }
-
-
-
 
         public bool RenderPinTriger
         {

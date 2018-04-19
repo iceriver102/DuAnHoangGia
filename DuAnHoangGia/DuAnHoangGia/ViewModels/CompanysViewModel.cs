@@ -21,10 +21,11 @@ namespace DuAnHoangGia.ViewModels
             get=> _LastTappedItem;
             set =>this.SetProperty(ref _LastTappedItem,value);
         }
+        public DelegateCommand ItemTappedCommand { get; set; }
         private bool _isLoadInfinite;
         public bool IsLoadInfinite { get=>this._isLoadInfinite; set=>this.SetProperty(ref this._isLoadInfinite,value); }
 
-        public DelegateCommand ItemTappedCommand { get; set; }
+        
         public DelegateCommand LoaddingCommand { get; set; }
         public FlowObservableCollection<CompanyModel> Models { get; set; }
       

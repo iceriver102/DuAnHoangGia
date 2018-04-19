@@ -55,42 +55,43 @@ namespace DuAnHoangGia.ViewModels
 
         private async void RegisterCommandExcute()
         {
-           
+
             if (!this.check)
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Bạn phải đồng ý với \"Điều kiện và Điều khoản\" tham gia", "OK");
+                this.Popup.Show(content: "Bạn phải đồng ý với \"Điều kiện và Điều khoản\" tham gia");
+
                 return;
             }
             if (string.IsNullOrEmpty(this.Name))
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Họ và tên không được để trống", "OK");
+                this.Popup.Show(content: "Họ và tên không được để trống");
                 return;
             }
             if (string.IsNullOrEmpty(this.Email))
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Email không được để trống", "OK");
+                this.Popup.Show(content: "Email không được để trống");
                 return;
             }
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Match match = regex.Match(this.Email);
             if (!match.Success)
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Email không đúng định dạng.", "OK");
+                this.Popup.Show(content: "Email không đúng định dạng.");
                 return;
             }
             if (string.IsNullOrEmpty(this.Password))
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "mật khẩu không được để trống.", "OK");
+                this.Popup.Show(content: "mật khẩu không được để trống.");
                 return;
             }
             if (this.Password.Length < 5)
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Mật khẩu quá ngắn. Hãy đặt mật khảu tối thiểu 6 ký tự.", "OK");
+                this.Popup.Show(content: "Mật khẩu quá ngắn. Hãy đặt mật khảu tối thiểu 6 ký tự.");
                 return;
             }
             if (this.Password != this.RePassword)
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Mật khẩu không trùng khớp.", "OK");
+                this.Popup.Show(content: "Mật khẩu không trùng khớp.");
                 return;
             }
             this.IsLoading = true;
@@ -103,12 +104,11 @@ namespace DuAnHoangGia.ViewModels
             this.IsLoading = false;
             if (oResult.result)
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Đăng ký thành công. Hãy xác nhận tài khoản để đăng nhập.", "OK");
-                await this.NavigationService.NavigateAsync("app:///Login?appModuleRefresh=OnInitialized");
+                this.Popup.Show("Thành công", "Đăng ký thành công. Hãy xác nhận tài khoản để đăng nhập.", Xamarin.Forms.Color.FromHex("#38c1f3"),new DelegateCommand(async () => { await this.NavigationService.NavigateAsync("app:///Login?appModuleRefresh=OnInitialized"); }));
             }
             else
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Lỗi không tạm thời không thể đăng ký tài khoản", "OK");
+                this.Popup.Show(content: "Lỗi không tạm thời không thể đăng ký tài khoản");
             }
         }
     }

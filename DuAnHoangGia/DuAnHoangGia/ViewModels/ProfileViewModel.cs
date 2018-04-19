@@ -30,9 +30,6 @@ namespace DuAnHoangGia.ViewModels
         public string IDCARD { get => this._id; set => this.SetProperty(ref this._id, value); }
         private readonly IPageDialogService pageDialogService;
         public readonly IHttpSevices HTTP;
-
-        
-
         public ProfileViewModel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService) : base(navigationService)
         {
             HTTP = _http;
@@ -50,24 +47,24 @@ namespace DuAnHoangGia.ViewModels
         {
             if (string.IsNullOrEmpty(this.Name))
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Họ và tên không được để trống", "OK");
+                 this.Popup.Show(content: "Họ và tên không được để trống");
                 return;
             }
             if (!string.IsNullOrEmpty(this.Pass) && this.Pass.Length < 6)
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "mật khẩu quá ngắn. Hãy nhập mật khẩu tối thiểu 6 ký tự", "OK");
+               this.Popup.Show(content: "Mật khẩu quá ngắn. Hãy nhập mật khẩu tối thiểu 6 ký tự");
                 return;
             }
             if (string.IsNullOrEmpty(this.Email))
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Email không được để trống", "OK");
+                 this.Popup.Show(content: "Email không được để trống");
                 return;
             }
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Match match = regex.Match(this.Email);
             if (!match.Success)
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Email không đúng định dạng", "OK");
+                 this.Popup.Show(content: "Email không đúng định dạng");
                 return;
             }
             if (string.IsNullOrEmpty(this.IDCARD))
@@ -94,12 +91,12 @@ namespace DuAnHoangGia.ViewModels
             IsLoading = false;
             if (oResult.result)
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Cập nhật thông tin thành công ", "OK");
+                 this.Popup.Show(content: "Cập nhật thông tin thành công ",title:"Thành công",red: Xamarin.Forms.Color.FromHex("#38c1f3"));
                 HTTP.User = u;
             }
             else
             {
-                await this.pageDialogService.DisplayAlertAsync("Thông báo", "Cập nhật thông tin không thành công ", "OK");
+                 this.Popup.Show(content: "Cập nhật thông tin không thành công ");
             }
         }
 

@@ -45,9 +45,9 @@ namespace DuAnHoangGia
             containerRegistry.RegisterForNavigation<NewsPage, NewsViewmodel>("News");
             containerRegistry.RegisterForNavigation<NewDetailsPage, NewDetailsViewmodel>("Detail");
             containerRegistry.RegisterForNavigation<CompanyDetailPage, CompanyDetailViewmodel>("ComDetail");
+            containerRegistry.RegisterForNavigation<GuestPage, GuestViewmodel>("Guest");
+            containerRegistry.RegisterForNavigation<NotiPage, NotiDetail>("NotiDetail");
             containerRegistry.RegisterForNavigation<HomePageDetail, MapViewModel>();
         }
-
-
     }
 }

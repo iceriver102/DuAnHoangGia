@@ -9,6 +9,7 @@ namespace DuAnHoangGia.ViewModels
 {
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible
     {
+        public PopupViewModel Popup { get; set; }
         protected INavigationService NavigationService { get; }
         public DelegateCommand<string> NavigateCommand { get; set; }
         public DelegateCommand NavigateBack { get; set; }
@@ -19,6 +20,7 @@ namespace DuAnHoangGia.ViewModels
             NavigationService = navigationService;
             NavigateCommand = new DelegateCommand<string>(Navigate);
             NavigateBack = new DelegateCommand(NavigateBackExcute);
+            this.Popup = new PopupViewModel();
         }
 
         public async void NavigateBackExcute()

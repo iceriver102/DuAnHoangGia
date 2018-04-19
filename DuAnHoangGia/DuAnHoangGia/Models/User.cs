@@ -34,6 +34,7 @@ namespace DuAnHoangGia.Models
         public string Cmnd { get; set; }
         public string Phone { get; set; }
         public string Pasword { get;  set; }
+        public int Is_company { get; set; }
 
         public object Clone()
         {

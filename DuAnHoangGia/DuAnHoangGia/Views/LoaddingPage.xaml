@@ -6,6 +6,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              xmlns:localB="clr-namespace:DuAnHoangGia.Behaviors"
+             xmlns:local="clr-namespace:DuAnHoangGia.Views"
              x:Class="DuAnHoangGia.Views.LoaddingPage">
 
     <ContentPage.Content>
@@ -24,6 +25,7 @@
                 <Button Text="ĐĂNG NHẬP" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="58" MinimumWidthRequest="200" WidthRequest="300" Command="{Binding NavigateCommand}" CommandParameter="Login"/>
                 <Button Text="ĐĂNG KÝ" FontSize="Large" BackgroundColor="#4fffffff" BorderColor="{StaticResource Border}" BorderWidth="2" BorderRadius="5" FontFamily="{StaticResource Regular}" HeightRequest="58" Command="{Binding NavigateCommand}" CommandParameter="Register"/>
             </StackLayout>
+            <local:PopupView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#80000000" BindingContext="{Binding Popup}" IsVisible="{Binding IsVisible}"/>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

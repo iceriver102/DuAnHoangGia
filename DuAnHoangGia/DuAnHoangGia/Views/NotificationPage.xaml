@@ -24,7 +24,7 @@
             <Label VerticalTextAlignment="Center" Text="THÔNG BÁO" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
         </StackLayout>
         <StackLayout Spacing="12" Margin="15,0" BackgroundColor="#7a3eb7">
-            <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="500" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}" FlowTotalRecords="{Binding Total}">
+            <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="500" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}" FlowTotalRecords="{Binding Total}" FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
                 <flv:FlowListView.FlowLoadingTemplate>
                     <DataTemplate>
                         <ViewCell>

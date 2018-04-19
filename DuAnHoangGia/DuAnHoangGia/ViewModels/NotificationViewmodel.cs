@@ -21,7 +21,13 @@ namespace DuAnHoangGia.ViewModels
         public int page = 0, cur = -1, total = 0;
         public int Total { get => this.total; set => this.SetProperty(ref this.total, value); }
 
-
+        private NotificationModel _LastTappedItem;
+        public NotificationModel LastTappedItem
+        {
+            get => _LastTappedItem;
+            set => this.SetProperty(ref _LastTappedItem, value);
+        }
+        public DelegateCommand ItemTappedCommand { get; set; }
         public FlowObservableCollection<Models.NotificationModel> Models { get; set; }
         public DelegateCommand LoaddingCommand { get; set; }
 
@@ -30,6 +36,13 @@ namespace DuAnHoangGia.ViewModels
             HTTP = _http;
             Models = new FlowObservableCollection<NotificationModel>();
             this.LoaddingCommand = new DelegateCommand(LoaddingCommandExcute);
+            this.ItemTappedCommand = new DelegateCommand(ItemTappedCommandExcute);
+        }
+
+        private async void ItemTappedCommandExcute()
+        {
+            HTTP.Noti = LastTappedItem;
+            await this.NavigationService.NavigateAsync("NotiDetail");
         }
 
         private void LoaddingCommandExcute()
@@ -39,6 +52,7 @@ namespace DuAnHoangGia.ViewModels
 
         public async void LoadPage(int p = 1)
         {
+            this.IsLoadInfinite = true; 
             JObject oResult = await HTTP.GetNotifisAsync(p);
             if (oResult == null) return;
             this.Total = oResult["total"].Value<int>();

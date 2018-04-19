@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:ui="clr-namespace:DuAnHoangGia.Views.Customs"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls"
+              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:local="clr-namespace:DuAnHoangGia.Views"
+             xmlns:c="clr-namespace:DuAnHoangGia.Converters"
+             x:Class="DuAnHoangGia.Views.GuestPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <c:UrlImageConverter x:Key="ImageURL" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout BackgroundColor="#7a3eb7" >
+                <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+                    <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateBack}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label VerticalTextAlignment="Center" Text="TÌM KHÁCH HÀNG" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="15,10" Spacing="8">
+                    <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="8" RoundedCornerRadius="6" WidthRequest="240" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65*"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource Gray}" Grid.ColumnSpan="2" />
+                        <ui:NoneEntry Margin="5,0,0,0" Placeholder="Mã khách hàng" Grid.Column="0"  BackgroundColor="Transparent" PlaceholderColor="{StaticResource Text}" TextColor="Black" VerticalOptions="Center" FontSize="Default" Text="{Binding Key}"/>
+                        <Image Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="icon_search.png"  Margin="0,10"  HeightRequest="30" Grid.Column="1"/>
+                    </ui:RoundedCornerView>
+                    <Button Text="Tìm Kiếm" WidthRequest="120" Command="{Binding SearchCommand}" BackgroundColor="Transparent" BorderColor="{StaticResource Border}" BorderRadius="5" BorderWidth="3"/>
+                </StackLayout>
+                <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="550" FlowLastTappedItem="{Binding LastTappedItem}" FlowItemTappedCommand="{Binding ItemTappedCommand}">
+                    <flv:FlowListView.FlowColumnTemplate>
+                        <DataTemplate>
+                            <AbsoluteLayout BackgroundColor="White" Padding="0,10"  Margin="10,5">
+                                <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Avatar,Converter={StaticResource ImageURL}}" AbsoluteLayout.LayoutFlags="SizeProportional" AbsoluteLayout.LayoutBounds="0,0,0.3,1" Aspect="AspectFit" Margin="10,0" >
+                                    <ff:CachedImage.Transformations>
+                                        <trans:RoundedTransformation BorderHexColor="#ffffff" BorderSize="5" Radius="5"/>
+                                    </ff:CachedImage.Transformations>
+                                </ff:CachedImage>
+                                <StackLayout Orientation="Vertical" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0,0.68,1">
+                                    <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="Default"/>
+                                    <Label HeightRequest="30" Text="{Binding Email}" TextColor="Black" FontSize="Small" Margin="3,0"/>
+                                    <Image Source="add.png" Aspect="AspectFit" WidthRequest="60" HorizontalOptions="Start"/>
+                                </StackLayout>
+                                
+                            </AbsoluteLayout>
+                        </DataTemplate>
+                    </flv:FlowListView.FlowColumnTemplate>
+                    <flv:FlowListView.FlowLoadingTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            TextColor="Blue"
+                            Text="..."
+                        ></Label>
+                            </ViewCell>
+                        </DataTemplate>
+                    </flv:FlowListView.FlowLoadingTemplate>
+                </flv:FlowListView>
+            </StackLayout>
+            <local:PopupView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#80000000" BindingContext="{Binding Popup}" IsVisible="{Binding IsVisible}"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -115,6 +115,7 @@
   <ItemGroup>
     <Compile Include="AndroidInitializer.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Dependencys\NetworkImplementation.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\CarouselLayoutRenderer.cs" />
     <Compile Include="Renderers\CustomMapRenderer.cs" />
@@ -242,6 +243,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\guest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\err_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ss_bg.png" />
   </ItemGroup>
   <Import Project="..\DuAnHoangGia\DuAnHoangGia.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
