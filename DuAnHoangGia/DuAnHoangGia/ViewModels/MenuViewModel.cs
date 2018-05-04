@@ -49,13 +49,13 @@ namespace DuAnHoangGia.ViewModels
                 Settings.Current.Auto = false;
                 HTTP.User = null;
                 Settings.Current.Token = string.Empty;
-                await this.NavigationService.NavigateAsync("app:///Loadding?appModuleRefresh=OnInitialized");
+                this.Navigate("app:///Loadding?appModuleRefresh=OnInitialized");
                 return;
             }
             else
             {
                 this._ea.GetEvent<MenuEvent>().Publish(new MenuMessage() { IsPresented = false });
-                await this.NavigationService.NavigateAsync(m.Navs);
+                this.Navigate(m.Navs);
             }
 
         }

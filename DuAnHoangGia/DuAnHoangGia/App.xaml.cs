@@ -2,6 +2,7 @@
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
+using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,8 @@ namespace DuAnHoangGia
         {
             InitializeComponent();
             CachedImage.FixedOnMeasureBehavior = true;
-            CachedImage.FixedAndroidMotionEventHandler = true;
-            //await NavigationService.NavigateAsync("Detail?news=16");
-            await NavigationService.NavigateAsync("Loadding");
+            CachedImage.FixedAndroidMotionEventHandler = true;         
+            await NavigationService.NavigateAsync("Loadding",useModalNavigation:true);
 
         }
 

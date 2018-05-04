@@ -10,6 +10,8 @@ using Xamarin;
 using FFImageLoading.Forms.Droid;
 using Android.Content;
 using FFImageLoading;
+using Plugin.Permissions;
+using Plugin.CurrentActivity;
 
 namespace DuAnHoangGia.Droid
 {
@@ -19,10 +21,8 @@ namespace DuAnHoangGia.Droid
         public static MainActivity Instance { get; private set; }
         protected override void OnCreate(Bundle bundle)
         {
-            TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
-
             base.OnCreate(bundle);
+           
             this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
 
@@ -30,14 +30,22 @@ namespace DuAnHoangGia.Droid
             CachedImageRenderer.Init(true);
             global::Xamarin.Forms.Forms.Init(this, bundle);
             FormsMaps.Init(this, bundle);
-            LoadApplication(new App(new AndroidInitializer()));
             Instance = this;
+            CrossCurrentActivity.Current.Activity = this;
+            // Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity.in
+            LoadApplication(new App(new AndroidInitializer()));
+           
         }
         public override void OnTrimMemory([GeneratedEnum] TrimMemory level)
         {
             ImageService.Instance.InvalidateMemoryCache();
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
             base.OnTrimMemory(level);
+        }
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         //protected override void JavaFinalize()

@@ -18,8 +18,8 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<application android:label="Hoàng  Gia Map" android:icon="@drawable/icon" android:largeHeap="true">
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyALY-gPabCRJMb9MNwmAQRRCwIHsT0IPJU" />
+  <application android:label="Hoàng Gia Map" android:icon="@drawable/icon" android:largeHeap="true">
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyCozNDuGLhDL21TRtJ74f2MXXizNJD23cQ" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 	</application>
 </manifest>

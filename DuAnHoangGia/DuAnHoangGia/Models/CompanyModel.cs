@@ -25,6 +25,8 @@ namespace DuAnHoangGia.Models
         {
             get
             {
+                if (string.IsNullOrEmpty(avatar))
+                    return string.Empty;
                 if (avatar.StartsWith("http"))
                     return avatar;
                 return $"http://{avatar}";
@@ -35,9 +37,18 @@ namespace DuAnHoangGia.Models
         public double Latitude { get; set; }
         public string Address { get; set; }
         public double Longitude { get; set; }
-
+        public string Description { get; set; }
         public int id;
         public string name;
         public string avatar;
+        public float Distance { get; set; }
+        public float Time { get; set; }
+        public string Bonus
+        {
+            get
+            {
+                return $"{this.Time} phút ({Distance} km)";
+            }
+        }
     }
 }

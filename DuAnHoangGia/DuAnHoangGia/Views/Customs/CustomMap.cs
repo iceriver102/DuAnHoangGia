@@ -31,19 +31,23 @@ namespace DuAnHoangGia.Views.Customs
         }
 
         public static readonly BindableProperty RenderRouteTrigerProperty =
-         BindablePropertyEx.Create<CustomMap, bool>(w => w.RenderRouteTriger, false,BindingMode.TwoWay,propertyChanged:(b,o,n)=> {
+         BindablePropertyEx.Create<CustomMap, Pin>(w => w.RenderRouteTriger, null,BindingMode.TwoWay,propertyChanged:(b,o,n)=> {
              if(b is CustomMap m && m.MapRouteRender!=null)
              {
-                 if(n is bool f && f)
+                 if(n is Pin f && f!=null)
                  {
-                    m.RenderRouteTriger=!m.MapRouteRender(Color.FromRgba(112, 211, 246, 100));
+                     m.Pins.Clear();
+                     m.Pins.Add(m.RenderRouteTriger);
+                     m.MapRouteRender(Color.FromRgba(112, 211, 246, 100));
                  }
              }
          });
 
-        public bool RenderRouteTriger
+
+
+        public Pin RenderRouteTriger
         {
-            get { return (bool)GetValue(RenderRouteTrigerProperty); }
+            get { return (Pin)GetValue(RenderRouteTrigerProperty); }
             set { SetValue(RenderRouteTrigerProperty, value); }
         }
 
@@ -82,6 +86,7 @@ namespace DuAnHoangGia.Views.Customs
                new Position(0, 0),
                BindingMode.TwoWay
            );
+
         public static readonly BindableProperty UserPostionProperty =
            BindableProperty.Create(
                nameof(UserPostion),
@@ -138,6 +143,7 @@ namespace DuAnHoangGia.Views.Customs
                 SetValue(isLoaddingProperty, value);
             }
         }
+
         public void MoveTo(Position to)
         {
             double d= APostion.Haversine(to);
@@ -199,10 +205,12 @@ namespace DuAnHoangGia.Views.Customs
                 Route = respone.Routes.FirstOrDefault();
             }catch(Exception ex)
             {
-
+                Console.WriteLine(ex.GetBaseException());
             }
             if (Route != null)
             {
+                this.Pins.Clear();
+                this.Pins.Add(to);
                 if (RouteCoordinates == null)
                 {
                     RouteCoordinates = new ObservableCollection<Position>();

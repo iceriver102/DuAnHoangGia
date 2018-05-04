@@ -18,7 +18,7 @@ namespace DuAnHoangGia.ViewModels
         private bool _IsPresented;
         public bool IsPresented { get => this._IsPresented; set => this.SetProperty(ref this._IsPresented, value); }
 
-        public HomeViewModel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService,IEventAggregator eventAggregator) : base(navigationService)
+        public HomeViewModel(INavigationService navigationService, IHttpSevices _http,IEventAggregator eventAggregator) : base(navigationService)
         {
             this.HTTP = _http;
             this.eventAggregator = eventAggregator;

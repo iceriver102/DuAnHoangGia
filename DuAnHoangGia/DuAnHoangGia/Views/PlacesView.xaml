@@ -2,28 +2,35 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls"
+              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              x:Class="DuAnHoangGia.Views.PlacesView">
-    <StackLayout BackgroundColor="#7a3eb7">
-        <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
-            <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding DismissCommand}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <Label VerticalTextAlignment="Center" Text="DANH SÁCH CÔNG TY" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}" />
-        </StackLayout>
+    <AbsoluteLayout >
+        <AbsoluteLayout BackgroundColor="#80000000" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0,1,1">
         <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True"
 			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
- FlowColumnCount="1" FlowItemsSource="{Binding Models}" BackgroundColor="#7a3eb7">
+ FlowColumnCount="1" FlowItemsSource="{Binding Models}" BackgroundColor="Transparent" Margin="0,80,0,00" AbsoluteLayout.LayoutBounds="0.5,0,0.9,1" AbsoluteLayout.LayoutFlags="All">
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
-                    <Grid Padding="5">                        
-                        <StackLayout  HeightRequest="50" BackgroundColor="#efefef" HorizontalOptions="FillAndExpand" VerticalOptions="End"  >
-                            <Label HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Text="{Binding Title}" FontFamily="{StaticResource Regular}" FontSize="Medium" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="5,0" TextColor="Black" />
-                        </StackLayout>
-                    </Grid>
-                </DataTemplate>
+                        <Grid Padding="5" BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100*"/>
+                            </Grid.ColumnDefinitions>
+                            <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Url}" HorizontalOptions="Center"  Aspect="AspectFit" HeightRequest="120" Grid.Column="0">
+                                <ff:CachedImage.Transformations>
+                                    <trans:RoundedTransformation  Radius="1" BorderSize="5" BorderHexColor="#ffffff"/>
+                                </ff:CachedImage.Transformations>
+                            </ff:CachedImage>
+                            <StackLayout  HeightRequest="120" HorizontalOptions="FillAndExpand" VerticalOptions="Start"  Grid.Column="1" Margin="0,7">
+                                <Label HorizontalTextAlignment="Start" VerticalTextAlignment="Start" Text="{Binding Title}" FontFamily="{StaticResource Regular}" FontAttributes="Bold" FontSize="Medium" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" TextColor="Black" Margin="5,0" />
+                                <Label HorizontalTextAlignment="Start" VerticalTextAlignment="Start" Text="{Binding Description}" FontFamily="{StaticResource Regular}" FontSize="Default" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" TextColor="Black" Margin="5,0" />
+                                <Label Text="{Binding Bonus}" TextColor="#43c5f4" FontSize="Default" Margin="5"/>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>
         </flv:FlowListView>
-    </StackLayout>
+        </AbsoluteLayout>
+    </AbsoluteLayout>
 </ContentView>

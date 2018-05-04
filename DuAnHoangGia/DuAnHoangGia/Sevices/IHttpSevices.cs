@@ -14,12 +14,13 @@ namespace DuAnHoangGia.Sevices
         NotificationModel Noti { get; set; }
         NewsModel News { get; set; }
         User User { get; set; }
+        CompanyModel COM { get; set; }
         Task<(HttpStatusCode status, string msg, JObject data)> LoginAsync(string username, string password, string sContentType = "application/json");
 
         Task<JObject> GetCompanysAsync(int page = 1, int nums = 10);
         Task<JArray> GetGuestsAsync(string code);
         Task<(JArray data, bool result)> GetCompanysOnMapAsync(double lat, double log);
-        Task<(JArray data, bool result)> GetCompanysByNameAsync(string key);
+        Task<(JArray data, bool result)> GetCompanysByNameAsync(string key, double lat, double log);
         Task<JObject> GetCompanyAsync(int com);
         Task<JObject> GetHelpsAsync(int page = 1, int nums = 10);
         Task<JObject> GetNotifisAsync(int page = 1, int nums = 10);

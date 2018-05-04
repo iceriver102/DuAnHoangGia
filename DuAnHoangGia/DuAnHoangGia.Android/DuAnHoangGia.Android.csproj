@@ -72,6 +72,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.Permissions">
+      <Version>2.2.1</Version>
+    </PackageReference>
     <PackageReference Include="Prism.Core">
       <Version>7.0.0.396</Version>
     </PackageReference>
@@ -116,7 +119,9 @@
     <Compile Include="AndroidInitializer.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Dependencys\NetworkImplementation.cs" />
+    <Compile Include="Dependencys\PermissionImplementation.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MainApplication.cs" />
     <Compile Include="Renderers\CarouselLayoutRenderer.cs" />
     <Compile Include="Renderers\CustomMapRenderer.cs" />
     <Compile Include="Renderers\NoneEditorRenderer.cs" />
@@ -258,6 +263,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ss_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_search_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\goto_icon.png" />
   </ItemGroup>
   <Import Project="..\DuAnHoangGia\DuAnHoangGia.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

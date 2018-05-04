@@ -51,6 +51,7 @@ namespace DuAnHoangGia.ViewModels
             this.pageDialogService = _pageDialogService;
             this.RegisterCommand = new DelegateCommand(RegisterCommandExcute);
             CheckCommand = new DelegateCommand(() => this.Allow ^= true);
+            this.Allow = true;
         }
 
         private async void RegisterCommandExcute()
@@ -104,7 +105,7 @@ namespace DuAnHoangGia.ViewModels
             this.IsLoading = false;
             if (oResult.result)
             {
-                this.Popup.Show("Thành công", "Đăng ký thành công. Hãy xác nhận tài khoản để đăng nhập.", Xamarin.Forms.Color.FromHex("#38c1f3"),new DelegateCommand(async () => { await this.NavigationService.NavigateAsync("app:///Login?appModuleRefresh=OnInitialized"); }));
+                this.Popup.Show("Thành công", "Đăng ký thành công. Hãy xác nhận tài khoản để đăng nhập.", Xamarin.Forms.Color.FromHex("#38c1f3"),new DelegateCommand( () => { this.Navigate("app:///Login?appModuleRefresh=OnInitialized"); }));
             }
             else
             {

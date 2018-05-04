@@ -33,8 +33,8 @@ namespace DuAnHoangGia.Droid.Renderers
         protected override MarkerOptions CreateMarker(Pin pin)
         {
             var marker = new MarkerOptions();
-            if (pin.BindingContext is Models.CompanyModel com)
-                marker.InvokeZIndex(com.id);
+            //if (pin.BindingContext is Models.CompanyModel com)
+            //    marker.InvokeZIndex(com.id);
             marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
             marker.SetTitle(pin.Label);
             marker.SetSnippet(pin.Address);
@@ -79,7 +79,7 @@ namespace DuAnHoangGia.Droid.Renderers
             var polylineOptions = new PolylineOptions();
             polylineOptions.InvokeColor(colorPath.ToAndroid());
             //polylineOptions.InvokeColor(0x6670d3f6);
-            polylineOptions.InvokeWidth(polylineOptions.Width + 4);
+            polylineOptions.InvokeWidth(polylineOptions.Width + 5);
 
             foreach (var position in MAP.RouteCoordinates)
             {
@@ -143,7 +143,6 @@ namespace DuAnHoangGia.Droid.Renderers
         protected override void OnMapReady(Android.Gms.Maps.GoogleMap map)
         {
             base.OnMapReady(map);
-           
             nativeMap = map;
             nativeMap.MarkerClick += NativeMap_MarkerClick;
 

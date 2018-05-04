@@ -4,9 +4,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
+using Plugin.Permissions;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -33,10 +35,30 @@ namespace DuAnHoangGia.ViewModels
         public async override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            var task = this.locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-            await Task.WhenAll(task, Task.Delay(500));
-            var p = task.Result;
-            Settings.Current.Position = (lat: p.Latitude, log: p.Longitude);
+            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Location);
+            if (status== Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+            { 
+                var task = this.locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+                await Task.WhenAll(task, Task.Delay(500));
+                var p = task.Result;
+                Settings.Current.Position = (lat: p.Latitude, log: p.Longitude);
+            }
+            else
+            {
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Location))
+                {
+                    this.Popup.Show(content: "Xin Hãy cấp quyền truy cập vị trí để app có thể hoạt động");
+                }
+                await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Location);
+                
+                //if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Location))
+                //{
+                //    this.Popup.Show(content: "Xin Hãy cấp quyền truy cập vị trí để app có thể hoạt động");
+                //    //Toast.MakeText(this, "Toestemming is nodig voor het downloaden van de update.", ToastLength.Short).Show();
+                //}
+                //await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Location);
+                //return;
+            }
             bool flag = DependencyService.Get<INetwork>().IsOnline();
             if (!flag)
             {
@@ -52,13 +74,10 @@ namespace DuAnHoangGia.ViewModels
                     this.HTTP.User = JsonConvert.DeserializeObject<User>(u["customer"].ToString());
                     //if (u["is_company"].HasValues)
                     this.HTTP.User.Is_company = u["is_company"].Value<int>();
-                    
-                        // this.HTTP.User = JsonConvert.DeserializeObject<User>(oResult["customer"].ToString());
-                        //await this.NavigationService.NavigateAsync("app:///Home?appModuleRefresh=OnInitialized");
-
+                    this.Navigate("app:///Home?appModuleRefresh=OnInitialized");
                 }
                 else
-                {                   
+                {
                     this.Ishow = true;
                     Settings.Current.Auto = false;
                     Settings.Current.Token = string.Empty;

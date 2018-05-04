@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\ForcusBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NotBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UrlImageConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\CompanyEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\MenuEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helppers\BindablePropertyEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helppers\MapHelpper.cs" />
@@ -38,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\HttpSevices.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\IHttpSevices.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\INetwork.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sevices\IPermission.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanyDetailViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanysViewModel.cs" />

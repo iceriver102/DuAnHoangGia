@@ -4,8 +4,8 @@
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              NavigationPage.HasNavigationBar="False"
              x:Class="DuAnHoangGia.Views.CompanyDetailPage">
-    <StackLayout BackgroundColor="#7a3eb7">
-        <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+    <AbsoluteLayout BackgroundColor="#7a3eb7">
+        <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,0,1,55" AbsoluteLayout.LayoutFlags="WidthProportional" BackgroundColor="#621e92">
             <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateBack}"/>
@@ -13,13 +13,27 @@
             </Image>
             <Label VerticalTextAlignment="Center" Text="DANH SÁCH CÔNG TY" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}"/>
         </StackLayout>
-        <ScrollView>
-            <StackLayout Orientation="Vertical" Margin="15,10" >
-                <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding UrlImage}" Aspect="AspectFill" HeightRequest="200" Margin="0,0,0,10">
-                </ff:CachedImage>
-                <Label Text="{Binding Title}" FontSize="Large" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontFamily="{StaticResource Regular}"/>
-                <Label FontFamily="{StaticResource Regular}" FontSize="Small" HorizontalTextAlignment="Start" Text="{Binding Content}"/>
-            </StackLayout>
-        </ScrollView>
-    </StackLayout>
+        <AbsoluteLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" Margin="0,55,0,0">
+            <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <AbsoluteLayout >
+                    <StackLayout Orientation="Vertical" Margin="15,10" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                        <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding UrlImage}" Aspect="AspectFill" HeightRequest="200" Margin="0,0,0,10">
+                        </ff:CachedImage>
+                        <Label Text="{Binding Title}" FontSize="Large" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontFamily="{StaticResource Regular}"/>
+                        <Label FontFamily="{StaticResource Regular}" FontSize="Small" HorizontalTextAlignment="Start" Text="{Binding Content}"/>
+                    </StackLayout>
+                    <Image Source="goto_icon.png" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.95,150,50,50" AbsoluteLayout.LayoutFlags="XProportional" VerticalOptions="Start" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Goto}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </AbsoluteLayout>
+            </ScrollView>
+            <Image Source="goto_icon.png" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.95,0.95,50,50" AbsoluteLayout.LayoutFlags="PositionProportional" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Goto}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </AbsoluteLayout>
+    </AbsoluteLayout>
 </ContentPage>

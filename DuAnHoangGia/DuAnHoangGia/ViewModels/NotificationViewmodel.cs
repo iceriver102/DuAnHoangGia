@@ -39,10 +39,10 @@ namespace DuAnHoangGia.ViewModels
             this.ItemTappedCommand = new DelegateCommand(ItemTappedCommandExcute);
         }
 
-        private async void ItemTappedCommandExcute()
+        private void ItemTappedCommandExcute()
         {
             HTTP.Noti = LastTappedItem;
-            await this.NavigationService.NavigateAsync("NotiDetail");
+            this.Navigate("NotiDetail");
         }
 
         private void LoaddingCommandExcute()

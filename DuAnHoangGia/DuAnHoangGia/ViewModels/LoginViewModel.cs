@@ -66,8 +66,7 @@ namespace DuAnHoangGia.ViewModels
                         this.HTTP.User.Is_company = u["is_company"].Value<int>();
                     Settings.Current.Token = oResult.data["token"].ToString();
                     Settings.Current.Auto = this.Allow;
-                    await this.NavigationService.NavigateAsync("app:///Home?appModuleRefresh=OnInitialized");
-                    return;
+                    this.Navigate("app:///Home?appModuleRefresh=OnInitialized");
                 }
             }
             else if(oResult.status ==System.Net.HttpStatusCode.GatewayTimeout)

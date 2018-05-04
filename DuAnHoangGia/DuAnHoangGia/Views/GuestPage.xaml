@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:ui="clr-namespace:DuAnHoangGia.Views.Customs"
+             xmlns:ui="clr-namespace:DuAnHoangGia.Views.Customs"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls"
-              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:local="clr-namespace:DuAnHoangGia.Views"
              xmlns:c="clr-namespace:DuAnHoangGia.Converters"

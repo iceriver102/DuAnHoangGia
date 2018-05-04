@@ -4,6 +4,7 @@ using DuAnHoangGia.Sevices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace DuAnHoangGia.ViewModels
         public DelegateCommand LoaddingCommand { get; set; }
         public FlowObservableCollection<CompanyModel> Models { get; set; }
       
-        public CompanysViewModel(INavigationService navigationService, IHttpSevices _http) : base(navigationService)
+        public CompanysViewModel(INavigationService navigationService, IHttpSevices _http, IEventAggregator eventAggregator) : base(navigationService)
         {
             HTTP = _http;
             Models = new FlowObservableCollection<CompanyModel>();
@@ -80,6 +81,15 @@ namespace DuAnHoangGia.ViewModels
         {
             base.OnNavigatedTo(parameters);
             LoadPage();
+        }
+
+        public override void OnNavigatingTo(NavigationParameters parameters)
+        {
+            base.OnNavigatingTo(parameters);
+            if (parameters.ContainsKey("route"))
+            {
+                this.NavigationService.GoBackAsync(parameters);
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace DuAnHoangGia.ViewModels
 
         public async void Navigate(string name)
         {
-            await NavigationService.NavigateAsync(name);
+            await NavigationService.NavigateAsync(name, useModalNavigation: true);
         }
 
         public void Destroy()

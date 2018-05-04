@@ -14,7 +14,7 @@ namespace DuAnHoangGia.Sevices
 {
     public class HttpSevices : IHttpSevices
     {
-
+        public CompanyModel COM { get; set; }
         public const string url = "http://project1.caikho.com/api";
 
         public string url_login { get => $"{url}/user/login"; }
@@ -256,7 +256,7 @@ namespace DuAnHoangGia.Sevices
 
             }
         }
-        public async Task<(JArray data, bool result)> GetCompanysByNameAsync(string key)
+        public async Task<(JArray data, bool result)> GetCompanysByNameAsync(string key, double lat, double log)
         {
             if (!isOnline())
                 return (null,false);
@@ -266,14 +266,16 @@ namespace DuAnHoangGia.Sevices
                 List<KeyValuePair<string, string>> forms = new List<KeyValuePair<string, string>>(new[]
                 {
                     new KeyValuePair<string, string>("search",key),
+                    new KeyValuePair<string, string>("latitude",lat.ToString()),
+                    new KeyValuePair<string, string>("longitude",log.ToString())
                 });
                 //http://project1.caikho.com/api/company/toado
                 var oHttpResponseMessage = await oHttpClient.PostAsync($"{url}/company/search", new FormUrlEncodedContent(forms));// &lat={lat}&long={log}");
                 string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
                 try
                 {
-                    JArray result = JArray.Parse(Content);
-                    if (result is JArray j && j.Count > 0)
+                    JObject result = JObject.Parse(Content);
+                    if (result["data"] is JArray j && j.Count > 0)
                         return (j, oHttpResponseMessage.IsSuccessStatusCode);
                 }
                 catch

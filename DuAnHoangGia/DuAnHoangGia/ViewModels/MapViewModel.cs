@@ -19,6 +19,7 @@ using Prism.Services;
 using Xamarin.Forms.Maps;
 using Position = Xamarin.Forms.Maps.Position;
 using GoogleApi.Entities.Maps.Directions.Response;
+using Plugin.Permissions;
 
 namespace DuAnHoangGia.ViewModels
 {
@@ -46,17 +47,20 @@ namespace DuAnHoangGia.ViewModels
         private List<int> caches;
         public DelegateCommand LoadMoreCommand { get; set; }
         public DelegateCommand SearchCommand { get; set; }
-        private PlaceViewModel _place;
         public PlaceViewModel Place { get; set; }
         public MapViewModel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService, IEventAggregator eventAggregator) : base(navigationService)
         {
             this.IPageDialogService = _pageDialogService;
             this.Place = new PlaceViewModel();
-            this.Place.Goto = new DelegateCommand<CompanyModel>(GotoExcute)
-;            RouteCoordinates = new ObservableCollection<Position>();
+            this.Place.Goto = new DelegateCommand<CompanyModel>(GotoExcute);
+            RouteCoordinates = new ObservableCollection<Position>();
             caches = new List<int>();
             HTTP = _http;
             this.eventAggregator = eventAggregator;
+            this.eventAggregator.GetEvent<Events.CompanyEvent>().Subscribe((c) =>
+            {
+                this.Route(c);
+            });
             this.PINS = new ObservableCollection<Pin>();
             (var lat, var log) = Sevices.Settings.Current.Position;
             if (lat >= 0 && log >= 0)
@@ -76,7 +80,7 @@ namespace DuAnHoangGia.ViewModels
         {
             if (obj == null)
             {
-                this.Popup.Show("Lỗi", "Không tìm thấy thông tin công ty", Xamarin.Forms.Color.Red);
+                this.Popup.Show("Lỗi", "Không tìm thấy thông tin công ty");
                 return;
             }
             this.Route(obj);
@@ -112,22 +116,26 @@ namespace DuAnHoangGia.ViewModels
                 this.Radius = route.Legs.FirstOrDefault().Distance.Value / 2000f;
                 this.FollowPostion = center;
             }
-            this.RenderTriger = true;
+            Pin p = new Pin();
+            p.Position = new Position(comp.Latitude, comp.Longitude);
+            p.Label = comp.Title;
+            p.Address = comp.Address;
+            this.RenderTriger = p;
             RaisePropertyChanged("RenderTriger");
-          
+
         }
 
         private async void GotoCommandExcute()
         {
             RouteCoordinates.Clear();
+            this.Place.Models.Clear();
             if (string.IsNullOrEmpty(this.ToLabel))
             {
                 this.Popup.Show("Lỗi", "Hãy nhập thông tin tìm kiếm", Xamarin.Forms.Color.Red);
-                this.RenderTriger = true;
-                RaisePropertyChanged("RenderTriger");
+                this.Place.IsVisible = false;
                 return;
             }
-            var oResult = await HTTP.GetCompanysByNameAsync(this.ToLabel);
+            var oResult = await HTTP.GetCompanysByNameAsync(this.ToLabel, this.aPosition.Latitude, this.aPosition.Longitude);
             if (oResult.result && oResult.data != null)
             {
                 List<CompanyModel> comps = JsonConvert.DeserializeObject<List<CompanyModel>>(oResult.data.ToString());
@@ -136,8 +144,9 @@ namespace DuAnHoangGia.ViewModels
             }
             else
             {
+                this.Place.IsVisible = false;
                 this.Popup.Show("Lỗi", "Không tìm thấy công ty", Xamarin.Forms.Color.Red);
-               
+
             }
 
         }
@@ -149,8 +158,24 @@ namespace DuAnHoangGia.ViewModels
 
         public async void JumpToCurrent()
         {
-            var p = await this.locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-            aPosition = new Position(p.Latitude, p.Longitude);
+            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Location);
+            if (status == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+            {
+                var p = await this.locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+                aPosition = new Position(p.Latitude, p.Longitude);
+
+            }
+            else
+            {
+                if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Plugin.Permissions.Abstractions.Permission.Location))
+                {
+                    this.Popup.Show(content: "Xin Hãy cấp quyền truy cập vị trí để app có thể hoạt động");
+                }
+                await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Location);
+                (double lat, double longi) = Settings.Current.Position;
+                aPosition = new Position(lat, longi);
+
+            }
             this.Radius = 2;
             this.FollowPostion = aPosition;
             this.UserPostion = aPosition;
@@ -202,12 +227,25 @@ namespace DuAnHoangGia.ViewModels
         }
 
         public DelegateCommand ShowMenuCommand { get; private set; }
-        private bool _rendertriger = false;
-        public bool RenderTriger { get => _rendertriger; set => this.SetProperty(ref _rendertriger, value); }
+        private Pin _rendertriger;
+        public Pin RenderTriger { get => _rendertriger; set => this.SetProperty(ref _rendertriger, value); }
 
         private void ShowMenuCommandExcute()
         {
             this.eventAggregator.GetEvent<Events.MenuEvent>().Publish(new Events.MenuMessage() { IsPresented = true });
+        }
+
+        public override void OnNavigatedTo(NavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey("route"))
+                return;
+            this.RenderTriger = null;
+            this.Place.IsVisible = false;
+            this.JumpToCurrent();
+            this.LoadData(this.FollowPostion);
+            this.RenderPINTriger = true;
+
         }
     }
 }
