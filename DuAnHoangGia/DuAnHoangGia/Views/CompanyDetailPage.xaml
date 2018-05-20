@@ -6,11 +6,11 @@
              x:Class="DuAnHoangGia.Views.CompanyDetailPage">
     <AbsoluteLayout BackgroundColor="#7a3eb7">
         <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,0,1,55" AbsoluteLayout.LayoutFlags="WidthProportional" BackgroundColor="#621e92">
-            <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+            <!--<Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateBack}"/>
                 </Image.GestureRecognizers>
-            </Image>
+            </Image>-->
             <Label VerticalTextAlignment="Center" Text="DANH SÁCH CÔNG TY" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}"/>
         </StackLayout>
         <AbsoluteLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" Margin="0,55,0,0">
@@ -29,6 +29,7 @@
                     </Image>
                 </AbsoluteLayout>
             </ScrollView>
+            <!--<Button Text="Bạn Muốn Đến Đây" AbsoluteLayout.LayoutBounds="0.95,0.95,180,35" AbsoluteLayout.LayoutFlags="PositionProportional" BackgroundColor="{StaticResource Border}" BorderRadius="5" Command="{Binding Goto}"/>-->
             <Image Source="goto_icon.png" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.95,0.95,50,50" AbsoluteLayout.LayoutFlags="PositionProportional" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding Goto}"/>

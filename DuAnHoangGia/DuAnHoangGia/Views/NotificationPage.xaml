@@ -14,8 +14,8 @@
             <c:UrlImageConverter x:Key="ImageURL" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <StackLayout   BackgroundColor="#7a3eb7" >
-        <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
+    <AbsoluteLayout   BackgroundColor="#7a3eb7" >
+        <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0.5,0,1,55" AbsoluteLayout.LayoutFlags="WidthProportional" BackgroundColor="#621e92">
             <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateBack}"/>
@@ -23,33 +23,31 @@
             </Image>
             <Label VerticalTextAlignment="Center" Text="THÔNG BÁO" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
         </StackLayout>
-        <StackLayout Spacing="12" Margin="15,0" BackgroundColor="#7a3eb7">
-            <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="500" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}" FlowTotalRecords="{Binding Total}" FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
-                <flv:FlowListView.FlowLoadingTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Label
+        <flv:FlowListView AbsoluteLayout.LayoutBounds="0,56,1,0.98" AbsoluteLayout.LayoutFlags="SizeProportional" SeparatorVisibility="None" HasUnevenRows="True" FlowItemsSource="{Binding Models}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Margin="0,0,0,20" FlowColumnCount="1" FlowColumnExpand="Last" HeightRequest="500" FlowIsLoadingInfinite="{Binding IsLoadInfinite}" FlowIsLoadingInfiniteEnabled="True" FlowLoadingCommand="{Binding LoaddingCommand}" FlowTotalRecords="{Binding Total}" FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}">
+            <flv:FlowListView.FlowLoadingTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label
                             HorizontalTextAlignment="Center"
                             VerticalTextAlignment="Center"
                             TextColor="Blue"
                             Text="..."
                         ></Label>
-                        </ViewCell>
-                    </DataTemplate>
-                </flv:FlowListView.FlowLoadingTemplate>
-                <flv:FlowListView.FlowColumnTemplate>
-                    <DataTemplate>
-                        <AbsoluteLayout BackgroundColor="White" Padding="0,5" Margin="0,5,0,0">
-                            <ff:CachedImage CacheType="All" Source="{Binding Thumbnail,Converter={StaticResource ImageURL}}" AbsoluteLayout.LayoutFlags="SizeProportional" AbsoluteLayout.LayoutBounds="0,0,0.3,1" Aspect="AspectFit" Margin="10,0" DownsampleUseDipUnits="True"  />
-                            <StackLayout Orientation="Vertical"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0,0.68,0.7">
-                                <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="Default"/>
-                                <Label HeightRequest="50" Text="{Binding Description}" TextColor="Black" FontSize="Small"/>
-                            </StackLayout>
-                            <Label Text="{Binding Date}" TextColor="{StaticResource Border}" FontSize="Default" AbsoluteLayout.LayoutBounds="1,0.95,0.68,0.25" AbsoluteLayout.LayoutFlags="All"/>
-                        </AbsoluteLayout>
-                    </DataTemplate>
-                </flv:FlowListView.FlowColumnTemplate>
-            </flv:FlowListView>
-        </StackLayout>
-    </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </flv:FlowListView.FlowLoadingTemplate>
+            <flv:FlowListView.FlowColumnTemplate>
+                <DataTemplate>
+                    <AbsoluteLayout BackgroundColor="White" Padding="0,5" Margin="0,5,0,0">
+                        <!--<ff:CachedImage CacheType="All" Source="{Binding Thumbnail,Converter={StaticResource ImageURL}}" AbsoluteLayout.LayoutFlags="SizeProportional" AbsoluteLayout.LayoutBounds="0,0,0.3,1" Aspect="AspectFit" Margin="10,0" DownsampleUseDipUnits="True"  />-->
+                        <StackLayout Orientation="Vertical"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0,0.9,0.7">
+                            <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold" FontSize="Default"/>
+                            <Label HeightRequest="30" Text="{Binding Description}" TextColor="Black" FontSize="Small"/>
+                        </StackLayout>
+                        <Label Text="{Binding Date}" TextColor="{StaticResource Border}" FontSize="Default" AbsoluteLayout.LayoutBounds="0.5,0.95,0.9,0.25" AbsoluteLayout.LayoutFlags="All"/>
+                    </AbsoluteLayout>
+                </DataTemplate>
+            </flv:FlowListView.FlowColumnTemplate>
+        </flv:FlowListView>
+    </AbsoluteLayout>
 </ContentPage>

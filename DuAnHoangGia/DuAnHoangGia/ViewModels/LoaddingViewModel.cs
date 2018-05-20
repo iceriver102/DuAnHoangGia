@@ -35,13 +35,21 @@ namespace DuAnHoangGia.ViewModels
         public async override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Location);
+            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Location);    
             if (status== Plugin.Permissions.Abstractions.PermissionStatus.Granted)
-            { 
-                var task = this.locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-                await Task.WhenAll(task, Task.Delay(500));
-                var p = task.Result;
-                Settings.Current.Position = (lat: p.Latitude, log: p.Longitude);
+            {
+                try
+                {
+                    var task = this.locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+                    await Task.WhenAll(task, Task.Delay(500));
+                    var p = task.Result;
+                    Settings.Current.Position = (lat: p.Latitude, log: p.Longitude);
+                }
+                catch (Exception ex)
+                {
+                    this.Popup.Show(content: "Xin hãy bật dịch vụ GPS để app có thể hoạt động");
+                    return;
+                }
             }
             else
             {

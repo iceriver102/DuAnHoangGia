@@ -26,7 +26,7 @@
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <Grid Padding="5">                       
-                        <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Url}" HorizontalOptions="Center"  Aspect="AspectFit" HeightRequest="200">
+                        <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding Url}" HorizontalOptions="Center"  Aspect="AspectFit" HeightRequest="200" VerticalOptions="End">
                             <ff:CachedImage.Transformations>
                                 <trans:RoundedTransformation  Radius="1" BorderSize="5" BorderHexColor="#ffffff"/>
                             </ff:CachedImage.Transformations>

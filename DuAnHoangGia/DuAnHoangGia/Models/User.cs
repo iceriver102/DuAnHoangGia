@@ -35,7 +35,7 @@ namespace DuAnHoangGia.Models
         public string Phone { get; set; }
         public string Pasword { get;  set; }
         public int Is_company { get; set; }
-
+        public string Code { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone();

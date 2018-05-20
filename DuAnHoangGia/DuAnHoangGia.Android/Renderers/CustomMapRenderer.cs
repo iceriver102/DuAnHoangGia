@@ -107,9 +107,7 @@ namespace DuAnHoangGia.Droid.Renderers
                     MAP.CenterPostion = this.GetCenterMap();
                     MAP.MoveTo(MAP.CenterPostion);
                     break;
-                default:
-                    System.Diagnostics.Debug.WriteLine("---------------" + e.PropertyName);
-                    break;
+              
             }
         }
 
@@ -129,7 +127,7 @@ namespace DuAnHoangGia.Droid.Renderers
                 line.Remove();
             }
             var polylineOptions = new PolylineOptions();
-            polylineOptions.InvokeColor(0x6670d3f6);
+            polylineOptions.InvokeColor(0xffba00);
             polylineOptions.InvokeWidth(polylineOptions.Width + 4);
 
 

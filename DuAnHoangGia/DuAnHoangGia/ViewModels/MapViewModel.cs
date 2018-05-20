@@ -20,6 +20,7 @@ using Xamarin.Forms.Maps;
 using Position = Xamarin.Forms.Maps.Position;
 using GoogleApi.Entities.Maps.Directions.Response;
 using Plugin.Permissions;
+using DuAnHoangGia.Events;
 
 namespace DuAnHoangGia.ViewModels
 {
@@ -51,7 +52,7 @@ namespace DuAnHoangGia.ViewModels
         public MapViewModel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService, IEventAggregator eventAggregator) : base(navigationService)
         {
             this.IPageDialogService = _pageDialogService;
-            this.Place = new PlaceViewModel();
+            this.Place = new PlaceViewModel(this.ToLabel);
             this.Place.Goto = new DelegateCommand<CompanyModel>(GotoExcute);
             RouteCoordinates = new ObservableCollection<Position>();
             caches = new List<int>();
@@ -67,11 +68,13 @@ namespace DuAnHoangGia.ViewModels
             {
                 this.FollowPostion = new Position(lat, log);
             }
-            FromLabel = "Vị trí hiện tại";
+
+            
             locator = CrossGeolocator.Current;
             this.ShowMenuCommand = new DelegateCommand(ShowMenuCommandExcute);
             LoadMoreCommand = new DelegateCommand(LoadMoreCommandExcute);
-            this.SearchCommand = new DelegateCommand(GotoCommandExcute);
+            this.SearchCommand = new DelegateCommand(()=> { GotoCommandExcute(this.ToLabel); });
+            this.Place.SearchCommand = new DelegateCommand(()=> { GotoCommandExcute(this.Place.ToLabel); });
             this.JumpToCurrent();
             this.LoadData(this.FollowPostion);
         }
@@ -125,17 +128,19 @@ namespace DuAnHoangGia.ViewModels
 
         }
 
-        private async void GotoCommandExcute()
+        public async void GotoCommandExcute(string gotoLabel)
         {
             RouteCoordinates.Clear();
             this.Place.Models.Clear();
-            if (string.IsNullOrEmpty(this.ToLabel))
+            if (string.IsNullOrEmpty(gotoLabel))
             {
                 this.Popup.Show("Lỗi", "Hãy nhập thông tin tìm kiếm", Xamarin.Forms.Color.Red);
                 this.Place.IsVisible = false;
                 return;
             }
-            var oResult = await HTTP.GetCompanysByNameAsync(this.ToLabel, this.aPosition.Latitude, this.aPosition.Longitude);
+            this.ToLabel = gotoLabel;
+            this.Place.ToLabel = gotoLabel;
+            var oResult = await HTTP.GetCompanysByNameAsync(gotoLabel, this.aPosition.Latitude, this.aPosition.Longitude);
             if (oResult.result && oResult.data != null)
             {
                 List<CompanyModel> comps = JsonConvert.DeserializeObject<List<CompanyModel>>(oResult.data.ToString());
@@ -161,8 +166,18 @@ namespace DuAnHoangGia.ViewModels
             var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Location);
             if (status == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
             {
-                var p = await this.locator.GetPositionAsync(TimeSpan.FromSeconds(10));
-                aPosition = new Position(p.Latitude, p.Longitude);
+                try
+                {
+                    var p = await this.locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+                    aPosition = new Position(p.Latitude, p.Longitude);
+                  
+                }
+                catch(Exception ex)
+                {
+                    (double lat, double longi) = Settings.Current.Position;
+                    aPosition = new Position(lat, longi);
+
+                }
 
             }
             else
@@ -175,6 +190,15 @@ namespace DuAnHoangGia.ViewModels
                 (double lat, double longi) = Settings.Current.Position;
                 aPosition = new Position(lat, longi);
 
+            }
+            Address aAddress = (await this.locator.GetAddressesForPositionAsync(new Plugin.Geolocator.Abstractions.Position(aPosition.Latitude,aPosition.Longitude))).FirstOrDefault();
+            if (aAddress != null)
+            {
+                FromLabel = aAddress.FeatureName;
+            }
+            else
+            {
+                FromLabel = "Vị trí hiện tại";
             }
             this.Radius = 2;
             this.FollowPostion = aPosition;
@@ -238,6 +262,7 @@ namespace DuAnHoangGia.ViewModels
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            this.eventAggregator.GetEvent<MenuEvent>().Publish(new MenuMessage() { IsPresented = false });
             if (parameters.ContainsKey("route"))
                 return;
             this.RenderTriger = null;

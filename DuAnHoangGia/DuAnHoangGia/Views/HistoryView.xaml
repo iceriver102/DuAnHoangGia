@@ -29,12 +29,12 @@
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <AbsoluteLayout BackgroundColor="White" Padding="0,5" Margin="0,5,0,0">
-                        <ff:CachedImage CacheType="All" Source="{Binding Thumbnail,Converter={StaticResource ImageURL}}" AbsoluteLayout.LayoutFlags="SizeProportional" AbsoluteLayout.LayoutBounds="0,0,0.3,1" Aspect="AspectFit" Margin="10,0" DownsampleUseDipUnits="True"  />
-                        <StackLayout Orientation="Vertical"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0,0.68,0.75">
+                        <!--<ff:CachedImage CacheType="All" Source="{Binding Thumbnail,Converter={StaticResource ImageURL}}" AbsoluteLayout.LayoutFlags="SizeProportional" AbsoluteLayout.LayoutBounds="0,0,0.3,1" Aspect="AspectFit" Margin="10,0" DownsampleUseDipUnits="True"  />-->
+                        <StackLayout Orientation="Vertical"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0,0.9,0.75">
                             <Label Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" FontSize="Default"/>
-                            <Label HeightRequest="60" Text="{Binding Description}" TextColor="Black" FontSize="Small"/>
+                            <Label HeightRequest="45" Text="{Binding Description}" TextColor="Black" FontSize="Small"/>
                         </StackLayout>
-                        <Label  Text="{Binding Date}" FontSize="Default" TextColor="#43c5f4" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,0.68,0.24"/>
+                        <Label  Text="{Binding Date}" FontSize="Default" TextColor="#43c5f4" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,1,0.9,0.24"/>
                     </AbsoluteLayout>
                 </DataTemplate>
             </flv:FlowListView.FlowColumnTemplate>

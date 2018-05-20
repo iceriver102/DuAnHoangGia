@@ -26,7 +26,7 @@ namespace DuAnHoangGia.Views.Customs
         {
             if (this.MapRouteRender != null)
             {
-                this.MapRouteRender(Color.FromRgba(112,211,246,100));
+                this.MapRouteRender(Color.FromRgba(255,186,0,255));
             }
         }
 
@@ -38,7 +38,7 @@ namespace DuAnHoangGia.Views.Customs
                  {
                      m.Pins.Clear();
                      m.Pins.Add(m.RenderRouteTriger);
-                     m.MapRouteRender(Color.FromRgba(112, 211, 246, 100));
+                     m.MapRouteRender(Color.FromRgba(255, 186, 0, 255));
                  }
              }
          });
@@ -226,7 +226,7 @@ namespace DuAnHoangGia.Views.Customs
                     RouteCoordinates.Add(new Position(l.Latitude, l.Longitude));
                 }
                 this.MoveToRegion(MapSpan.FromCenterAndRadius(center, Distance.FromMeters(Route.Legs.FirstOrDefault().Distance.Value / 2)));
-                MapRouteRender(Color.FromRgba(112, 211, 246, 100));
+                MapRouteRender(Color.FromRgba(255, 186, 0, 255));
 
             }
         }

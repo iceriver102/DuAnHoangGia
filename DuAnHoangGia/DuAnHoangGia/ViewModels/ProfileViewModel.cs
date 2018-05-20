@@ -20,8 +20,10 @@ namespace DuAnHoangGia.ViewModels
         public string _path=string.Empty;
         public string PathAvatar { get => this._path;set { this.SetProperty(ref this._path, value); } }
 
-        private string _name, _email, _phone, _pass,_address,_id;
+        private string _name, _email, _phone, _pass,_address,_id,_code;
 
+
+        public string Code { get => this._code; set => this.SetProperty(ref this._code, value); }
         public string Name { get => this._name; set => this.SetProperty(ref this._name, value); }
         public string Email { get => this._email; set => this.SetProperty(ref this._email, value); }
         public string Phone { get => this._phone; set => this.SetProperty(ref this._phone, value); }
@@ -34,12 +36,16 @@ namespace DuAnHoangGia.ViewModels
         {
             HTTP = _http;
             this.pageDialogService = _pageDialogService;
-            this.Name = HTTP.User.Name;
-            this.Email = HTTP.User.Email;
-            this.Phone = HTTP.User.Phone;
-            this.PathAvatar = HTTP.User.Avatar;
-            this.Addr = HTTP.User.Address;
-            this.IDCARD = HTTP.User.Cmnd;
+            if (HTTP.User != null)
+            {
+                this.Name = HTTP.User.Name ?? "";
+                this.Email = HTTP.User.Email ?? "";
+                this.Phone = HTTP.User.Phone ?? "";
+                this.PathAvatar = HTTP.User.Avatar ?? "";
+                this.Addr = HTTP.User.Address ?? "";
+                this.IDCARD = HTTP.User.Cmnd ?? "";
+                this.Code = HTTP.User.Code ?? "";
+            }
             ImageLoadCommand = new DelegateCommand(ImageLoadCommandExcute);
             UpdateCommand = new DelegateCommand(SubmitDataExcute);
         }
