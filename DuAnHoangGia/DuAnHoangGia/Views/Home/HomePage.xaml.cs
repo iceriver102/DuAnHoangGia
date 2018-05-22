@@ -17,6 +17,10 @@ namespace DuAnHoangGia.Views.Home
             InitializeComponent();
             
         }
+        protected override bool OnBackButtonPressed()
+        {
+            return  base.OnBackButtonPressed();
+        }
 
         //private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         //{

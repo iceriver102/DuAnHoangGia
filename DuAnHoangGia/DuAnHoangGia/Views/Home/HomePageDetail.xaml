@@ -7,11 +7,12 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:local="clr-namespace:DuAnHoangGia.Views"
              prism:ViewModelLocator.AutowireViewModel="True"
+              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              NavigationPage.HasNavigationBar="False"
              Title="Detail">
     <AbsoluteLayout>
         <ui:CustomMap x:Name="uiMap" MapType="Street" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" IsShowingUser="True" FollowPostion="{Binding FollowPostion}" Radius="{Binding Radius}" CPins="{Binding PINS}" MapLoadingCommand="{Binding LoadMoreCommand}" CenterPostion="{Binding CenterPostion}" isLoadding="{Binding isLoadding}" RouteCoordinates="{Binding RouteCoordinates}" RenderRouteTriger="{Binding RenderTriger}" RenderPinTriger="{Binding RenderPINTriger}" UserPostion="{Binding UserPostion}"/>
-        <AbsoluteLayout AbsoluteLayout.LayoutFlags="WidthProportional" AbsoluteLayout.LayoutBounds="0,0,1,55"  BackgroundColor="#8f621e92" >
+        <AbsoluteLayout AbsoluteLayout.LayoutFlags="WidthProportional" AbsoluteLayout.LayoutBounds="0,0,1,55" BackgroundColor="#8f621e92" >
             <StackLayout AbsoluteLayout.LayoutFlags="HeightProportional" AbsoluteLayout.LayoutBounds="0,0,50,1" BackgroundColor="Transparent">
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowMenuCommand}"/>
@@ -20,20 +21,26 @@
             </StackLayout>
             <ff:CachedImage Source="small_logo.png" HorizontalOptions="Center" HeightRequest="55" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0" CacheType="All" ></ff:CachedImage>
         </AbsoluteLayout>
-        <AbsoluteLayout AbsoluteLayout.LayoutFlags="XProportional" AbsoluteLayout.LayoutBounds="0.5,60,295,150">
-            <ff:CachedImage Source="panel_timkiem.png" Aspect="AspectFit" CacheType="All"  AbsoluteLayout.LayoutBounds="0.5,0,1,0.7" AbsoluteLayout.LayoutFlags="All" DownsampleUseDipUnits="True">
+        <AbsoluteLayout AbsoluteLayout.LayoutFlags="XProportional" AbsoluteLayout.LayoutBounds="0.5,60,270,100" IsClippedToBounds="True">
+            <ff:CachedImage Source="panel_timkiem.png" Aspect="AspectFit" CacheType="All"  AbsoluteLayout.LayoutBounds="0.5,0,1,1" AbsoluteLayout.LayoutFlags="All" DownsampleUseDipUnits="True">
 
             </ff:CachedImage>
-            <Label AbsoluteLayout.LayoutBounds="0.3,0.1,0.7,0.35" AbsoluteLayout.LayoutFlags="All" TextColor="{StaticResource Border}" FontFamily="{StaticResource Regular}" FontSize="Default" Text="{Binding FromLabel}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
-            <ui:NoneEntry x:Name="uiTo" Placeholder="Bạn muốn đi đâu" AbsoluteLayout.LayoutBounds="0.3,0.5,0.7,0.35" AbsoluteLayout.LayoutFlags="All" TextColor="{StaticResource Border}" PlaceholderColor="#ff7f8f95" FontFamily="{StaticResource Regular}" FontSize="Default" Text="{Binding ToLabel}" />
-            
+            <Label AbsoluteLayout.LayoutBounds="30,10,0.89,0.35" AbsoluteLayout.LayoutFlags="SizeProportional" TextColor="{StaticResource Border}" LineBreakMode="NoWrap" FontFamily="{StaticResource Regular}" FontSize="Small" Text="{Binding FromLabel}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"  />
+            <Label  AbsoluteLayout.LayoutBounds="30,60,0.89,0.35" AbsoluteLayout.LayoutFlags="SizeProportional" TextColor="{StaticResource Border}"  FontFamily="{StaticResource Regular}" FontSize="Default" Text="{Binding ToLabel}" LineBreakMode="NoWrap">
+                <!-- Focused -->
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoadCompanyCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
         </AbsoluteLayout>
-        <Button Command="{Binding SearchCommand}" Text="Tìm Kiếm" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.9,250,40" TextColor="White"  BackgroundColor="{StaticResource Border}" BorderRadius="5" FontSize="Medium" FontFamily="{StaticResource Regular}" BorderColor="{StaticResource Border}" />
+        <!--<Button Command="{Binding SearchCommand}" Text="Tìm Kiếm" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.9,250,40" TextColor="White"  BackgroundColor="{StaticResource Border}" BorderRadius="5" FontSize="Medium" FontFamily="{StaticResource Regular}" BorderColor="{StaticResource Border}" />-->
         <local:PlacesView BindingContext="{Binding Place}" IsVisible="{Binding IsVisible}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" Margin="0,55,0,0"/>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,55,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
-            <ff:CachedImage Source="thong_bao.png" Aspect="AspectFit" CacheType="All"  AbsoluteLayout.LayoutBounds="0.5,0.5,1,0.3" AbsoluteLayout.LayoutFlags="All" DownsampleUseDipUnits="True">
-
-            </ff:CachedImage>
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,55,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" BackgroundColor="#df000000" IsVisible="{Binding FlagNoCom}">
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.4,0.8,0.3" AbsoluteLayout.LayoutFlags="All" >
+                <ff:CachedImage Source="thong_bao.png" Aspect="AspectFit" CacheType="All"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" DownsampleUseDipUnits="True">
+                </ff:CachedImage>
+                <Button TextColor="{StaticResource Border}" BackgroundColor="White" BorderRadius="2" BorderColor="{StaticResource Border}" BorderWidth="1" Text="Tôi đã hiểu" AbsoluteLayout.LayoutFlags="PositionProportional"  AbsoluteLayout.LayoutBounds="0.5,0.9,200,40" Command="{Binding DissmissCommand}"/>
+            </AbsoluteLayout>
         </AbsoluteLayout>
         <local:PopupView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#80000000" BindingContext="{Binding Popup}" IsVisible="{Binding IsVisible}"/>
     </AbsoluteLayout>

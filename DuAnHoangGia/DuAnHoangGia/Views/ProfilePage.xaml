@@ -37,8 +37,8 @@
             </RelativeLayout>
             <ScrollView  Margin="15,0" BackgroundColor="#7a3eb7">
                 <StackLayout Spacing="6">
-                    <!--Mã Thành Viên-->
-                    <!--<Label Text="* Mã Thành Viên" TextColor="Black" FontSize="Small" HorizontalTextAlignment="End" FontFamily="{StaticResource Regular}"/>-->
+                    <!--<Label Text="* Mã Thành Viên" TextColor="Black" FontSize="Small" HorizontalTextAlignment="End" FontFamily="{StaticResource Regular}"/>
+                    -->
                     <Frame BackgroundColor="Transparent" CornerRadius="6" IsClippedToBounds="True" Padding="0"  >
                         <ui:RoundedCornerView BorderColor="{StaticResource Border}" BorderWidth="10" RoundedCornerRadius="6" BackgroundColor="Transparent">
                             <Grid.ColumnDefinitions>

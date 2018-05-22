@@ -7,7 +7,7 @@
              xmlns:trans="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              x:Class="DuAnHoangGia.Views.PlacesView">
     <AbsoluteLayout >
-        <AbsoluteLayout BackgroundColor="#80000000" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0,1,1">
+        <AbsoluteLayout BackgroundColor="#90000000" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0,1,1">
             <AbsoluteLayout AbsoluteLayout.LayoutFlags="WidthProportional" AbsoluteLayout.LayoutBounds="0,10,1,50" >
                 <ui:RoundedCornerView Padding="0" AbsoluteLayout.LayoutBounds="0.1,0.5,0.65,1" AbsoluteLayout.LayoutFlags="All" BorderColor="{StaticResource Border}" BorderWidth="8" RoundedCornerRadius="6" BackgroundColor="#80000000" >
                     <Grid.ColumnDefinitions>
@@ -23,11 +23,26 @@
                         <TapGestureRecognizer Command="{Binding SearchCommand}"/>
                     </Frame.GestureRecognizers>
                 </Frame>
-                <!--<Button Command="{Binding SearchCommand}" Text="Tìm Kiếm" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.96,0,0.24,1" TextColor="White"  BackgroundColor="{StaticResource Border}" BorderRadius="5" FontSize="Default" FontFamily="{StaticResource Regular}" BorderColor="{StaticResource Border}"  />-->
             </AbsoluteLayout>
             <flv:FlowListView SeparatorVisibility="None" HasUnevenRows="True"
-			FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"
- FlowColumnCount="1" FlowItemsSource="{Binding Models}" BackgroundColor="Transparent" Margin="0,80,0,0" AbsoluteLayout.LayoutBounds="0.5,0,0.9,1" AbsoluteLayout.LayoutFlags="All">
+			FlowItemTappedCommand="{Binding ItemTappedCommand}" 
+                              FlowLastTappedItem="{Binding LastTappedItem}"
+                              FlowLoadingCommand="{Binding LoaddingCommand}"
+                              FlowTotalRecords="{Binding Total}"
+                              FlowIsLoadingInfinite="{Binding IsLoadInfinite}"
+                              FlowColumnCount="1" FlowItemsSource="{Binding Models}" BackgroundColor="Transparent" Margin="0,80,0,0" AbsoluteLayout.LayoutBounds="0.5,0,0.9,1" AbsoluteLayout.LayoutFlags="All">
+                <flv:FlowListView.FlowLoadingTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            TextColor="Blue"
+                            Text="..."
+                        ></Label>
+                        </ViewCell>
+                    </DataTemplate>
+                </flv:FlowListView.FlowLoadingTemplate>
                 <flv:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <Grid Padding="5" BackgroundColor="White">

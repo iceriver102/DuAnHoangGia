@@ -28,9 +28,10 @@ namespace DuAnHoangGia.ViewModels
     {
         public ObservableCollection<Pin> PINS { get; set; }
         public ObservableCollection<Position> RouteCoordinates { get; set; }
-        private bool _rPin = false, _isLoadding;
+        private bool _rPin = false, _isLoadding, _flagNoCom;
         public bool RenderPINTriger { get => _rPin; set => SetProperty(ref _rPin, value); }
         public bool isLoadding { get => this._isLoadding; set => this.SetProperty(ref this._isLoadding, value); }
+        public bool FlagNoCom { get => this._flagNoCom; set => this.SetProperty(ref _flagNoCom, value); }
 
         private string _from, _to;
         private float _radius;
@@ -46,13 +47,15 @@ namespace DuAnHoangGia.ViewModels
         private readonly IPageDialogService IPageDialogService;
         private readonly IHttpSevices HTTP;
         private List<int> caches;
-        public DelegateCommand LoadMoreCommand { get; set; }
+        public DelegateCommand LoadMoreCommand { get; private set; }
         public DelegateCommand SearchCommand { get; set; }
+        public DelegateCommand LoadCompanyCommand { get; private set; }
+        public DelegateCommand DissmissCommand { get; private set; }
         public PlaceViewModel Place { get; set; }
         public MapViewModel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService, IEventAggregator eventAggregator) : base(navigationService)
         {
             this.IPageDialogService = _pageDialogService;
-            this.Place = new PlaceViewModel(this.ToLabel);
+            this.Place = new PlaceViewModel(this.ToLabel,_http);
             this.Place.Goto = new DelegateCommand<CompanyModel>(GotoExcute);
             RouteCoordinates = new ObservableCollection<Position>();
             caches = new List<int>();
@@ -68,15 +71,25 @@ namespace DuAnHoangGia.ViewModels
             {
                 this.FollowPostion = new Position(lat, log);
             }
+            ToLabel = "Bạn muốn đến công ty nào";
 
-            
             locator = CrossGeolocator.Current;
             this.ShowMenuCommand = new DelegateCommand(ShowMenuCommandExcute);
             LoadMoreCommand = new DelegateCommand(LoadMoreCommandExcute);
             this.SearchCommand = new DelegateCommand(()=> { GotoCommandExcute(this.ToLabel); });
             this.Place.SearchCommand = new DelegateCommand(()=> { GotoCommandExcute(this.Place.ToLabel); });
+           
+            LoadCompanyCommand = new DelegateCommand(()=> {
+                Place.Models.Clear();
+                Place.LoadPage(1);
+                Place.IsVisible = true;
+                //JObject oResult = await HTTP.GetCompanysAsync(p);
+            });
+            DissmissCommand = new DelegateCommand(() =>
+            {
+                this.FlagNoCom = false;
+            });
             this.JumpToCurrent();
-            this.LoadData(this.FollowPostion);
         }
 
         private void GotoExcute(CompanyModel obj)
@@ -149,8 +162,7 @@ namespace DuAnHoangGia.ViewModels
             }
             else
             {
-                this.Place.IsVisible = false;
-                this.Popup.Show("Lỗi", "Không tìm thấy công ty", Xamarin.Forms.Color.Red);
+                FlagNoCom = true;
 
             }
 
@@ -191,10 +203,11 @@ namespace DuAnHoangGia.ViewModels
                 aPosition = new Position(lat, longi);
 
             }
+            Place.Position = aPosition;
             Address aAddress = (await this.locator.GetAddressesForPositionAsync(new Plugin.Geolocator.Abstractions.Position(aPosition.Latitude,aPosition.Longitude))).FirstOrDefault();
             if (aAddress != null)
             {
-                FromLabel = aAddress.FeatureName;
+                FromLabel = $"{aAddress.FeatureName}, {aAddress.SubLocality}, {aAddress.SubAdminArea}";
             }
             else
             {
@@ -202,7 +215,9 @@ namespace DuAnHoangGia.ViewModels
             }
             this.Radius = 2;
             this.FollowPostion = aPosition;
+            Settings.Current.Position = (this.FollowPostion.Latitude,this.FollowPostion.Longitude);
             this.UserPostion = aPosition;
+            this.LoadData(this.FollowPostion);
             // aAddress = (await this.locator.GetAddressesForPositionAsync(p)).FirstOrDefault();
         }
 
@@ -267,10 +282,22 @@ namespace DuAnHoangGia.ViewModels
                 return;
             this.RenderTriger = null;
             this.Place.IsVisible = false;
-            this.JumpToCurrent();
-            this.LoadData(this.FollowPostion);
+            this.caches.Clear();
+            this.JumpToCurrent();            
             this.RenderPINTriger = true;
+            RaisePropertyChanged("RenderPINTriger");
 
+        }
+
+        public override bool OnBackButtonPressed()
+        {
+            this.RenderTriger = null;
+            this.Place.IsVisible = false;
+            this.caches.Clear();
+            this.JumpToCurrent();
+            this.RenderPINTriger = true;
+            RaisePropertyChanged("RenderPINTriger");
+            return true;
         }
     }
 }

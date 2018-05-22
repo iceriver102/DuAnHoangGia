@@ -5,18 +5,18 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="DuAnHoangGia.Views.CompanyDetailPage">
     <AbsoluteLayout BackgroundColor="#7a3eb7">
-        <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,0,1,55" AbsoluteLayout.LayoutFlags="WidthProportional" BackgroundColor="#621e92">
-            <!--<Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+        <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,0,1,55" AbsoluteLayout.LayoutFlags="WidthProportional" BackgroundColor="#621e92" MinimumHeightRequest="50">
+            <Image Source="left.png" Aspect="AspectFit" WidthRequest="16" Margin="10,0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateBack}"/>
                 </Image.GestureRecognizers>
-            </Image>-->
+            </Image>
             <Label VerticalTextAlignment="Center" Text="DANH SÁCH CÔNG TY" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large"   FontFamily="{StaticResource Bold}"/>
         </StackLayout>
         <AbsoluteLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" Margin="0,55,0,0">
             <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <AbsoluteLayout >
-                    <StackLayout Orientation="Vertical" Margin="15,10" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                    <StackLayout Orientation="Vertical" Margin="15,10" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" >
                         <ff:CachedImage CacheType="All" DownsampleUseDipUnits="True" Source="{Binding UrlImage}" Aspect="AspectFill" HeightRequest="200" Margin="0,0,0,10">
                         </ff:CachedImage>
                         <Label Text="{Binding Title}" FontSize="Large" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontFamily="{StaticResource Regular}"/>

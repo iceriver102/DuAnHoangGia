@@ -50,6 +50,12 @@ namespace DuAnHoangGia.Droid
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
+        //public override void OnBackPressed()
+        //{
+        //    App.NavigationServiceName.
+        //    base.OnBackPressed();
+        //}
+
         //protected override void JavaFinalize()
         //{
         //    SetImageDrawable(null);

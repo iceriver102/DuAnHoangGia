@@ -24,14 +24,20 @@ namespace DuAnHoangGia.Views.Home
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePageDetail : ContentPage
     {
-        Position aPosition;
-        Address aAddress;
+       
         //Customs.NoneEntry uiFrom,uiTo;
         public HomePageDetail()
         {
             InitializeComponent();
             //this.map.MoveToRegion(new MapSpan());
 
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            var bindingContext = BindingContext as ViewModels.ViewModelBase;
+            bindingContext?.OnBackButtonPressed();
+            return true;
         }
 
         //public async void JumpToCurrent()

@@ -17,7 +17,7 @@ namespace DuAnHoangGia.Sevices
         CompanyModel COM { get; set; }
         Task<(HttpStatusCode status, string msg, JObject data)> LoginAsync(string username, string password, string sContentType = "application/json");
 
-        Task<JObject> GetCompanysAsync(int page = 1, int nums = 10);
+        Task<JObject> GetCompanysAsync(int page = 1, int nums = 10, double? lat = null, double? log = null);
         Task<JArray> GetGuestsAsync(string code);
         Task<(JArray data, bool result)> GetCompanysOnMapAsync(double lat, double log);
         Task<(JArray data, bool result)> GetCompanysByNameAsync(string key, double lat, double log);

@@ -78,6 +78,11 @@ namespace DuAnHoangGia.ViewModels
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            if(parameters.GetNavigationMode()== NavigationMode.Back)
+            {
+                this.IsLoadInfinite = true;
+                return;
+            }
             this.LoadPage();
         }
     }

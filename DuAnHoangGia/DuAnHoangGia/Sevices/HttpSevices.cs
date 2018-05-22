@@ -26,13 +26,26 @@ namespace DuAnHoangGia.Sevices
             return DependencyService.Get<INetwork>().IsOnline();
         }
 
-        public async Task<JObject> GetCompanysAsync(int page = 1, int nums = 10)
+        public async Task<JObject> GetCompanysAsync(int page = 1, int nums = 10, double? lat=null,double? log=null)
         {
             if (!isOnline())
                 return null;
             using (HttpClient oHttpClient = new HttpClient())
             {
-                var oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/company/all?page={page}&offset={nums}");
+                HttpResponseMessage oHttpResponseMessage = null;
+                if (lat != null && log != null)
+                {
+                    List<KeyValuePair<string, string>> forms = new List<KeyValuePair<string, string>>(new[]
+                    {
+                    new KeyValuePair<string, string>("latitude",lat.ToString()),
+                    new KeyValuePair<string, string>("longitude",log.ToString())
+                });
+                    oHttpResponseMessage = await oHttpClient.PostAsync($"{url}/company/all?page={page}&offset={nums}", new FormUrlEncodedContent(forms));
+                }
+                else
+                {
+                     oHttpResponseMessage = await oHttpClient.GetAsync($"{url}/company/all?page={page}&offset={nums}");
+                }
                 string Content = await oHttpResponseMessage.Content.ReadAsStringAsync();
                 JObject result = JObject.Parse(Content);
                 if (result["data"].HasValues)

@@ -15,8 +15,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout BackgroundColor="#7a3eb7" >
-        <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92">
-            <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0">
+        <StackLayout Orientation="Horizontal" HeightRequest="55" BackgroundColor="#621e92" MinimumHeightRequest="50">
+            <Image Source="left.png" Aspect="AspectFit" WidthRequest="15" Margin="10,0" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateBack}" />
                 </Image.GestureRecognizers>
@@ -24,7 +24,7 @@
             <Label VerticalTextAlignment="Center" Text="TRỢ GIÚP" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,0,40,0" FontAttributes="Bold" FontSize="Large" FontFamily="{StaticResource Bold}"/>
         </StackLayout>
         <StackLayout Spacing="12" Margin="15,0" BackgroundColor="#7a3eb7">
-            <AbsoluteLayout HeightRequest="55" Margin="0,10,0,5">
+            <AbsoluteLayout HeightRequest="55" Margin="0,10,0,5" MinimumHeightRequest="50">
                 <Button Text="GỬI TRỢ GIÚP" BackgroundColor="{Binding FirstTabColor}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,0.51,1" Command="{Binding ChangeTabIndex}" CommandParameter="0"/>
                 <Button Text="LỊCH SỬ" BackgroundColor="{Binding SecondTabColor}"   AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,0,0.51,1" Command="{Binding ChangeTabIndex}" CommandParameter="1"/>
             </AbsoluteLayout>

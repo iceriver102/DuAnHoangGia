@@ -28,6 +28,11 @@ namespace DuAnHoangGia.ViewModels
             await this.NavigationService.GoBackAsync();
         }
 
+        public virtual bool OnBackButtonPressed()
+        {
+            return false;
+        }
+
         public async void Navigate(string name)
         {
             await NavigationService.NavigateAsync(name, useModalNavigation: true);
