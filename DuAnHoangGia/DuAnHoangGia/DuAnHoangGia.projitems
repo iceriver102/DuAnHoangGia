@@ -40,6 +40,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\IHttpSevices.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\INetwork.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\IPermission.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sevices\ITextToSpeech.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sevices\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanyDetailViewmodel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CompanysViewModel.cs" />

@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -19,7 +20,17 @@ namespace DuAnHoangGia.Views.Customs
     {
         public CustomMap()
         {
+            Instructions = string.Empty;
            // this.RouteCoordinates.CollectionChanged += RouteCoordinates_CollectionChanged;
+        }
+
+        public static readonly BindableProperty InstructionsProperty =
+         BindablePropertyEx.Create<CustomMap, string>(w => w.Instructions, string.Empty, BindingMode.TwoWay);
+
+        public string Instructions
+        {
+            get { return (string)GetValue(InstructionsProperty); }
+            set { SetValue(InstructionsProperty, value); }
         }
 
         public void RouteCoordinates_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -176,8 +187,10 @@ namespace DuAnHoangGia.Views.Customs
            {
                m.Pins.Clear();
                if (n is bool f && f)
-               {                   
-                   foreach(var p in m.CPins)
+               {
+                   if(m.CleanRoute!=null)
+                        m.CleanRoute();
+                   foreach (var p in m.CPins)
                    {
                        m.Pins.Add(p);
                    }
@@ -187,6 +200,16 @@ namespace DuAnHoangGia.Views.Customs
 
         public async void RouteTo(Pin from, Pin to)
         {
+            this.RenderPinTriger = false;
+            if (RouteCoordinates == null)
+            {
+                RouteCoordinates = new ObservableCollection<Position>();
+            }
+            else
+            {
+                RouteCoordinates.Clear();
+            }
+            this.Instructions = string.Empty;
             Position a = UserPostion;
             if (from != null)
             {
@@ -195,14 +218,29 @@ namespace DuAnHoangGia.Views.Customs
             var request = new DirectionsRequest
             {
                 Origin = new Location(a.Latitude,a.Longitude),
-                Destination = new Location(to.Position.Latitude, to.Position.Longitude)
+                Destination = new Location(to.Position.Latitude, to.Position.Longitude),
+                Language= GoogleApi.Entities.Common.Enums.Language.Vietnamese
 
             };
             Route Route = null;
             try
             {
                 var respone = await GoogleApi.GoogleMaps.Directions.QueryAsync(request);
+                StringBuilder stringBuilder = new StringBuilder();
                 Route = respone.Routes.FirstOrDefault();
+                foreach(var Leg in Route.Legs)
+                {
+                    stringBuilder.Clear();
+                    foreach (var s in Leg.Steps)
+                    {
+                        stringBuilder.Append(Regex.Replace(s.HtmlInstructions, @"<[^>]*>", " "));
+                        stringBuilder.Append(". ");
+                    }
+                }
+                RegexOptions options = RegexOptions.None;
+                Regex regex = new Regex("[ ]{2,}", options);
+                this.Instructions = regex.Replace(stringBuilder.ToString(), " ");
+                //this.instructions = Regex.Replace(stringBuilder.ToString(), @"<[^>]*>", " ");
             }catch(Exception ex)
             {
                 Console.WriteLine(ex.GetBaseException());
@@ -211,14 +249,7 @@ namespace DuAnHoangGia.Views.Customs
             {
                 this.Pins.Clear();
                 this.Pins.Add(to);
-                if (RouteCoordinates == null)
-                {
-                    RouteCoordinates = new ObservableCollection<Position>();
-                }
-                else
-                {
-                    RouteCoordinates.Clear();
-                }
+                
                 Location m = Route.OverviewPath.Points.LastOrDefault();
                 Position center = new Position((m.Latitude + a.Latitude) / 2, (m.Longitude + a.Longitude) / 2);
                 foreach (Location l in Route.OverviewPath.Points)
@@ -257,6 +288,7 @@ namespace DuAnHoangGia.Views.Customs
             set { SetValue(RouteCoordinatesProperty, value); }
         }
         public Func<Color, bool> MapRouteRender { get; set; }
+        public Func<bool> CleanRoute { get; set; }
     }
 }
 

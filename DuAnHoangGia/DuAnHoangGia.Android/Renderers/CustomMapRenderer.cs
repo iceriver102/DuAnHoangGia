@@ -63,6 +63,15 @@ namespace DuAnHoangGia.Droid.Renderers
                 Control.GetMapAsync(this);
                 MAP.MapRouteRender = null;
                 MAP.MapRouteRender = new Func<Color,bool>(MapRouteRender);
+                MAP.CleanRoute = null;
+                MAP.CleanRoute = new Func<bool>(() =>
+                {
+                    if (line != null)
+                    {
+                        line.Remove();
+                    }
+                    return true;
+                });
             }
         }
 
@@ -145,10 +154,15 @@ namespace DuAnHoangGia.Droid.Renderers
             nativeMap.MarkerClick += NativeMap_MarkerClick;
 
         }
-
+        private Marker m;
         private void NativeMap_MarkerClick(object sender, GoogleMap.MarkerClickEventArgs e)
         {
             e.Handled = false;
+            if (m==null||m.Id != e.Marker.Id)
+            {
+                m = e.Marker;
+                return;
+            }
             Pin p = GetCustomPin(e.Marker);
             if (p!=null)
             {

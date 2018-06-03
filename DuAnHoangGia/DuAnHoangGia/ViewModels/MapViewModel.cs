@@ -21,6 +21,8 @@ using Position = Xamarin.Forms.Maps.Position;
 using GoogleApi.Entities.Maps.Directions.Response;
 using Plugin.Permissions;
 using DuAnHoangGia.Events;
+using DependencyService = Xamarin.Forms.DependencyService;
+using System.Text.RegularExpressions;
 
 namespace DuAnHoangGia.ViewModels
 {
@@ -28,12 +30,23 @@ namespace DuAnHoangGia.ViewModels
     {
         public ObservableCollection<Pin> PINS { get; set; }
         public ObservableCollection<Position> RouteCoordinates { get; set; }
-        private bool _rPin = false, _isLoadding, _flagNoCom;
+        private bool _rPin = false, _isLoadding, _flagNoCom, _showVoiceCommand;
+        public bool showVoiceCommand
+        {
+            get => this._showVoiceCommand;
+            set => SetProperty(ref this._showVoiceCommand, value);
+        }
         public bool RenderPINTriger { get => _rPin; set => SetProperty(ref _rPin, value); }
         public bool isLoadding { get => this._isLoadding; set => this.SetProperty(ref this._isLoadding, value); }
         public bool FlagNoCom { get => this._flagNoCom; set => this.SetProperty(ref _flagNoCom, value); }
 
-        private string _from, _to;
+        private string _from, _to, _instructions;
+        public string Instructions { get => this._instructions;
+            set {
+                this.SetProperty(ref this._instructions, value);
+                showVoiceCommand = !string.IsNullOrEmpty(value);
+            }
+        }
         private float _radius;
         public float Radius { get => this._radius; set => this.SetProperty(ref this._radius, value); }
         public string FromLabel { get => this._from; set => this.SetProperty(ref this._from, value); }
@@ -52,8 +65,10 @@ namespace DuAnHoangGia.ViewModels
         public DelegateCommand LoadCompanyCommand { get; private set; }
         public DelegateCommand DissmissCommand { get; private set; }
         public PlaceViewModel Place { get; set; }
+        public DelegateCommand VoiceIntrustion { get; set; }
         public MapViewModel(INavigationService navigationService, IHttpSevices _http, IPageDialogService _pageDialogService, IEventAggregator eventAggregator) : base(navigationService)
         {
+            this.showVoiceCommand = false;
             this.IPageDialogService = _pageDialogService;
             this.Place = new PlaceViewModel(this.ToLabel,_http);
             this.Place.Goto = new DelegateCommand<CompanyModel>(GotoExcute);
@@ -90,6 +105,13 @@ namespace DuAnHoangGia.ViewModels
                 this.FlagNoCom = false;
             });
             this.JumpToCurrent();
+            VoiceIntrustion = new DelegateCommand(() =>
+            {
+                if (!string.IsNullOrEmpty(Instructions))
+                {
+                    DependencyService.Get<ITextToSpeech>().Speak(Instructions);
+                }
+            });
         }
 
         private void GotoExcute(CompanyModel obj)
@@ -104,18 +126,34 @@ namespace DuAnHoangGia.ViewModels
 
         public async void Route(Models.CompanyModel comp)
         {
+            this.Instructions = string.Empty;
+            RouteCoordinates.Clear();
             this.ToLabel = comp.Address;
             var request = new DirectionsRequest
             {
                 Origin = new Location(this.aPosition.Latitude, this.aPosition.Longitude),
-                Destination = new Location(comp.Latitude, comp.Longitude)
+                Destination = new Location(comp.Latitude, comp.Longitude),
+                Language = GoogleApi.Entities.Common.Enums.Language.Vietnamese,
 
             };
             Route route = null;
             try
             {
+                StringBuilder stringBuilder = new StringBuilder();
                 var respone = await GoogleApi.GoogleMaps.Directions.QueryAsync(request);
                 route = respone.Routes.FirstOrDefault();
+                foreach (var Leg in route.Legs)
+                {
+                    stringBuilder.Clear();
+                    foreach (var s in Leg.Steps)
+                    {
+                        stringBuilder.Append(Regex.Replace(s.HtmlInstructions, @"<[^>]*>", " "));
+                        stringBuilder.Append(". ");
+                    }
+                }
+                RegexOptions options = RegexOptions.None;
+                Regex regex = new Regex("[ ]{2,}", options);
+                this.Instructions = regex.Replace(stringBuilder.ToString(), " ");
             }
             catch (Exception ex)
             {
@@ -138,7 +176,7 @@ namespace DuAnHoangGia.ViewModels
             p.Address = comp.Address;
             this.RenderTriger = p;
             RaisePropertyChanged("RenderTriger");
-
+            this.RenderPINTriger = false;
         }
 
         public async void GotoCommandExcute(string gotoLabel)
@@ -170,7 +208,8 @@ namespace DuAnHoangGia.ViewModels
 
         private void LoadMoreCommandExcute()
         {
-            this.LoadData(this.CenterPostion);
+            if(this.RenderPINTriger)
+                this.LoadData(this.CenterPostion);
         }
 
         public async void JumpToCurrent()
@@ -285,7 +324,9 @@ namespace DuAnHoangGia.ViewModels
             this.caches.Clear();
             this.JumpToCurrent();            
             this.RenderPINTriger = true;
+            this.Instructions = string.Empty;
             RaisePropertyChanged("RenderPINTriger");
+            RaisePropertyChanged("RenderTriger");
 
         }
 
@@ -296,7 +337,9 @@ namespace DuAnHoangGia.ViewModels
             this.caches.Clear();
             this.JumpToCurrent();
             this.RenderPINTriger = true;
+            this.Instructions = string.Empty;
             RaisePropertyChanged("RenderPINTriger");
+            RaisePropertyChanged("RenderTriger");
             return true;
         }
     }

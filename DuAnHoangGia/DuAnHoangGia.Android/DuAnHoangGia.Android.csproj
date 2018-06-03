@@ -120,6 +120,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Dependencys\NetworkImplementation.cs" />
     <Compile Include="Dependencys\PermissionImplementation.cs" />
+    <Compile Include="Dependencys\TextToSpeechImplementation.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Renderers\CarouselLayoutRenderer.cs" />
@@ -275,6 +276,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\thong_bao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\sound.png" />
   </ItemGroup>
   <Import Project="..\DuAnHoangGia\DuAnHoangGia.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

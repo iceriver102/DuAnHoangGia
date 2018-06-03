@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace DuAnHoangGia.ViewModels
@@ -17,6 +18,9 @@ namespace DuAnHoangGia.ViewModels
     {
         private string _tolabel;
         public string ToLabel { get=>this._tolabel; set=>this.SetProperty(ref _tolabel, value); }
+
+       
+
         public DelegateCommand DismissCommand { get; private set; }
         public FlowObservableCollection<CompanyModel> Models { get; set; }
         private CompanyModel _LastTappedItem;
@@ -54,7 +58,7 @@ namespace DuAnHoangGia.ViewModels
                     this.LoadPage(page + 1);
                 }
             });
-
+          
             ItemTappedCommand = new DelegateCommand(() => {
                 this.IsVisible = false; this.Models.Clear();
                 if (this.Goto != null) this.Goto.Execute(this.LastTappedItem); });
