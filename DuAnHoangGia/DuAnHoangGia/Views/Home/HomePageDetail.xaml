@@ -33,7 +33,7 @@
                 </Label.GestureRecognizers>
             </Label>
         </AbsoluteLayout>
-        <Image Source="sound.png" AbsoluteLayout.LayoutBounds="0.92,0.92,50,50" AbsoluteLayout.LayoutFlags="PositionProportional" IsVisible="{Binding showVoiceCommand}">
+        <Image Source="sound.png" AbsoluteLayout.LayoutBounds="0.06,0.92,50,50" AbsoluteLayout.LayoutFlags="PositionProportional" IsVisible="{Binding showVoiceCommand}">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding VoiceIntrustion}"/>
             </Image.GestureRecognizers>

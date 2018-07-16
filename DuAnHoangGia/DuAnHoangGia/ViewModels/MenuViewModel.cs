@@ -24,11 +24,12 @@ namespace DuAnHoangGia.ViewModels
             HTTP = _http;
             MenuItems = new ObservableCollection<HomePageMenuItem>(new[]
                {
-                    new HomePageMenuItem (0){ Title = "Thông tin cá nhân",Icon="user_icon.png", Navs="Profile" },
-                    new HomePageMenuItem (1){  Title = "Danh sách công ty",Icon="danhsach_icon.png", Navs="Companys" },
-                    new HomePageMenuItem (2){  Title = "Tin tức",Icon="news_icon.png", Navs="News" },
-                    new HomePageMenuItem (3){  Title = "Thông báo",Icon="noti.png", Navs="Noti" },
-                    new HomePageMenuItem (4){  Title = "Trợ giúp",Icon="help_icon.png", Navs="Help" },                   
+                new HomePageMenuItem (0){ Title = "Trang Chủ",Icon="home.png", Navs="app:///Home?appModuleRefresh=OnInitialized" },
+                    new HomePageMenuItem (1){ Title = "Thông tin cá nhân",Icon="user_icon.png", Navs="Profile" },
+                    new HomePageMenuItem (2){  Title = "Danh sách công ty",Icon="danhsach_icon.png", Navs="Companys" },
+                    new HomePageMenuItem (3){  Title = "Tin tức",Icon="news_icon.png", Navs="News" },
+                    new HomePageMenuItem (4){  Title = "Thông báo",Icon="noti.png", Navs="Noti" },
+                    new HomePageMenuItem (5){  Title = "Trợ giúp",Icon="help_icon.png", Navs="Help" },                   
             });
             if (HTTP.User.Is_company==1)
             {
